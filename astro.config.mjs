@@ -22,6 +22,7 @@ export default defineConfig({
           { label: '4. Conteos poco fiables', slug: 'problemas/conteos' },
         ]},
         { label: 'Recursos', items: [
+          { label: 'Laboratorio interactivo', slug: 'laboratorio' },
           { label: 'Plantillas y checklists', slug: 'plantillas' },
           { label: 'Glosario', slug: 'glosario' },
           { label: 'Diagnóstico gratuito', slug: 'diagnostico' },
