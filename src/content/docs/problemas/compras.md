@@ -1,0 +1,61 @@
+---
+title: 3. Planificación de compras
+description: Compras semanales y de temporada que consumen demasiado tiempo de análisis.
+---
+
+En un garden la compra tiene dos ritmos: la reposición semanal y las campañas de temporada. Los dos necesitan datos, no solo experiencia.
+
+:::note[Lo que vimos en el garden]
+[Pendiente: cómo se preparan hoy las compras semanales y de campaña, y cuánto tiempo llevan.]
+:::
+
+## Señales de que te pasa
+
+- El pedido semanal se hace recorriendo el garden y apuntando a mano.
+- Preparar los pedidos te lleva varias horas a la semana.
+- En campaña te quedas sin lo que más se vende y te sobra lo demás.
+- Las compras dependen de una sola persona que "lo tiene en la cabeza".
+
+## Por qué pasa
+
+- **No se usan los datos de venta** del sistema para decidir cuánto pedir.
+- **No hay un punto de pedido** definido por referencia.
+- **La campaña se planifica copiando el año anterior**, sin ajustar por lo que realmente se vendió ni por cambios de surtido.
+- **El stock del sistema no es fiable**, así que nadie se fía de él para pedir (ver [conteos](/problemas/conteos/)).
+
+## Qué te cuesta
+
+- Horas de trabajo cualificado cada semana.
+- Roturas en lo que más se vende y sobrestock en lo que menos.
+- Dependencia de una persona: si falta, las compras se resienten.
+
+## Solución: compra semanal
+
+1. **Define para cada referencia A y B** su venta media semanal y su plazo de entrega del proveedor.
+2. **Calcula el punto de pedido:** venta semanal × (plazo de entrega en semanas + 1 semana de seguridad).
+3. **Cada semana, saca del sistema** las referencias cuyo stock está por debajo del punto de pedido. Esa es la base del pedido.
+4. **Revisa la lista con criterio:** tiempo, eventos o promociones previstas. Ajusta, pero partiendo del dato.
+5. **Agrupa por proveedor y día de pedido.** Fija un calendario: cada proveedor tiene su día.
+
+## Solución: compras de temporada
+
+1. **Saca las ventas de la campaña anterior por familia y semana**, no solo el total.
+2. **Separa lo que se vendió de lo que se compró.** Lo que se liquidó o se tiró no es demanda.
+3. **Ajusta por cambios conocidos:** nuevas referencias, cambios de precio, metros de exposición.
+4. **Reparte la compra en varias entregas** en lugar de una sola al inicio de campaña, cuando el proveedor lo permita.
+5. **Revisa a mitad de campaña** y ajusta las últimas entregas.
+
+## Cómo saber que funciona
+
+- El pedido semanal se prepara en menos de una hora.
+- Menos roturas en referencias A y menos sobrestock al cerrar campaña.
+
+## Plantillas
+
+- [Calculadora de punto de pedido](/plantillas/)
+- [Calendario de pedidos por proveedor](/plantillas/)
+- [Plan de compra de campaña](/plantillas/)
+
+:::tip[¿Quieres automatizarlo?]
+El software de compras de Cymara genera cada semana la propuesta de pedido y el plan de campaña a partir de tus ventas. Pregunta por él en el [diagnóstico gratuito](/diagnostico/).
+:::
