@@ -1,0 +1,29 @@
+---
+title: Bienvenida
+description: Cómo usar la wiki de control de stock de ALIAT.
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Esta wiki recoge los cuatro problemas de stock más habituales en los garden centers de la red ALIAT y cómo resolverlos, paso a paso. Está escrita para el día a día del garden: sin teoría innecesaria y con plantillas listas para usar.
+
+## Por dónde empezar
+
+1. Haz el [autodiagnóstico en 5 minutos](/autodiagnostico/) para ver qué problemas te afectan más.
+2. Ve directamente a la página de ese problema y sigue la solución paso a paso.
+3. Descarga las [plantillas](/plantillas/) que necesites.
+
+## Los cuatro problemas
+
+<CardGrid>
+  <LinkCard title="1. Stock mal localizado" description="Producto que existe pero no se encuentra, ni en el garden ni en el almacén." href="/problemas/localizacion/" />
+  <LinkCard title="2. Sobrestock" description="Capital inmovilizado en producto que no rota y pierde valor." href="/problemas/sobrestock/" />
+  <LinkCard title="3. Planificación de compras" description="Compras semanales y de temporada que consumen demasiado tiempo." href="/problemas/compras/" />
+  <LinkCard title="4. Conteos poco fiables" description="El inventario del sistema no coincide con lo que hay en el lineal." href="/problemas/conteos/" />
+</CardGrid>
+
+## ¿Te reconoces en algún problema pero no tienes tiempo de implantarlo?
+
+<Card title="Diagnóstico gratuito" icon="rocket">
+  Cymara visita tu garden o hace una sesión online contigo y te deja un informe con las acciones prioritarias. Sin compromiso. [Solicítalo aquí](/diagnostico/).
+</Card>
