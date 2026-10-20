@@ -1,0 +1,11 @@
+/* Colores Cymara */
+:root {
+  --sl-color-accent-low: #0f3d31;
+  --sl-color-accent: #2ab18e;
+  --sl-color-accent-high: #bfe9dc;
+}
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d5f1e8;
+  --sl-color-accent: #1d8a6e;
+  --sl-color-accent-high: #12503f;
+}
