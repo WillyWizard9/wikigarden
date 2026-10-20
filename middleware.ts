@@ -1,41 +1,46 @@
-// Vercel Routing Middleware: protege toda la wiki.
-// Solo deja pasar si la cookie `wiki_sesion` lleva un token válido de Supabase.
+// Protección opcional durante la puesta en marcha en Vercel.
+// Hasta activar WIKI_REQUIRE_AUTH=true, la wiki será pública.
 import { next } from '@vercel/functions';
 import { createRemoteJWKSet, jwtVerify, type JWTPayload } from 'jose';
 
 export const config = {
-  // Todo excepto la página de acceso y sus recursos estáticos.
   matcher: ['/((?!acceso|_astro/|favicon\\.svg).*)'],
 };
 
-const SUPABASE_URL = (process.env.PUBLIC_SUPABASE_URL ?? '').replace(/\/$/, '');
-const JWT_SECRET = process.env.SUPABASE_JWT_SECRET; // solo si el proyecto usa la clave JWT antigua (HS256)
-const ISSUER = `${SUPABASE_URL}/auth/v1`;
-const JWKS = createRemoteJWKSet(new URL(`${ISSUER}/.well-known/jwks.json`));
+function leerCookie(request: Request, nombre: string): string | null {
+  const cookies = request.headers.get('cookie') ?? '';
+  for (const parte of cookies.split(';')) {
+    const [k, ...v] = parte.trim().split('=');
+    if (k === nombre) {
+      try { return decodeURIComponent(v.join('=')); } catch { return null; }
+    }
+  }
+  return null;
+}
 
-async function verificar(token: string): Promise<JWTPayload | null> {
+async function verificar(token: string, supabaseUrl: string): Promise<JWTPayload | null> {
+  const issuer = `${supabaseUrl}/auth/v1`;
+  const secreto = process.env.SUPABASE_JWT_SECRET;
   try {
-    const { payload } = JWT_SECRET
-      ? await jwtVerify(token, new TextEncoder().encode(JWT_SECRET), { issuer: ISSUER })
-      : await jwtVerify(token, JWKS, { issuer: ISSUER });
+    const { payload } = secreto
+      ? await jwtVerify(token, new TextEncoder().encode(secreto), { issuer })
+      : await jwtVerify(token, createRemoteJWKSet(new URL(`${issuer}/.well-known/jwks.json`)), { issuer });
     return payload.role === 'authenticated' ? payload : null;
   } catch {
     return null;
   }
 }
 
-function leerCookie(request: Request, nombre: string): string | null {
-  const cookies = request.headers.get('cookie') ?? '';
-  for (const parte of cookies.split(';')) {
-    const [k, ...v] = parte.trim().split('=');
-    if (k === nombre) return decodeURIComponent(v.join('='));
-  }
-  return null;
-}
-
 export default async function middleware(request: Request) {
+  // En la primera fase, se despliega sin control de acceso.
+  if (process.env.WIKI_REQUIRE_AUTH !== 'true') return next();
+
+  const supabaseUrl = (process.env.PUBLIC_SUPABASE_URL ?? '').replace(/\\/$/, '');
+  // Con protección activada pero Supabase sin configurar, no exponer la wiki.
+  if (!supabaseUrl) return new Response('Autenticación pendiente de configurar', { status: 503 });
+
   const token = leerCookie(request, 'wiki_sesion');
-  if (token && (await verificar(token))) return next();
+  if (token && (await verificar(token, supabaseUrl))) return next();
 
   const url = new URL(request.url);
   const acceso = new URL('/acceso/', url.origin);
