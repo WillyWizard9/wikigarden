@@ -8,7 +8,7 @@ Cada página es un archivo Markdown en `src/content/docs/`. Edítalo en GitHub y
 
 ## Cómo funciona el acceso
 
-- Toda la web pasa por `middleware.ts`: si no hay sesión válida, redirige a `/acceso/`.
+- El acceso está temporalmente abierto. Cuando se configure Supabase, definir `WIKI_REQUIRE_AUTH=true` para activar la protección mediante `middleware.ts`.
 - En `/acceso/` el garden pone su email y recibe un enlace mágico de Supabase. No hay contraseñas.
 - Solo entran los emails dados de alta: el registro está cerrado.
 - Para cerrar sesión: `/acceso/?salir=1`.
@@ -35,7 +35,10 @@ El script no envía emails. Cada garden entra desde `/acceso/` cuando quiere. En
    - `PUBLIC_SUPABASE_URL`
    - `PUBLIC_SUPABASE_KEY`: la clave publishable o anon.
    - `SUPABASE_JWT_SECRET`: solo si el proyecto usa la clave JWT antigua. Los proyectos nuevos no la necesitan.
-3. Despliega y conecta el dominio, por ejemplo `wiki.cymara.es`.
+3. Cuando el acceso esté listo, define `WIKI_REQUIRE_AUTH=true` en Vercel y vuelve a desplegar.
+4. Conecta el dominio, por ejemplo `wiki.cymara.es`.
+
+**Nota:** mientras `WIKI_REQUIRE_AUTH` no sea `true`, la wiki será pública. No incluyas información confidencial durante las pruebas.
 
 ## Desarrollo en local
 ```
