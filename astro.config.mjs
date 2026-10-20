@@ -27,7 +27,6 @@ export default defineConfig({
           { label: 'Laboratorio interactivo', slug: 'laboratorio' },
           { label: 'Plantillas y checklists', slug: 'plantillas' },
           { label: 'Glosario', slug: 'glosario' },
-          { label: 'Diagnóstico gratuito', slug: 'diagnostico' },
         ]},
       ],
     }),
