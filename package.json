@@ -1,0 +1,24 @@
+{
+  "name": "wiki-aliat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "invitar": "node scripts/invitar-gardens.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@astrojs/starlight": "^0.42.6",
+    "@supabase/supabase-js": "^2.118.0",
+    "@vercel/functions": "^3.10.1",
+    "astro": "^7.4.1",
+    "jose": "^6.2.13",
+    "sharp": "^0.35.5"
+  },
+  "type": "module"
+}
