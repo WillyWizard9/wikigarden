@@ -48,3 +48,13 @@ body:has(.wiki-home-page) .content-panel > .sl-container > h1:first-child {displ
 body:has(.wiki-home-page) .main-pane .content-panel > header {display:none!important}
 body:has(.wiki-home-page) .main-pane .content-panel {padding-top:0!important}
 body:has(.wiki-home-page) .wikiHome .hero{margin-top:0}
+
+/* Home: separación limpia entre cabecera y hero, sin línea horizontal */
+body:has(.wiki-home-page) .main-pane,
+body:has(.wiki-home-page) .content-panel,
+body:has(.wiki-home-page) .sl-markdown-content,
+body:has(.wiki-home-page) .wiki-home-page{border-top:0!important}
+body:has(.wiki-home-page) .main-pane::before,
+body:has(.wiki-home-page) .content-panel::before{border:0!important}
+body:has(.wiki-home-page) .wikiHome .hero{margin-top:clamp(26px,4vw,54px)!important}
+body:has(.wiki-home-page) .main-pane .content-panel{padding-top:0!important}
