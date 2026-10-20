@@ -4,6 +4,7 @@ const flows = {
 localizacion: { title:'Del producto perdido al producto localizado', steps:[['01','Codifica','Define zonas y pasillos'],['02','Señaliza','Haz visible cada ubicación'],['03','Asigna','Da una zona a cada familia'],['04','Controla','Revisa al cambiar de temporada']] },
 sobrestock:{title:'Del almacén saturado a la compra optimizada',steps:[['01','Mide','Calcula semanas de cobertura'],['02','Clasifica','Prioriza referencias ABC'],['03','Actúa','Traspasa, devuelve o liquida'],['04','Previene','Ajusta la próxima compra']]},
 compras:{title:'De comprar a ojo a decidir con datos',steps:[['01','Analiza','Revisa ventas y estacionalidad'],['02','Calcula','Define punto de pedido'],['03','Planifica','Agrupa por proveedor'],['04','Ajusta','Revisa excepciones y campaña']]},
+movimientos:{title:'Del albarán a un stock siempre actualizado',steps:[['01','Comprueba','Verifica albarán y mercancía'],['02','Identifica','Etiqueta cada referencia'],['03','Registra','Vincula ventas y movimientos'],['04','Concilia','Revisa excepciones cada día']]},
 conteos:{title:'De diferencias inexplicables a stock fiable',steps:[['01','Organiza','Divide en zonas y frecuencias'],['02','Cuenta','Sin ver el dato del sistema'],['03','Investiga','Recuenta diferencias'],['04','Corrige','Registra causas y mermas']]}
 };
 const flow=flows[kind] || flows.localizacion;
