@@ -1,0 +1,70 @@
+---
+title: 5. Entradas y salidas de mercancía
+description: Control de albaranes, recepciones, ventas en caja, etiquetado y movimientos internos.
+---
+
+import ActionPath from '../../../components/ActionPath.astro';
+
+Cuando un producto entra al garden, cambia de ubicación o se vende, **el sistema debe reflejar lo que realmente ha ocurrido**. De nada sirve contar bien si después hay entradas o salidas que no quedan registradas correctamente.
+
+<ActionPath kind="movimientos" />
+
+## Señales de que te pasa
+
+- Recibes mercancía, pero el albarán se introduce días después.
+- Se da entrada a lo pedido en lugar de comprobar lo realmente recibido.
+- Algunos artículos carecen de etiqueta, código de barras o código inequívoco.
+- Las ventas en caja se registran en referencias genéricas o equivocadas.
+- Las devoluciones, traspasos y roturas no se reflejan siempre en el stock.
+
+## ¿Qué consecuencias tiene?
+
+- **Stock fantasma:** el sistema muestra unidades que ya se han vendido, perdido o entregado.
+- **Compras innecesarias o roturas:** se repone mercancía que ya está disponible o se deja de pedir algo agotado.
+- **Pérdida de trazabilidad:** cuesta investigar una diferencia y atribuirla a una recepción, venta o ajuste concreto.
+- **Márgenes poco fiables:** las ventas en referencias genéricas dificultan entender qué producto rota y cuánto se gana con él.
+
+## Solución paso a paso
+
+### 1. Recibe y comprueba antes de registrar
+
+Compara **pedido, albarán y unidades físicas**. Comprueba referencia, cantidad, estado y, cuando corresponda, lote o caducidad. Registra únicamente lo recibido. Documenta diferencias y comunica incidencias al proveedor.
+
+### 2. Etiqueta y codifica desde la entrada
+
+Toda referencia debe tener un identificador inequívoco. Revisa que el código de barras o etiqueta coincida con el artículo maestro. No dejes mercancía disponible para venta con códigos pendientes de resolver.
+
+### 3. Asegura que la caja descuente el artículo correcto
+
+Prueba el escaneo de referencias nuevas y comprueba que cada venta descuente del stock correcto. Evita los artículos genéricos salvo casos controlados: dificultan la trazabilidad y la planificación de compras.
+
+### 4. Registra devoluciones, traspasos y mermas
+
+Define quién y cuándo registra cada movimiento. Diferencia claramente venta, devolución, traslado entre ubicaciones, rotura, planta muerta y regularización por inventario.
+
+### 5. Revisa las excepciones cada día
+
+Una rutina breve al cierre permite revisar albaranes sin registrar, ventas con códigos genéricos, devoluciones y movimientos pendientes. Investiga las incidencias antes de que se acumulen.
+
+## Diagrama de flujo: de la recepción a la venta
+
+| Paso | Acción | Control |
+| --- | --- | --- |
+| Recepción | Comparar mercancía y albarán | Unidades y referencias reales |
+| Alta | Validar artículo y etiqueta | Código único y precio correcto |
+| Ubicación | Colocar y registrar la zona | Producto localizable |
+| Venta | Escanear en caja | Descuento de stock correcto |
+| Excepción | Registrar devolución, merma o traspaso | Trazabilidad completa |
+
+## Cómo saber que funciona
+
+- Menos albaranes pendientes de registrar al cierre.
+- Menos ventas con referencias genéricas o no identificadas.
+- Menos diferencias entre el stock físico y el del sistema.
+- Cada discrepancia importante puede investigarse siguiendo sus movimientos.
+
+:::tip[¿Por dónde empezar?]
+Elige diez referencias de alta rotación y sigue su recorrido completo: desde el último albarán hasta la venta en caja. Detectarás rápidamente si fallan la recepción, las etiquetas o las salidas de mercancía.
+:::
+
+Si necesitas apoyo, [solicita un diagnóstico gratuito](/diagnostico/) y revisamos el proceso contigo.
