@@ -35,7 +35,7 @@ export default async function middleware(request: Request) {
   // En la primera fase, se despliega sin control de acceso.
   if (process.env.WIKI_REQUIRE_AUTH !== 'true') return next();
 
-  const supabaseUrl = (process.env.PUBLIC_SUPABASE_URL ?? '').replace(/\\/$/, '');
+  const supabaseUrl = (process.env.PUBLIC_SUPABASE_URL ?? '').trim().replace(/[/]$/, '');
   // Con protección activada pero Supabase sin configurar, no exponer la wiki.
   if (!supabaseUrl) return new Response('Autenticación pendiente de configurar', { status: 503 });
 
