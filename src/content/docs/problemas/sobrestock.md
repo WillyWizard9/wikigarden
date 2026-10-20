@@ -1,0 +1,54 @@
+---
+title: 2. Sobrestock
+description: Capital inmovilizado en producto que no rota y pierde valor.
+---
+
+Tener más stock del que vendes no da seguridad: inmoviliza dinero, ocupa espacio y, en planta viva, se convierte en merma.
+
+:::note[Lo que vimos en el garden]
+[Pendiente: ejemplos concretos observados en la visita.]
+:::
+
+## Señales de que te pasa
+
+- El almacén está lleno pero faltan referencias en tienda.
+- Hay producto de la temporada pasada que sigue sin venderse.
+- Liquidas o tiras planta con frecuencia.
+- No sabes cuánto dinero tienes invertido en stock ahora mismo.
+
+## Por qué pasa
+
+- **Se compra por miedo a la rotura**, sin datos de cuánto se vende realmente.
+- **Mínimos de compra y descuentos por volumen** que llevan a pedir más de lo necesario.
+- **Las compras de campaña no se ajustan** a lo que se vendió el año anterior.
+- **Nadie revisa** el producto que lleva semanas sin moverse.
+
+## Qué te cuesta
+
+- Dinero parado que no puedes usar para comprar lo que sí se vende.
+- Espacio en tienda y almacén.
+- Merma: planta que se estropea, producto que pasa de moda o caduca.
+- Descuentos y liquidaciones que se comen el margen.
+
+## Solución paso a paso
+
+1. **Calcula la cobertura de cada referencia:** stock actual ÷ ventas medias semanales = semanas de stock. Usa la [plantilla de cobertura](/plantillas/).
+2. **Clasifica tu surtido en ABC:** A = el 20 % de referencias que hace el 80 % de la venta; B = las siguientes; C = el resto. El sobrestock suele esconderse en las C.
+3. **Fija una cobertura objetivo por tipo de producto.** Por ejemplo: planta viva de 1 a 2 semanas; producto seco de 4 a 8 semanas. Ajusta las cifras a tu garden.
+4. **Marca las referencias que superan el doble de su objetivo.** Esa es tu lista de sobrestock.
+5. **Actúa sobre la lista:** devolución al proveedor si se puede, traspaso a otro garden de la red, promoción visible o liquidación controlada.
+6. **Ajusta la próxima compra:** no se pide ninguna referencia de la lista hasta que vuelva a su cobertura objetivo.
+7. **Revisa la lista cada mes.**
+
+## Cómo saber que funciona
+
+- Las semanas de cobertura bajan mes a mes sin que aumenten las roturas.
+- La merma de planta viva se reduce.
+
+## Plantillas
+
+- [Cálculo de cobertura y clasificación ABC](/plantillas/)
+
+:::tip[¿No tienes tiempo de implantarlo?]
+Pide el [diagnóstico gratuito](/diagnostico/) y calculamos contigo tu lista de sobrestock.
+:::
