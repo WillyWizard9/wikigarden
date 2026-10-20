@@ -37,14 +37,69 @@ document.querySelectorAll('#gardenmap [data-zone]').forEach(button=>button.addEv
 @media(max-width:960px){.hero,.diagnosticFeature,.contactSection{grid-template-columns:1fr}.challengeGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.visual{transform:none}}@media(max-width:520px){.challengeGrid,.workflowGrid{grid-template-columns:1fr}.hero{margin-top:1rem}.statrow{gap:15px}.workflow{padding:19px}}
 </style>
 <style>
-/* Ajustes de alineación de inicio */
-.wikiHome .statrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
-.wikiHome .statrow>div{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;min-height:82px}
-.wikiHome .statrow b{display:block;line-height:1.12;min-height:32px;margin-bottom:8px}
-.wikiHome .statrow small{display:block;line-height:1.4}
+/* Alineación precisa de cifras y tarjetas de la portada */
+.wikiHome .statrow{
+ display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ align-items:stretch!important;
+ gap:clamp(8px,2vw,24px)!important;
+}
+.wikiHome .statrow>div{
+ display:grid!important;
+ grid-template-rows:38px auto!important;
+ align-content:start!important;
+ justify-items:start!important;
+ min-height:0!important;
+ margin:0!important;
+ padding:0!important;
+ gap:8px!important;
+}
+.wikiHome .statrow>div>b{
+ display:flex!important;
+ align-items:flex-end!important;
+ min-height:0!important;
+ height:38px!important;
+ margin:0!important;
+ line-height:1!important;
+ font-variant-numeric:tabular-nums;
+}
+.wikiHome .statrow>div>small{
+ display:block!important;
+ margin:0!important;
+ align-self:start!important;
+ line-height:1.4!important;
+}
 .wikiHome .labLink .primary{margin-top:22px}
-.wikiHome .workflowGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
-.wikiHome .workflowGrid>div{display:flex;flex-direction:column;height:100%;min-height:190px;min-width:0}
-.wikiHome .workflowGrid>div p{margin-top:auto}
-@media(max-width:520px){.wikiHome .statrow{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.wikiHome .statrow>div{min-height:75px}.wikiHome .statrow b{font-size:22px}.wikiHome .statrow small{font-size:10px}.wikiHome .workflowGrid{grid-template-columns:1fr}.wikiHome .workflowGrid>div{min-height:135px}}
+.wikiHome .workflowGrid{
+ display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ align-items:stretch!important;
+ gap:14px!important;
+}
+.wikiHome .workflowGrid>div{
+ box-sizing:border-box!important;
+ display:grid!important;
+ grid-template-rows:42px 32px minmax(0,1fr)!important;
+ align-content:start!important;
+ height:100%!important;
+ min-height:190px!important;
+ margin:0!important;
+ padding:20px!important;
+ gap:10px!important;
+ min-width:0!important;
+}
+.wikiHome .workflowGrid>div>span,
+.wikiHome .workflowGrid>div>h3,
+.wikiHome .workflowGrid>div>p{margin:0!important;align-self:start!important}
+.wikiHome .workflowGrid>div>span{line-height:42px!important}
+.wikiHome .workflowGrid>div>h3{line-height:32px!important}
+.wikiHome .workflowGrid>div>p{line-height:1.5!important}
+@media(max-width:650px){
+ .wikiHome .statrow{gap:8px!important}
+ .wikiHome .statrow>div{grid-template-rows:34px auto!important;gap:7px!important}
+ .wikiHome .statrow>div>b{font-size:clamp(18px,5vw,25px)!important;height:34px!important}
+ .wikiHome .statrow>div>small{font-size:10px!important}
+ .wikiHome .workflowGrid{grid-template-columns:1fr!important}
+ .wikiHome .workflowGrid>div{min-height:142px!important}
+}
 </style>
