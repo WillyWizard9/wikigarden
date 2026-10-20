@@ -58,3 +58,19 @@ body:has(.wiki-home-page) .main-pane::before,
 body:has(.wiki-home-page) .content-panel::before{border:0!important}
 body:has(.wiki-home-page) .wikiHome .hero{margin-top:clamp(26px,4vw,54px)!important}
 body:has(.wiki-home-page) .main-pane .content-panel{padding-top:0!important}
+
+/* WikiGarden: navegación exclusivamente desde el header.
+   Anular el sidebar izquierdo y el índice de página derecho de Starlight. */
+:root{--sl-sidebar-width:0px!important;--sl-content-width:76rem}
+#starlight__sidebar,
+.sidebar-pane,
+.right-sidebar,
+.right-sidebar-panel,
+starlight-toc,
+.mobile-toc,
+[data-pagefind-ignore] .right-sidebar {display:none!important}
+.main-frame{grid-template-columns:minmax(0,1fr)!important}
+.main-pane{width:100%!important;max-width:none!important;margin-inline:auto!important;padding-inline:clamp(16px,4vw,68px)!important}
+.main-pane .content-panel{max-width:1180px!important;width:100%!important;margin-inline:auto!important}
+.main-pane .sl-container{max-width:1180px!important;width:100%!important}
+@media(max-width:800px){.main-pane{padding-inline:16px!important}}
