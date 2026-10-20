@@ -10,6 +10,7 @@ export default defineConfig({
       defaultLocale: 'root',
       locales: { root: { label: 'Español', lang: 'es' } },
       customCss: ['./src/styles/cymara.css'],
+      components: { Header: './src/components/WikiHeader.astro' },
       sidebar: [
         { label: 'Empieza aquí', items: [
           { label: 'Bienvenida', slug: 'index' },
