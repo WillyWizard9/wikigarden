@@ -1,11 +1,29 @@
-/* Colores Cymara */
-:root {
-  --sl-color-accent-low: #0f3d31;
-  --sl-color-accent: #2ab18e;
-  --sl-color-accent-high: #bfe9dc;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+:root,:root[data-theme='light']{
+--sl-font:'Outfit',system-ui,sans-serif;--sl-font-mono:ui-monospace,monospace;
+--sl-color-accent-low:#e1f3ed;--sl-color-accent:#2f8e7a;--sl-color-accent-high:#174b40;
+--sl-color-white:#1e2927;--sl-color-gray-1:#394a46;--sl-color-gray-2:#52635e;--sl-color-gray-3:#6c7976;
+--sl-color-gray-4:#a5b3ae;--sl-color-gray-5:#dae4e0;--sl-color-gray-6:#eef3f1;--sl-color-black:#fff;
+--sl-color-bg:#f5f8f6;--sl-color-bg-nav:#fff;--sl-color-bg-sidebar:#fff;
+--sl-color-hairline-light:#e6eeea;--sl-color-hairline:#dce7e2;
 }
-:root[data-theme='light'] {
-  --sl-color-accent-low: #d5f1e8;
-  --sl-color-accent: #1d8a6e;
-  --sl-color-accent-high: #12503f;
-}
+:root[data-theme='dark']{--sl-color-accent-low:#143f37;--sl-color-accent:#75d1b3;--sl-color-accent-high:#e8faf2}
+body{font-family:'Outfit',sans-serif;font-size:1rem;letter-spacing:-.01em}
+header.header{box-shadow:0 1px 12px #203d3010}
+.site-title{font-weight:800;letter-spacing:-.045em}
+.sl-markdown-content h1,.sl-markdown-content h2,.sl-markdown-content h3{font-family:'Outfit',sans-serif;letter-spacing:-.035em}
+.sl-markdown-content h1{font-size:clamp(2.3rem,5vw,3.5rem);line-height:1.08;font-weight:700}
+.sl-markdown-content h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;margin-block:2.5rem 1.1rem}
+.sl-markdown-content>p{line-height:1.8}
+.sl-markdown-content table{border:1px solid #e2e9e6;border-radius:14px;overflow:hidden}
+.sl-markdown-content th{background:#eaf4ef;color:#225446}
+.sl-markdown-content td{background:#fff}
+.sl-markdown-content a{color:#277f6e;text-decoration-thickness:1px;text-underline-offset:3px}
+.sl-markdown-content a:hover{color:#105b4d}
+.sl-markdown-content .starlight-aside{border-radius:16px;border-width:1px}
+.sl-markdown-content ol>li::marker{color:#268775;font-weight:700}
+.sidebar-content a[aria-current='page']{border-radius:8px;background:#eaf5f0;font-weight:700}
+.card{border-radius:18px!important}
+.site-title::before{content:'✳';color:#349b83;font-size:1.25em;margin-right:.35rem}
+:root[data-theme='dark'] .sl-markdown-content td{background:#192724}
+@media(min-width:72rem){.main-pane{padding-left:2rem}}
