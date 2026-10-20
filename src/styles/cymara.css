@@ -27,3 +27,11 @@ header.header{box-shadow:0 1px 12px #203d3010}
 .site-title::before{content:'✳';color:#349b83;font-size:1.25em;margin-right:.35rem}
 :root[data-theme='dark'] .sl-markdown-content td{background:#192724}
 @media(min-width:72rem){.main-pane{padding-left:2rem}}
+
+/* Header custom: conservar buscador Starlight y desplazar su interfaz nativa */
+.wg-header .site-title{visibility:hidden!important}
+.wg-header starlight-theme-select,.wg-header [data-theme-select],.wg-header .theme-select{display:none!important}
+.wg-header .search-container{margin-inline-start:auto;margin-inline-end:155px}
+.wg-header .social-icons{display:none!important}
+@media(min-width:800px){.wg-header .search-container{position:absolute;right:145px;max-width:220px}}
+@media(max-width:760px){.wg-header .search-container{margin-right:100px}}
