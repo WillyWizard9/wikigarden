@@ -36,3 +36,15 @@ header.header{box-shadow:0 1px 12px #203d3010}
 .wg-header .search-container button{width:100%;min-width:0}
 @media(max-width:850px){.wg-header .search-container{right:130px;width:clamp(125px,22vw,215px)}}
 @media(max-width:640px){.wg-header .search-container{right:100px;width:125px}}
+
+/* Portada exclusivamente: sin buscador ni encabezado automático de Starlight */
+body:has(.wiki-home-page) .wg-header .search-container,
+body:has(.wiki-home-page) .wg-header site-search,
+body:has(.wiki-home-page) .wg-header button[data-open-modal] {display:none!important}
+body:has(.wiki-home-page) .content-panel > h1,
+body:has(.wiki-home-page) .main-pane .content-panel > h1,
+body:has(.wiki-home-page) .main-pane .content-panel > .sl-markdown-content > h1:first-child {display:none!important}
+body:has(.wiki-home-page) .content-panel > .sl-container > h1:first-child {display:none!important}
+body:has(.wiki-home-page) .main-pane .content-panel > header {display:none!important}
+body:has(.wiki-home-page) .main-pane .content-panel {padding-top:0!important}
+body:has(.wiki-home-page) .wikiHome .hero{margin-top:0}
