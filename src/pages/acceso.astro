@@ -1,0 +1,124 @@
+---
+// Página de acceso: enlace mágico por email con Supabase.
+// Solo pueden entrar los emails dados de alta (no hay registro abierto).
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Acceso · Wiki de control de stock</title>
+    <style>
+      :root { --verde: #2ab18e; --oscuro: #12503f; --fondo: #f3f7f5; --texto: #1c2b25; --suave: #5b6b64; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--fondo);
+             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: var(--texto); padding: 16px; }
+      main { width: 100%; max-width: 420px; background: #fff; border-radius: 16px; padding: 40px 32px;
+             box-shadow: 0 8px 30px rgba(18, 80, 63, .08); }
+      .marca { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--verde); }
+      h1 { font-size: 26px; margin: 8px 0 8px; line-height: 1.2; }
+      p { color: var(--suave); line-height: 1.5; margin: 0 0 24px; }
+      label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+      input { width: 100%; font: inherit; padding: 12px 14px; border: 1px solid #cfdcd6; border-radius: 10px; }
+      input:focus { outline: 2px solid var(--verde); border-color: transparent; }
+      button { width: 100%; margin-top: 16px; font: inherit; font-weight: 700; color: #fff; background: var(--oscuro);
+               border: 0; border-radius: 10px; padding: 13px; cursor: pointer; }
+      button:disabled { opacity: .6; cursor: wait; }
+      .msg { margin-top: 16px; font-size: 15px; line-height: 1.45; }
+      .ok { color: var(--oscuro); }
+      .error { color: #b3261e; }
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="marca">Cymara × ALIAT</div>
+      <h1>Wiki de control de stock</h1>
+      <p id="intro">Introduce el email de tu garden y te enviaremos un enlace para entrar. Sin contraseñas.</p>
+      <form id="form">
+        <label for="email">Email</label>
+        <input id="email" type="email" required autocomplete="email" placeholder="tu@garden.es" />
+        <button id="btn" type="submit">Enviarme el enlace</button>
+      </form>
+      <div id="msg" class="msg" role="status"></div>
+    </main>
+
+    <script>
+      import { createClient } from '@supabase/supabase-js';
+
+      const supabase = createClient(import.meta.env.PUBLIC_SUPABASE_URL, import.meta.env.PUBLIC_SUPABASE_KEY, {
+        auth: { flowType: 'implicit', persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+      });
+
+      const params = new URLSearchParams(location.search);
+      const destino = (() => {
+        const n = params.get('next') || '/';
+        return n.startsWith('/') && !n.startsWith('//') && !n.startsWith('/acceso') ? n : '/';
+      })();
+
+      const form = document.getElementById('form') as HTMLFormElement;
+      const btn = document.getElementById('btn') as HTMLButtonElement;
+      const msg = document.getElementById('msg') as HTMLDivElement;
+      const intro = document.getElementById('intro') as HTMLParagraphElement;
+
+      function guardarCookie(token: string, expiraEn: number) {
+        const segundos = Math.max(0, expiraEn - Math.floor(Date.now() / 1000));
+        document.cookie = `wiki_sesion=${encodeURIComponent(token)}; Path=/; Max-Age=${segundos}; SameSite=Lax; Secure`;
+      }
+      function borrarCookie() {
+        document.cookie = 'wiki_sesion=; Path=/; Max-Age=0; SameSite=Lax; Secure';
+      }
+      function mostrar(texto: string, tipo: 'ok' | 'error') {
+        msg.textContent = texto;
+        msg.className = `msg ${tipo}`;
+      }
+
+      async function iniciar() {
+        if (params.has('salir')) {
+          await supabase.auth.signOut();
+          borrarCookie();
+          mostrar('Has cerrado la sesión.', 'ok');
+          return;
+        }
+        const { data } = await supabase.auth.getSession();
+        const s = data.session;
+        if (s?.access_token && s.expires_at) {
+          form.hidden = true;
+          intro.textContent = 'Entrando…';
+          guardarCookie(s.access_token, s.expires_at);
+          location.replace(destino);
+        }
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = (document.getElementById('email') as HTMLInputElement).value.trim().toLowerCase();
+        btn.disabled = true;
+        msg.textContent = '';
+        const redirect = new URL('/acceso/', location.origin);
+        redirect.searchParams.set('next', destino);
+        const { error } = await supabase.auth.signInWithOtp({
+          email,
+          options: { shouldCreateUser: false, emailRedirectTo: redirect.toString() },
+        });
+        btn.disabled = false;
+        if (error) {
+          const sinAlta = /signup|not allowed|not found/i.test(error.message);
+          mostrar(
+            sinAlta
+              ? 'Este email no tiene acceso a la wiki. Pide a ALIAT que lo den de alta.'
+              : 'No hemos podido enviar el enlace. Espera un minuto y vuelve a intentarlo.',
+            'error',
+          );
+          return;
+        }
+        form.hidden = true;
+        intro.hidden = true;
+        mostrar(`Te hemos enviado un enlace a ${email}. Ábrelo desde este mismo dispositivo para entrar.`, 'ok');
+      });
+
+      iniciar();
+    </script>
+  </body>
+</html>
