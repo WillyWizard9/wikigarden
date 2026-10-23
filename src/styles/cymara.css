@@ -219,3 +219,8 @@ body:has(.loc-lead) .sl-markdown-content .table-wrapper > table :is(th,td){
   .sl-markdown-content .table-wrapper > table{min-width:620px}
   body:has(.loc-lead) .sl-markdown-content .table-wrapper > table{table-layout:auto}
 }
+
+
+/* Ocultar los iconos de enlace permanente junto a encabezados (Starlight). */
+.sl-markdown-content :is(h1,h2,h3,h4,h5,h6) > :is(a.sl-anchor-link,a.heading-anchor,a[aria-label="Link to this section"],a[aria-label="Enlace a esta sección"],a:has(> svg)),
+.sl-markdown-content .sl-anchor-link {display:none!important}
