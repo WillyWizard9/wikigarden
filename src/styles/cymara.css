@@ -224,3 +224,17 @@ body:has(.loc-lead) .sl-markdown-content .table-wrapper > table :is(th,td){
 /* Ocultar los iconos de enlace permanente junto a encabezados (Starlight). */
 .sl-markdown-content :is(h1,h2,h3,h4,h5,h6) > :is(a.sl-anchor-link,a.heading-anchor,a[aria-label="Link to this section"],a[aria-label="Enlace a esta sección"],a:has(> svg)),
 .sl-markdown-content .sl-anchor-link {display:none!important}
+
+
+/* Tablas editoriales propias en todas las guías, sin ancho intrínseco de Markdown. */
+.sl-markdown-content .guide-table-scroll{display:block;width:100%!important;max-width:100%!important;box-sizing:border-box;overflow-x:auto;border:1px solid #dce8e1;border-radius:14px;margin:22px 0}
+.sl-markdown-content .guide-table-scroll table.guide-full-table{display:table!important;width:100%!important;min-width:100%!important;max-width:none!important;table-layout:fixed;border:0;border-collapse:collapse;margin:0!important}
+.sl-markdown-content .guide-table-scroll .guide-full-table :is(th,td){box-sizing:border-box;min-width:0!important;text-align:center!important;vertical-align:middle!important;padding:15px 14px!important;overflow-wrap:break-word;white-space:normal;line-height:1.5;border-bottom:1px solid #dce8e1}
+.sl-markdown-content .guide-table-scroll .guide-full-table th{background:#eaf4ef;color:#225446;font-weight:800}
+.sl-markdown-content .guide-table-scroll .guide-full-table td{background:#fff;color:#52635e}
+.sl-markdown-content .guide-table-scroll .guide-full-table tr:last-child td{border-bottom:0}
+@media(max-width:720px){.sl-markdown-content .guide-table-scroll table.guide-full-table{min-width:680px!important}}
+/* Recepción: cuatro celdas con idéntica altura y sin márgenes heredados. */
+.sl-markdown-content .mov-doc-grid{align-items:stretch!important;grid-auto-rows:minmax(0,1fr)}
+.sl-markdown-content .mov-doc-grid>div{margin:0!important;min-height:0!important;height:100%!important;box-sizing:border-box;justify-content:center;gap:8px}
+.sl-markdown-content .mov-doc-grid :is(small,b){margin:0!important;line-height:1.35}
