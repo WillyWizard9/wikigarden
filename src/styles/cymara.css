@@ -102,3 +102,23 @@ starlight-toc,
   height:100%;
   align-self:stretch;
 }
+
+
+/* Uniform card rows in editorial guides. Explicit selectors outrank
+   Starlight markdown spacing, including the first child of each grid. */
+.sl-markdown-content :is(
+.loc-insights,.loc-rules,.loc-metrics,.loc-cause,.loc-example-grid,
+.over-kpis,.over-chain,.over-products,.over-types,.over-rules,.over-metrics,.over-before-grid,
+.buy-hero-stats,.buy-dual,.buy-week,.buy-categories,.buy-metrics,.buy-comparison-grid,
+.cnt-hero-grid,.cnt-flow,.cnt-phases,.cnt-steps,.cnt-compare,.cnt-freq,.cnt-metrics,.cnt-numbers,
+.mov-pillars,.mov-two,.mov-cash,.mov-labels,.mov-moves,.mov-routine,.mov-metrics,.mov-delivery-head,.mov-before-row
+) {grid-auto-rows:minmax(0,1fr);align-items:stretch}
+.sl-markdown-content :is(
+.loc-insights,.loc-rules,.loc-metrics,.loc-cause,.loc-example-grid,
+.over-kpis,.over-chain,.over-products,.over-types,.over-rules,.over-metrics,.over-before-grid,
+.buy-hero-stats,.buy-dual,.buy-week,.buy-categories,.buy-metrics,.buy-comparison-grid,
+.cnt-hero-grid,.cnt-flow,.cnt-phases,.cnt-steps,.cnt-compare,.cnt-freq,.cnt-metrics,.cnt-numbers,
+.mov-pillars,.mov-two,.mov-cash,.mov-labels,.mov-moves,.mov-routine,.mov-metrics,.mov-delivery-head,.mov-before-row
+) > div {margin-block:0!important;min-width:0;align-self:stretch;box-sizing:border-box}
+.wikiHome .challengeGrid,.wikiHome .workflowGrid,.diagnosticApp .scoreGrid {grid-auto-rows:minmax(0,1fr);align-items:stretch}
+.wikiHome .challengeGrid > a,.wikiHome .workflowGrid > div,.diagnosticApp .scoreGrid > article {margin-block:0!important;align-self:stretch;min-width:0}
