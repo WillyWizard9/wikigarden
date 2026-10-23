@@ -12,7 +12,7 @@ import DefaultHeader from '@astrojs/starlight/components/Header.astro';
   <details class="wg-menu"><summary>Contenidos <span aria-hidden="true">⌄</span></summary>
     <nav aria-label="Todas las secciones">
       <a href="/">Inicio</a><a href="/autodiagnostico/">Autodiagnóstico</a>
-      <span class="wg-menu-title">LOS CUATRO RETOS</span>
+      <span class="wg-menu-title">LOS CINCO RETOS</span>
       <a href="/problemas/localizacion/">01 · Localización</a><a href="/problemas/sobrestock/">02 · Sobrestock</a><a href="/problemas/compras/">03 · Compras</a><a href="/problemas/conteos/">04 · Conteos</a><a href="/problemas/movimientos/">05 · Entradas y salidas</a>
       <span class="wg-menu-title">RECURSOS</span>
       <a href="/laboratorio/">Laboratorio interactivo</a><a href="/plantillas/">Plantillas</a><a href="/glosario/">Glosario</a><a href="/#contacto">Contacto</a>
@@ -32,4 +32,7 @@ import DefaultHeader from '@astrojs/starlight/components/Header.astro';
 .wg-menu nav a{font-size:13px;color:#2c4940;text-decoration:none;padding:10px 12px;border-radius:9px}.wg-menu nav a:hover{background:#eaf4f1;color:#2d8b78}.wg-menu-title{font-size:9px;color:#7d9990;letter-spacing:.1em;margin:14px 12px 4px;font-weight:800}
 @media(max-width:1000px){.wg-logo img{width:100px}.wg-wordmark{font-size:19px}.wg-sponsor{display:none}.wg-separator{display:none}}
 @media(max-width:640px){.wg-logo img{width:73px}.wg-wordmark{left:45%;font-size:18px}.wg-menu{right:7px}.wg-menu summary{padding:8px 10px;font-size:11px}}
+</style>
+<style>
+.wg-menu summary{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;line-height:1.15;white-space:nowrap}.wg-menu summary span{display:inline-flex;align-items:center;justify-content:center;line-height:1;margin:0!important;transform:translateY(-1px)}
 </style>
