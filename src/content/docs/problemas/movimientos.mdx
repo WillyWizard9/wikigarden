@@ -55,14 +55,12 @@ El albarán es el documento que acompaña una entrega y describe la mercancía s
  <p>Lo correcto es registrar <strong>26 unidades aceptadas</strong> y dejar las otras cuatro como entrega pendiente o incidencia, según corresponda. No se deben crear existencias ficticias para cuadrar el albarán.</p>
 </div>
 
-| Incidencia | Cómo tratarla | Qué evitar |
-| --- | --- | --- |
-| Entrega parcial | Registrar lo recibido y dejar pendiente el resto | Dar entrada al pedido completo |
-| Mercancía dañada | Separar unidades y documentar aceptación/rechazo | Poner a la venta sin revisión |
-| Referencia equivocada | Registrar incidencia y resolver con proveedor | Sustituir silenciosamente el código |
-| Más unidades de las solicitadas | Verificar si se aceptan y documentarlo | Incorporarlas sin autorización |
-| Precio o condiciones distintos | Derivar a comprobación administrativa | Confundir discrepancia económica con cantidad física |
-| Albarán duplicado | Comprobar identificador y recepción asociada | Registrar dos entradas del mismo envío |
+<div class="guide-table-scroll"><table class="guide-full-table"><colgroup><col /><col /><col /></colgroup><thead><tr><th scope="col">Incidencia</th><th scope="col">Cómo tratarla</th><th scope="col">Qué evitar</th></tr></thead><tbody><tr><td>Entrega parcial</td><td>Registrar lo recibido y dejar pendiente el resto</td><td>Dar entrada al pedido completo</td></tr>
+<tr><td>Mercancía dañada</td><td>Separar unidades y documentar aceptación/rechazo</td><td>Poner a la venta sin revisión</td></tr>
+<tr><td>Referencia equivocada</td><td>Registrar incidencia y resolver con proveedor</td><td>Sustituir silenciosamente el código</td></tr>
+<tr><td>Más unidades de las solicitadas</td><td>Verificar si se aceptan y documentarlo</td><td>Incorporarlas sin autorización</td></tr>
+<tr><td>Precio o condiciones distintos</td><td>Derivar a comprobación administrativa</td><td>Confundir discrepancia económica con cantidad física</td></tr>
+<tr><td>Albarán duplicado</td><td>Comprobar identificador y recepción asociada</td><td>Registrar dos entradas del mismo envío</td></tr></tbody></table></div>
 
 ### Qué debe contener un registro de albaranes
 
@@ -126,12 +124,10 @@ El TPV no solo cobra. También alimenta las ventas por referencia que después s
 
 ### Cuatro errores de caja que distorsionan el inventario
 
-| Error | Lo que ve el cliente | Lo que ocurre en el sistema |
-| --- | --- | --- |
-| Se usa una referencia genérica | Ticket con descripción poco específica | La venta no se atribuye al artículo real |
-| Se selecciona otro tamaño | Puede cobrarse un importe distinto o similar | Descuenta otra referencia |
-| No se completa una sincronización | La venta puede quedar registrada localmente | El inventario central puede no estar actualizado aún |
-| Se anula o devuelve incorrectamente | Hay una operación de corrección | Pueden restituirse unidades no vendibles o duplicarse un ajuste |
+<div class="guide-table-scroll"><table class="guide-full-table"><colgroup><col /><col /><col /></colgroup><thead><tr><th scope="col">Error</th><th scope="col">Lo que ve el cliente</th><th scope="col">Lo que ocurre en el sistema</th></tr></thead><tbody><tr><td>Se usa una referencia genérica</td><td>Ticket con descripción poco específica</td><td>La venta no se atribuye al artículo real</td></tr>
+<tr><td>Se selecciona otro tamaño</td><td>Puede cobrarse un importe distinto o similar</td><td>Descuenta otra referencia</td></tr>
+<tr><td>No se completa una sincronización</td><td>La venta puede quedar registrada localmente</td><td>El inventario central puede no estar actualizado aún</td></tr>
+<tr><td>Se anula o devuelve incorrectamente</td><td>Hay una operación de corrección</td><td>Pueden restituirse unidades no vendibles o duplicarse un ajuste</td></tr></tbody></table></div>
 
 :::caution[Pago aprobado no significa necesariamente stock sincronizado]
 Los sistemas de cobro y los de inventario pueden tener integraciones y tiempos distintos. Ante incidencias de conexión, comprueba los estados de transacción y sincronización **antes de repetir operaciones**, para evitar duplicidades.
@@ -199,12 +195,10 @@ No es necesario abrir una investigación completa por cada operación correcta. 
 
 ## 10. Plan de implantación en cuatro semanas
 
-| Semana | Prioridad | Entregable |
-| --- | --- | --- |
-| **1 · Observar** | Seguir un pedido desde albarán hasta estantería y una venta desde caja hasta stock | Mapa de fallos y casos de excepción |
-| **2 · Recepciones** | Implantar verificación física, estados de albarán y responsables | Protocolo de recepción y conciliación |
-| **3 · Caja y etiquetas** | Revisar códigos, referencias genéricas, devoluciones y sincronización | Procedimiento de caja y altas de artículos |
-| **4 · Seguimiento** | Revisar indicadores y cerrar causas recurrentes | Rutina diaria y responsables definidos |
+<div class="guide-table-scroll"><table class="guide-full-table"><colgroup><col /><col /><col /></colgroup><thead><tr><th scope="col">Semana</th><th scope="col">Prioridad</th><th scope="col">Entregable</th></tr></thead><tbody><tr><td>**1 · Observar**</td><td>Seguir un pedido desde albarán hasta estantería y una venta desde caja hasta stock</td><td>Mapa de fallos y casos de excepción</td></tr>
+<tr><td>**2 · Recepciones**</td><td>Implantar verificación física, estados de albarán y responsables</td><td>Protocolo de recepción y conciliación</td></tr>
+<tr><td>**3 · Caja y etiquetas**</td><td>Revisar códigos, referencias genéricas, devoluciones y sincronización</td><td>Procedimiento de caja y altas de artículos</td></tr>
+<tr><td>**4 · Seguimiento**</td><td>Revisar indicadores y cerrar causas recurrentes</td><td>Rutina diaria y responsables definidos</td></tr></tbody></table></div>
 
 Empieza con un piloto de **diez referencias de alta rotación y un proveedor frecuente**. Comprueba una recepción real y después varias ventas en caja de esas referencias. Si aparece un error, podrás localizar qué paso lo provoca antes de escalar al resto del garden.
 
