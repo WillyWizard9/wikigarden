@@ -4,6 +4,7 @@ description: Guía para planificar reposiciones y campañas, calcular puntos de 
 ---
 
 import ActionPath from '../../../components/ActionPath.astro';
+import GuideContact from '../../../components/GuideContact.astro';
 
 <div class="buy-hero">
  <span class="buy-kicker">RETO 03 · PLANIFICACIÓN DE COMPRAS</span>
@@ -231,3 +232,5 @@ Escoge un proveedor habitual. Identifica las veinte referencias que más necesit
 @media(max-width:1050px){.buy-week{grid-template-columns:repeat(3,minmax(0,1fr))}.buy-categories,.buy-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.buy-hero-stats,.buy-dual,.buy-categories,.buy-metrics,.buy-comparison-grid{grid-template-columns:1fr}.buy-week{grid-template-columns:1fr 1fr}.buy-matrix-title,.buy-matrix>div:not(:first-child){grid-template-columns:95px 1fr 1fr;gap:5px}.buy-matrix-cell{padding:8px}.buy-matrix-cell b{font-size:11px}.buy-matrix-cell small{font-size:10px}.buy-next{flex-direction:column;align-items:stretch}.buy-next>div:last-child{min-width:0}}
 `}</style>
+
+<GuideContact />
