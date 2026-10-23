@@ -14,8 +14,8 @@ function initChecklistDownloads(){
   button.dataset.ready='1';
   button.addEventListener('click',()=>{
    const wrap=button.closest('.checklistDownload');
-   let list=wrap?.nextElementSibling;
-   while(list && !list.matches('ul,ol'))list=list.nextElementSibling;
+   let list=wrap?.previousElementSibling;
+   while(list && !list.matches('ul,ol'))list=list.previousElementSibling;
    if(!list)return;
    const lines=[...list.querySelectorAll(':scope > li')].map(li=>li.textContent?.trim()).filter(Boolean);
    if(!lines.length)return;
@@ -32,5 +32,5 @@ initChecklistDownloads();
 document.addEventListener('astro:page-load',initChecklistDownloads);
 </script>
 <style>
-.checklistDownload{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:8px 0 20px}.checklistDownloadButton{display:inline-flex;align-items:center;gap:9px;background:#277c68;color:white;border:0;border-radius:999px;padding:11px 17px;font:700 13px Outfit,system-ui,sans-serif;cursor:pointer}.checklistDownloadButton:hover{background:#1e5d50}.checklistDownloadButton span{font-size:19px;line-height:1}.checklistDownload small{font-size:12px;color:#6b8278}
+.checklistDownload{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:9px;margin:22px 0 30px}.checklistDownloadButton{display:inline-flex;align-items:center;gap:9px;background:#277c68;color:white;border:0;border-radius:999px;padding:11px 17px;font:700 13px Outfit,system-ui,sans-serif;cursor:pointer}.checklistDownloadButton:hover{background:#1e5d50}.checklistDownloadButton span{font-size:19px;line-height:1}.checklistDownload small{display:block;font-size:12px;color:#6b8278;line-height:1.5;margin:0!important;text-align:center}
 </style>
