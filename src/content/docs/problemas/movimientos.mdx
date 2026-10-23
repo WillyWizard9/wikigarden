@@ -1,70 +1,258 @@
 ---
 title: 5. Entradas y salidas de mercancía
-description: Control de albaranes, recepciones, ventas en caja, etiquetado y movimientos internos.
+description: Guía práctica de recepción, conciliación de albaranes, etiquetado, cobro en caja, devoluciones y trazabilidad del inventario en gardens.
 ---
 
 import ActionPath from '../../../components/ActionPath.astro';
 
-Cuando un producto entra al garden, cambia de ubicación o se vende, **el sistema debe reflejar lo que realmente ha ocurrido**. De nada sirve contar bien si después hay entradas o salidas que no quedan registradas correctamente.
+<div class="mov-hero">
+ <span class="mov-kicker">RETO 05 · ENTRADAS Y SALIDAS DE MERCANCÍA</span>
+ <h2>Lo que entra debe registrarse. Lo que se cobra debe salir del stock.</h2>
+ <p>Un garden puede tener un inventario perfectamente contado el lunes y volver a tenerlo desajustado el miércoles. Basta con una recepción que no se comprueba, una venta cobrada con un código genérico o una devolución mal registrada. <strong>La fiabilidad del stock se decide cada día, desde el albarán hasta la caja.</strong></p>
+ <div class="mov-pillars"><div><strong>01 · Albaranes</strong><span>Recibir y conciliar</span></div><div><strong>02 · Etiquetado</strong><span>Identificar sin dudas</span></div><div><strong>03 · Caja</strong><span>Cobrar y descontar bien</span></div></div>
+</div>
 
 <ActionPath kind="movimientos" />
 
-## Señales de que te pasa
+## 1. Dos puertas por las que se descontrola el inventario
 
-- Recibes mercancía, pero el albarán se introduce días después.
-- Se da entrada a lo pedido en lugar de comprobar lo realmente recibido.
-- Algunos artículos carecen de etiqueta, código de barras o código inequívoco.
-- Las ventas en caja se registran en referencias genéricas o equivocadas.
-- Las devoluciones, traspasos y roturas no se reflejan siempre en el stock.
+<div class="mov-two">
+ <div><span>PUERTA DE ENTRADA</span><h3>El albarán no coincide con la realidad</h3><p>Se pidieron 30 macetas, el albarán indica 30 y el proveedor entrega 26. Si registras 30 sin contarlas, el sistema crea cuatro unidades que no existen.</p><strong>Riesgo principal</strong><small>Stock fantasma, reclamaciones tardías y compras mal calculadas.</small></div>
+ <div><span>PUERTA DE SALIDA</span><h3>La venta se cobra, pero el stock no se actualiza bien</h3><p>Un cliente compra dos sacos de sustrato de 50 L, pero en caja se utiliza el código de los de 20 L. El importe cobrado puede parecer correcto, mientras el inventario de ambas referencias queda alterado.</p><strong>Riesgo principal</strong><small>Errores de reposición, ventas por referencia distorsionadas y márgenes poco fiables.</small></div>
+</div>
 
-## ¿Qué consecuencias tiene?
+**Cobrar correctamente y descontar correctamente son dos controles diferentes.** Una venta puede estar bien facturada y, aun así, descontar la referencia equivocada. También puede descontar bien el stock pero tener un precio, descuento o medio de pago mal aplicado.
 
-- **Stock fantasma:** el sistema muestra unidades que ya se han vendido, perdido o entregado.
-- **Compras innecesarias o roturas:** se repone mercancía que ya está disponible o se deja de pedir algo agotado.
-- **Pérdida de trazabilidad:** cuesta investigar una diferencia y atribuirla a una recepción, venta o ajuste concreto.
-- **Márgenes poco fiables:** las ventas en referencias genéricas dificultan entender qué producto rota y cuánto se gana con él.
+## 2. Gestión de albaranes: del pedido a la mercancía realmente recibida
 
-## Solución paso a paso
+El albarán es el documento que acompaña una entrega y describe la mercancía suministrada. Debe servir para **verificar lo recibido y dejar trazabilidad de incidencias**, no para dar por hecho que todo el pedido ha llegado.
 
-### 1. Recibe y comprueba antes de registrar
+<div class="mov-triangle">
+ <div><span>01 · PEDIDO</span><strong>¿Qué solicitamos?</strong><small>Referencias, cantidades, condiciones y proveedor.</small></div>
+ <b>↔</b><div><span>02 · ALBARÁN</span><strong>¿Qué declara la entrega?</strong><small>Referencias, cantidades, documento y fecha.</small></div>
+ <b>↔</b><div><span>03 · RECEPCIÓN FÍSICA</span><strong>¿Qué ha llegado realmente?</strong><small>Unidades comprobadas y su estado.</small></div>
+</div>
 
-Compara **pedido, albarán y unidades físicas**. Comprueba referencia, cantidad, estado y, cuando corresponda, lote o caducidad. Registra únicamente lo recibido. Documenta diferencias y comunica incidencias al proveedor.
+### Procedimiento recomendado de recepción
 
-### 2. Etiqueta y codifica desde la entrada
+1. **Identifica el pedido y proveedor.** Antes de descargar, comprueba que la entrega corresponde a una compra esperada.
+2. **Registra el albarán.** Guarda número de documento, fecha, proveedor, pedido asociado y persona que recibe.
+3. **Cuenta físicamente.** Comprueba unidades, cajas, formatos y presentaciones. No des por recibido lo pedido sin verificarlo.
+4. **Revisa calidad y estado.** Planta dañada, sacos rotos o productos equivocados deben distinguirse de mercancía apta para venta.
+5. **Anota discrepancias.** Documenta faltantes, sobrantes, referencias erróneas y daños. Conserva las evidencias necesarias y sigue el procedimiento de reclamación acordado con el proveedor.
+6. **Confirma la recepción en el sistema.** Da entrada solo a la cantidad aceptada y refleja los pendientes o incidencias con su estado correcto.
+7. **Etiqueta y ubica.** No dejes mercancía disponible para venta sin identificar, ni la coloques en una zona desconocida.
+8. **Cierra la recepción.** El albarán queda conciliado o abierto con incidencias, responsable y próximo paso.
 
-Toda referencia debe tener un identificador inequívoco. Revisa que el código de barras o etiqueta coincida con el artículo maestro. No dejes mercancía disponible para venta con códigos pendientes de resolver.
+### Un ejemplo de conciliación
 
-### 3. Asegura que la caja descuente el artículo correcto
+<div class="mov-delivery">
+ <span>EJEMPLO ILUSTRATIVO · NO SON DATOS REALES DE ALIAT</span>
+ <div class="mov-delivery-head"><div><small>PEDIDO / ALBARÁN</small><strong>30 unidades</strong></div><div><small>RECIBIDAS Y ACEPTADAS</small><strong>26 unidades</strong></div><div class="mov-delta"><small>DIFERENCIA</small><strong>−4 unidades</strong></div></div>
+ <div class="mov-delivery-bars"><div><span>Documentadas</span><i><b style="width:100%"></b></i></div><div><span>Recibidas</span><i><b style="width:86.67%"></b></i></div></div>
+ <p>Lo correcto es registrar <strong>26 unidades aceptadas</strong> y dejar las otras cuatro como entrega pendiente o incidencia, según corresponda. No se deben crear existencias ficticias para cuadrar el albarán.</p>
+</div>
 
-Prueba el escaneo de referencias nuevas y comprueba que cada venta descuente del stock correcto. Evita los artículos genéricos salvo casos controlados: dificultan la trazabilidad y la planificación de compras.
-
-### 4. Registra devoluciones, traspasos y mermas
-
-Define quién y cuándo registra cada movimiento. Diferencia claramente venta, devolución, traslado entre ubicaciones, rotura, planta muerta y regularización por inventario.
-
-### 5. Revisa las excepciones cada día
-
-Una rutina breve al cierre permite revisar albaranes sin registrar, ventas con códigos genéricos, devoluciones y movimientos pendientes. Investiga las incidencias antes de que se acumulen.
-
-## Diagrama de flujo: de la recepción a la venta
-
-| Paso | Acción | Control |
+| Incidencia | Cómo tratarla | Qué evitar |
 | --- | --- | --- |
-| Recepción | Comparar mercancía y albarán | Unidades y referencias reales |
-| Alta | Validar artículo y etiqueta | Código único y precio correcto |
-| Ubicación | Colocar y registrar la zona | Producto localizable |
-| Venta | Escanear en caja | Descuento de stock correcto |
-| Excepción | Registrar devolución, merma o traspaso | Trazabilidad completa |
+| Entrega parcial | Registrar lo recibido y dejar pendiente el resto | Dar entrada al pedido completo |
+| Mercancía dañada | Separar unidades y documentar aceptación/rechazo | Poner a la venta sin revisión |
+| Referencia equivocada | Registrar incidencia y resolver con proveedor | Sustituir silenciosamente el código |
+| Más unidades de las solicitadas | Verificar si se aceptan y documentarlo | Incorporarlas sin autorización |
+| Precio o condiciones distintos | Derivar a comprobación administrativa | Confundir discrepancia económica con cantidad física |
+| Albarán duplicado | Comprobar identificador y recepción asociada | Registrar dos entradas del mismo envío |
 
-## Cómo saber que funciona
+### Qué debe contener un registro de albaranes
 
-- Menos albaranes pendientes de registrar al cierre.
-- Menos ventas con referencias genéricas o no identificadas.
-- Menos diferencias entre el stock físico y el del sistema.
-- Cada discrepancia importante puede investigarse siguiendo sus movimientos.
+Como mínimo: proveedor, número y fecha de albarán, pedido relacionado, referencias, unidades documentadas, recibidas, aceptadas y rechazadas, incidencias, responsable y estado.
 
-:::tip[¿Por dónde empezar?]
-Elige diez referencias de alta rotación y sigue su recorrido completo: desde el último albarán hasta la venta en caja. Detectarás rápidamente si fallan la recepción, las etiquetas o las salidas de mercancía.
+<div class="mov-doc"><div><span>REGISTRO ILUSTRATIVO DE RECEPCIÓN</span><strong>ALB-2026-0148</strong></div><div class="mov-doc-grid"><div><small>PROVEEDOR</small><b>Viveros Ejemplo</b></div><div><small>PEDIDO</small><b>PED-0831</b></div><div><small>ESTADO</small><b>Pendiente de incidencia</b></div><div><small>RESPONSABLE</small><b>Recepción</b></div></div><table><thead><tr><th>Referencia</th><th>Albarán</th><th>Físico</th><th>Incidencia</th></tr></thead><tbody><tr><td>Maceta 30 cm</td><td>30</td><td>26</td><td>4 faltantes</td></tr><tr><td>Sustrato 50 L</td><td>20</td><td>20</td><td>Correcto</td></tr></tbody></table></div>
+
+:::tip[Un albarán pendiente debe tener dueño]
+Si el documento queda sin registrar o sin conciliar, asigna un responsable y una fecha de seguimiento. Las incidencias sin propietario terminan convirtiéndose en diferencias de inventario que nadie recuerda cómo empezaron.
 :::
 
-Si necesitas apoyo, [solicita un diagnóstico gratuito](/#contacto) y revisamos el proceso contigo.
+## 3. No confundas albarán, factura y entrada de stock
+
+Estos tres conceptos se relacionan, pero cumplen funciones distintas:
+
+- **Albarán:** evidencia documental de la entrega y sus referencias/cantidades declaradas.
+- **Recepción de stock:** registro operativo de las unidades realmente aceptadas y su ubicación o estado.
+- **Factura:** documento económico y fiscal que se revisa frente a las condiciones comerciales y recepciones.
+
+Una forma robusta de trabajar es **conciliar pedido, recepción y factura** para detectar cantidades o precios inconsistentes. La validación concreta de facturas y sus requisitos legales debe adaptarse al sistema administrativo de la empresa.
+
+## 4. Etiquetado: que el producto que llega sea el mismo que se vende
+
+Un producto puede tener descripción parecida a otro, pero no ser la misma referencia. En un garden es especialmente fácil confundir variedades, tamaños de maceta, colores, litros de sustrato y presentaciones en pack.
+
+<div class="mov-labels">
+ <div><span>ETIQUETA CORRECTA</span><strong>Sustrato universal · 50 L</strong><div class="mov-barcode" aria-hidden="true"></div><small>Código interno: SUS-50 · PVP validado</small><b>✓ Identificación inequívoca</b></div>
+ <div><span>ETIQUETA AMBIGUA</span><strong>Sustrato universal</strong><div class="mov-question">?</div><small>Sin volumen ni referencia específica</small><b>⚠ Riesgo de confusión en caja</b></div>
+</div>
+
+### Cinco controles de etiquetado
+
+1. La referencia del artículo en el sistema corresponde a su **variante concreta**, no solo a la familia.
+2. El código de barras o identificador es único en el catálogo donde se utiliza.
+3. El precio de venta aplicado por el TPV se revisa cuando hay altas o cambios.
+4. Las etiquetas deterioradas o ilegibles tienen un procedimiento de sustitución.
+5. Los artículos de venta a granel, packs o productos sin código comercial cuentan con un **método específico y controlado** de selección en caja.
+
+No es necesario que todos los productos utilicen el mismo tipo de etiqueta. Lo imprescindible es que la operativa pueda identificar el artículo sin ambigüedad.
+
+## 5. Cobro en caja: donde cada venta debe convertirse en una salida correcta
+
+El TPV no solo cobra. También alimenta las ventas por referencia que después sirven para decidir reposiciones, prever campañas y analizar márgenes.
+
+<div class="mov-pos">
+ <div class="mov-pos-top"><span>SIMULACIÓN DE TICKET · EJEMPLO FICTICIO</span><strong>CAJA 02</strong></div>
+ <div class="mov-pos-line"><span>Sustrato universal 50 L <small>2 × 8,50 €</small></span><strong>17,00 €</strong></div>
+ <div class="mov-pos-line"><span>Maceta terracota 30 cm <small>1 × 12,00 €</small></span><strong>12,00 €</strong></div>
+ <div class="mov-pos-total"><span>TOTAL ILUSTRATIVO</span><strong>29,00 €</strong></div>
+ <div class="mov-pos-bottom"><div><b>Venta cobrada</b><small>Importe y medio de pago confirmados</small></div><span>→</span><div><b>Stock descontado</b><small>−2 SUS-50 · −1 MAC-30</small></div></div>
+</div>
+
+### Proceso recomendado en caja
+
+1. **Escanea o selecciona la referencia exacta.** Comprueba tamaño, variedad y formato si hay dudas.
+2. **Valida cantidad y precio.** Evita marcar dos unidades como una o aplicar precios de otra presentación.
+3. **Gestiona descuentos con motivo.** Las promociones deben mantener la identificación correcta del artículo vendido.
+4. **Confirma el cobro.** El medio de pago y la transacción deben quedar registrados según el procedimiento del TPV.
+5. **Verifica la actualización del stock.** En una venta normal, las unidades vendidas deben descontarse del artículo correcto, respetando los tiempos de sincronización del sistema.
+6. **Trata excepciones con registro.** Devoluciones, anulaciones, cambios y ventas offline necesitan un procedimiento que evite movimientos duplicados.
+
+### Cuatro errores de caja que distorsionan el inventario
+
+| Error | Lo que ve el cliente | Lo que ocurre en el sistema |
+| --- | --- | --- |
+| Se usa una referencia genérica | Ticket con descripción poco específica | La venta no se atribuye al artículo real |
+| Se selecciona otro tamaño | Puede cobrarse un importe distinto o similar | Descuenta otra referencia |
+| No se completa una sincronización | La venta puede quedar registrada localmente | El inventario central puede no estar actualizado aún |
+| Se anula o devuelve incorrectamente | Hay una operación de corrección | Pueden restituirse unidades no vendibles o duplicarse un ajuste |
+
+:::caution[Pago aprobado no significa necesariamente stock sincronizado]
+Los sistemas de cobro y los de inventario pueden tener integraciones y tiempos distintos. Ante incidencias de conexión, comprueba los estados de transacción y sincronización **antes de repetir operaciones**, para evitar duplicidades.
+:::
+
+## 6. Cómo gestionar los cobros y el cierre de caja sin perder trazabilidad
+
+En caja conviven **dos conciliaciones**: la económica y la de mercancía. Ambas son necesarias, pero una no sustituye a la otra.
+
+<div class="mov-cash">
+ <div><span>CONTROL ECONÓMICO</span><h3>¿Cuánto se ha cobrado?</h3><p>Conciliar operaciones del TPV, efectivo, tarjetas, devoluciones, anulaciones y otros medios de pago contra los registros y justificantes correspondientes.</p></div>
+ <div><span>CONTROL DE INVENTARIO</span><h3>¿Qué referencias han salido?</h3><p>Comprobar que las líneas de venta, cambios y devoluciones han generado las salidas o entradas de unidades correctas en el stock.</p></div>
+</div>
+
+### Checklist diario de caja
+
+- Comprobar operaciones anuladas, devoluciones y correcciones excepcionales.
+- Revisar ventas por referencias genéricas o códigos de artículo desconocidos.
+- Verificar incidencias de escáner y artículos introducidos manualmente.
+- Identificar transacciones y sincronizaciones pendientes por desconexión.
+- Conciliar los cobros con los registros de ventas según la política de caja.
+- Escalar cualquier diferencia entre ventas registradas y movimientos de stock.
+
+**Ejemplo:** un cliente compra una planta y más tarde la devuelve dañada. La devolución económica puede ser correcta, pero la planta no debe reincorporarse automáticamente al stock **vendible** si no puede volver a venderse. Debe registrarse su estado y, en su caso, la merma.
+
+## 7. Devoluciones, traspasos, mermas y ajustes: cada uno tiene su propio motivo
+
+<div class="mov-moves">
+ <div><span>↩</span><strong>Devolución</strong><p>Documenta qué referencia vuelve, en qué estado y si queda vendible, pendiente de revisión o descartada.</p></div>
+ <div><span>⇄</span><strong>Traspaso</strong><p>Registra origen, destino, cantidad y fecha. Un traslado interno no debe confundirse con una venta.</p></div>
+ <div><span>×</span><strong>Merma</strong><p>Registra roturas, plantas muertas y otros productos no vendibles con causa y autorización.</p></div>
+ <div><span>±</span><strong>Ajuste</strong><p>Corrige diferencias validadas de inventario. No lo utilices para sustituir recepciones o ventas que deberían registrarse por su movimiento real.</p></div>
+</div>
+
+Para los movimientos entre ubicaciones, utiliza también la [guía de localización](/problemas/localizacion/). Para investigar diferencias confirmadas, consulta [conteos](/problemas/conteos/).
+
+## 8. Una rutina de control de 15 minutos
+
+No es necesario abrir una investigación completa por cada operación correcta. Lo eficaz es trabajar con una **lista corta de excepciones**.
+
+<div class="mov-routine">
+ <div><span>INICIO DEL DÍA</span><strong>5 min</strong><p>Revisa albaranes y movimientos abiertos del día anterior.</p></div>
+ <div><span>DURANTE LA OPERACIÓN</span><strong>5 min</strong><p>Resuelve referencias sin código, incidencias de recepción y dudas de caja.</p></div>
+ <div><span>CIERRE</span><strong>5 min</strong><p>Comprueba ventas genéricas, sincronizaciones pendientes y operaciones sin conciliar.</p></div>
+</div>
+
+*La distribución temporal es una propuesta orientativa, no una duración garantizada. Gardens de mayor volumen pueden necesitar más tiempo o controles automatizados.*
+
+## 9. Indicadores para comprobar que está funcionando
+
+<div class="mov-metrics">
+ <div><span>01 · ALBARANES</span><strong>Pendientes de conciliar</strong><p>Número de albaranes recibidos aún sin cierre documental o sin incidencias resueltas.</p></div>
+ <div><span>02 · RECEPCIÓN</span><strong>Diferencias de entrega</strong><p>Recepciones con diferencia entre documento y unidades físicas, indicando su causa.</p></div>
+ <div><span>03 · CAJA</span><strong>Ventas genéricas</strong><p>Porcentaje de líneas vendidas con referencias no identificadas de forma específica.</p></div>
+ <div><span>04 · TRAZABILIDAD</span><strong>Movimientos pendientes</strong><p>Ventas, devoluciones y traslados sin sincronizar o conciliar en plazo.</p></div>
+</div>
+
+### Ejemplo de evolución de incidencias
+
+<div class="mov-before">
+ <span>SIMULACIÓN ILUSTRATIVA · NO SON RESULTADOS REALES</span>
+ <div class="mov-before-row"><div><small>ANTES</small><strong>16</strong><span>Incidencias abiertas al cierre</span><div class="mov-meter"><i style="width:100%"></i></div></div><div><small>DESPUÉS</small><strong>4</strong><span>Incidencias abiertas al cierre</span><div class="mov-meter"><i style="width:25%"></i></div></div></div>
+ <p>Reducir las excepciones pendientes permite investigar las diferencias cuando todavía es fácil reconstruir qué ocurrió. El objetivo debe acompañarse de comprobaciones de calidad: cerrar incidencias sin resolverlas no equivale a mejorar.</p>
+</div>
+
+## 10. Plan de implantación en cuatro semanas
+
+| Semana | Prioridad | Entregable |
+| --- | --- | --- |
+| **1 · Observar** | Seguir un pedido desde albarán hasta estantería y una venta desde caja hasta stock | Mapa de fallos y casos de excepción |
+| **2 · Recepciones** | Implantar verificación física, estados de albarán y responsables | Protocolo de recepción y conciliación |
+| **3 · Caja y etiquetas** | Revisar códigos, referencias genéricas, devoluciones y sincronización | Procedimiento de caja y altas de artículos |
+| **4 · Seguimiento** | Revisar indicadores y cerrar causas recurrentes | Rutina diaria y responsables definidos |
+
+Empieza con un piloto de **diez referencias de alta rotación y un proveedor frecuente**. Comprueba una recepción real y después varias ventas en caja de esas referencias. Si aparece un error, podrás localizar qué paso lo provoca antes de escalar al resto del garden.
+
+## 11. Errores habituales que conviene evitar
+
+- **Dar entrada a lo pedido.** Lo relevante para el inventario es lo recibido y aceptado.
+- **Dejar albaranes sin conciliar durante días.** Luego cuesta reconstruir incidencias y responsabilidades.
+- **Dar de alta referencias sin validar el TPV.** Un artículo puede estar bien descrito en almacén y mal identificado en caja.
+- **Utilizar artículos genéricos habitualmente.** Dificulta conocer ventas, rotación y margen por referencia.
+- **Repetir una venta tras un fallo de conexión sin comprobar el estado.** Puede duplicar cobros o movimientos.
+- **Devolver automáticamente al stock vendible todo lo que se reembolsa.** Algunos artículos llegan deteriorados.
+- **Regularizar diferencias sin identificar su origen.** El problema desaparece en la pantalla, pero no en la operativa.
+- **Pensar que una caja cuadrada garantiza un stock correcto.** Son controles relacionados, pero distintos.
+
+## 12. Checklist de implantación
+
+- [ ] Cada entrega tiene un pedido o motivo de recepción identificado.
+- [ ] Se comparan pedido, albarán y unidades realmente recibidas.
+- [ ] Se registran faltantes, sobrantes, daños y referencias equivocadas.
+- [ ] Los albaranes abiertos tienen responsable y fecha de seguimiento.
+- [ ] Las referencias y etiquetas distinguen correctamente tamaños, variedades y formatos.
+- [ ] Las nuevas referencias se prueban en caja antes de venderse regularmente.
+- [ ] Los cobros, devoluciones y anulaciones siguen un procedimiento documentado.
+- [ ] Las ventas descuentan las referencias y cantidades correctas.
+- [ ] Las incidencias de sincronización se revisan antes de repetir operaciones.
+- [ ] Las devoluciones distinguen stock vendible y no vendible.
+- [ ] Los movimientos internos y las mermas quedan registrados con motivo.
+- [ ] El cierre diario revisa incidencias de albaranes y caja.
+
+## 13. Empieza hoy: sigue una referencia de principio a fin
+
+Elige una referencia de alta rotación. Busca el **último pedido, su albarán, la recepción registrada, la etiqueta que ve el cliente y una venta reciente en caja**. Comprueba que cada paso representa la misma referencia y cantidad.
+
+Si no puedes reconstruir ese recorrido, ahí está la primera oportunidad de mejora.
+
+<div class="mov-next"><div><span>SIGUIENTE PASO</span><h3>Del albarán a la caja, sin perder el control.</h3><p>Utiliza las plantillas, revisa la guía de conteos o contacta con Cymara para evaluar tu proceso de entradas y salidas.</p></div><div><a href="/plantillas/">Ver plantillas ↗</a><a href="/problemas/conteos/">Guía de conteos ↗</a><a href="/#contacto">Hablar con Cymara ↗</a></div></div>
+
+<style>{`
+.mov-hero{background:linear-gradient(125deg,#eff8f3,#dcefe6);border:1px solid #d3e7dc;border-radius:22px;padding:clamp(22px,4vw,42px);margin:10px 0 26px}.mov-kicker,.mov-before>span,.mov-next>div>span{font:800 11px Outfit,system-ui,sans-serif;letter-spacing:.11em;color:#358571}.mov-hero h2{font:800 clamp(30px,4vw,46px)/1.1 Outfit,system-ui,sans-serif;letter-spacing:-.045em;color:#1e4b40;margin:14px 0}.mov-hero p{max-width:820px;font-size:16px;line-height:1.75;color:#47675c}.mov-pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:23px}.mov-pillars>div{background:#fff;border:1px solid #dce9e2;border-radius:13px;padding:17px;display:flex;flex-direction:column;gap:6px}.mov-pillars strong{font-size:19px;color:#287665}.mov-pillars span{font-size:12px;color:#638174}
+.mov-two,.mov-cash,.mov-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:23px 0}.mov-two>div,.mov-cash>div,.mov-labels>div{display:flex;flex-direction:column;gap:10px;background:#f6faf7;border:1px solid #dce9e2;border-radius:15px;padding:20px}.mov-two>div>span,.mov-cash>div>span,.mov-labels>div>span,.mov-triangle>div>span,.mov-routine>div>span,.mov-metrics>div>span,.mov-moves>div>span{font-size:10px;font-weight:800;letter-spacing:.09em;color:#358571}.mov-two h3,.mov-cash h3{font-size:20px;color:#275443;margin:0}.mov-two p,.mov-cash p,.mov-labels p{font-size:13px;color:#5e776a;line-height:1.6;margin:0}.mov-two strong{font-size:12px;color:#29735f;margin-top:auto}.mov-two small{font-size:12px;color:#657e70;line-height:1.5}
+.mov-triangle{display:flex;align-items:stretch;gap:10px;margin:22px 0}.mov-triangle>div{flex:1;min-width:0;background:#eaf4ed;border:1px solid #d7e9db;border-radius:14px;padding:17px;display:flex;flex-direction:column;gap:8px}.mov-triangle>div strong{font-size:16px;color:#275443}.mov-triangle>div small{font-size:12px;color:#607c6d}.mov-triangle>b{align-self:center;color:#398d78;font-size:24px}
+.mov-delivery{background:#eef8f1;border:1px solid #d5e8dc;border-radius:18px;padding:23px;margin:24px 0}.mov-delivery>span,.mov-doc>div:first-child>span,.mov-pos-top>span{font-size:10px;letter-spacing:.1em;color:#358571;font-weight:800}.mov-delivery-head{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}.mov-delivery-head>div{background:#fff;border:1px solid #d7e7dc;border-radius:12px;padding:15px;display:flex;flex-direction:column;gap:7px}.mov-delivery-head small{font-size:10px;color:#6a8375}.mov-delivery-head strong{font-size:24px;color:#28725e}.mov-delivery-head .mov-delta strong{color:#a45b3d}.mov-delivery-bars{display:grid;gap:12px}.mov-delivery-bars>div{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center}.mov-delivery-bars span{font-size:12px;color:#557466}.mov-delivery-bars i,.mov-meter{display:block;height:10px;background:#dcece1;border-radius:30px;overflow:hidden}.mov-delivery-bars b,.mov-meter i{display:block;height:100%;background:#499b83;border-radius:30px}.mov-delivery>p{font-size:13px;line-height:1.6;color:#5c7669}
+.mov-doc{border:1px solid #d9e9df;border-radius:18px;padding:23px;margin:24px 0;background:#fff}.mov-doc>div:first-child{display:flex;justify-content:space-between;gap:12px;align-items:center}.mov-doc>div:first-child>strong{font-size:19px;color:#276d59}.mov-doc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0}.mov-doc-grid>div{background:#f1f8f3;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px}.mov-doc-grid small{font-size:10px;color:#688275}.mov-doc-grid b{font-size:12px;color:#2d604e}.mov-doc table{width:100%;border-collapse:collapse}.mov-doc th,.mov-doc td{padding:10px;border-bottom:1px solid #e4eee7;font-size:12px;text-align:left}.mov-doc th{background:#f3f8f4;color:#426b58}
+.mov-labels strong{font-size:18px;color:#285747}.mov-labels small{font-size:12px;color:#607d6e}.mov-labels b{font-size:11px;color:#398670;margin-top:auto}.mov-barcode{height:61px;background:repeating-linear-gradient(90deg,#254b3f 0px,#254b3f 3px,transparent 3px,transparent 7px,#254b3f 7px,#254b3f 9px,transparent 9px,transparent 13px);max-width:220px;border:11px solid #fff}.mov-question{height:61px;display:grid;place-items:center;font-size:35px;color:#a27743;background:#f3eadb;border-radius:9px;max-width:220px}
+.mov-pos{background:#fff;border:1px solid #d8e9de;border-radius:19px;max-width:720px;margin:23px auto;padding:26px;box-shadow:0 12px 35px #2b514310}.mov-pos-top{display:flex;justify-content:space-between;border-bottom:1px dashed #b7d3c1;padding-bottom:14px;gap:10px}.mov-pos-top strong{font-size:13px;color:#2d715a}.mov-pos-line{display:flex;justify-content:space-between;gap:15px;padding:16px 0;border-bottom:1px solid #edf2ee}.mov-pos-line span{font-size:14px;color:#375847}.mov-pos-line span small{display:block;font-size:11px;color:#81988a;margin-top:4px}.mov-pos-line strong{color:#28654f}.mov-pos-total{display:flex;align-items:center;justify-content:space-between;padding:17px 0}.mov-pos-total span{font-size:11px;color:#58776a;font-weight:800}.mov-pos-total strong{font-size:28px;color:#286c58}.mov-pos-bottom{display:grid;grid-template-columns:1fr 24px 1fr;gap:10px;background:#eef7f0;border-radius:12px;padding:16px}.mov-pos-bottom>div{display:flex;flex-direction:column;gap:6px}.mov-pos-bottom b{font-size:13px;color:#29664f}.mov-pos-bottom small{font-size:11px;line-height:1.5;color:#607b6a}.mov-pos-bottom>span{align-self:center;color:#3f9276}
+.mov-moves{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:23px 0}.mov-moves>div{background:#f7faf8;border:1px solid #dceae2;border-radius:14px;padding:17px;display:flex;flex-direction:column;gap:9px}.mov-moves>div>span{font-size:26px;color:#358975}.mov-moves strong{font-size:15px;color:#285747}.mov-moves p{font-size:12px;color:#607b6d;line-height:1.6;margin:0}
+.mov-routine{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:23px 0}.mov-routine>div{background:#fff;border:1px solid #dce9e2;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:9px}.mov-routine strong{font-size:28px;color:#287462}.mov-routine p{font-size:12px;color:#637c70;line-height:1.6;margin:0}
+.mov-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:23px 0}.mov-metrics>div{background:#fff;border:1px solid #dce9e2;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}.mov-metrics strong{font-size:16px;color:#275744}.mov-metrics p{font-size:12px;line-height:1.6;color:#637c70;margin:0}
+.mov-before{background:#eef8f1;border:1px solid #d5e8dc;border-radius:18px;padding:22px;margin:24px 0}.mov-before-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:20px 0}.mov-before-row>div{display:flex;flex-direction:column;gap:8px}.mov-before-row small{font-size:11px;color:#5c796b;font-weight:800}.mov-before-row strong{font-size:34px;color:#2b705d}.mov-before-row span{font-size:12px;color:#5f796b}.mov-before>p{font-size:12px;color:#627c6d;line-height:1.6}
+.mov-next{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#e6f3eb;border:1px solid #d1e5d7;border-radius:18px;padding:27px;margin:26px 0}.mov-next h3{font-size:25px;color:#275443;margin:8px 0}.mov-next p{font-size:13px;color:#5b7469;line-height:1.6;max-width:525px}.mov-next>div:last-child{display:flex;flex-direction:column;gap:8px;min-width:170px}.mov-next a{background:#fff;border:1px solid #cee1d5;border-radius:25px;padding:10px 14px;color:#287866!important;text-decoration:none!important;font-size:12px;font-weight:800;text-align:center}
+@media(max-width:1000px){.mov-moves,.mov-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.mov-triangle{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.mov-triangle>b{display:none}}
+@media(max-width:650px){.mov-pillars,.mov-two,.mov-labels,.mov-cash,.mov-delivery-head,.mov-routine,.mov-metrics,.mov-moves,.mov-before-row{grid-template-columns:1fr}.mov-triangle{grid-template-columns:1fr}.mov-doc-grid{grid-template-columns:1fr 1fr}.mov-pos{padding:15px}.mov-pos-bottom{grid-template-columns:1fr}.mov-pos-bottom>span{transform:rotate(90deg);justify-self:start}.mov-next{flex-direction:column;align-items:stretch}.mov-next>div:last-child{min-width:0}}
+`}</style>
