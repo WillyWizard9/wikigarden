@@ -1,58 +1,222 @@
 ---
 title: 1. Stock mal localizado
-description: Producto que existe pero no se encuentra, ni en el garden ni en el almacén.
+description: Guía completa para diseñar ubicaciones, señalizar el garden, localizar cada referencia y evitar pérdidas de tiempo y ventas.
 ---
 
 import ActionPath from '../../../components/ActionPath.astro';
 
+<div class="loc-lead">
+  <span class="loc-kicker">RETO 01 · LOCALIZACIÓN DEL STOCK</span>
+  <h2>Lo tienes. Pero ¿puedes encontrarlo?</h2>
+  <p>Que un artículo figure como disponible no significa que el equipo pueda entregarlo al cliente. En un garden, donde conviven zonas exteriores, invernaderos, almacenes, mesas de exposición y cambios de temporada, <strong>saber cuánto stock hay es solo la mitad del trabajo: también hay que saber dónde está.</strong></p>
+  <div class="loc-insights">
+    <div><strong>1</strong><span>Código común por ubicación</span></div>
+    <div><strong>2</strong><span>Zona asignada por producto</span></div>
+    <div><strong>3</strong><span>Movimientos registrados</span></div>
+  </div>
+</div>
+
 <ActionPath kind="localizacion" />
 
-El producto está, pero nadie sabe dónde. Se pierde la venta, se vuelve a pedir lo que ya tienes y el equipo pierde tiempo buscando.
+## 1. El problema es más grande que «perder tiempo buscando»
 
-:::note[Lo que vimos en el garden]
-[Pendiente: ejemplos concretos observados en la visita.]
+Imagina la escena: un cliente necesita tres macetas grandes del mismo modelo. El sistema muestra ocho unidades. En el lineal solo queda una, y nadie sabe dónde están las otras siete. Un compañero busca en el almacén, otro mira en exterior y, mientras tanto, el cliente espera. Quizá se vaya sin comprar, aunque las macetas estén físicamente en el garden.
+
+Lo que parece un pequeño problema de orden genera una cadena de efectos:
+
+<div class="loc-cause">
+ <div><span>01</span><strong>Producto fuera de su sitio</strong><small>Alguien lo colocó donde había espacio libre.</small></div>
+ <b aria-hidden="true">→</b>
+ <div><span>02</span><strong>El equipo no lo encuentra</strong><small>Se revisan varias zonas y se interrumpe a compañeros.</small></div>
+ <b aria-hidden="true">→</b>
+ <div><span>03</span><strong>Se pierde capacidad de venta</strong><small>El cliente espera, acepta una alternativa o se marcha.</small></div>
+ <b aria-hidden="true">→</b>
+ <div><span>04</span><strong>La compra se distorsiona</strong><small>Se repone algo que quizá ya estaba disponible.</small></div>
+</div>
+
+También hay un coste menos evidente: **cada búsqueda innecesaria roba minutos a la reposición, la atención al cliente y el cuidado de la planta**. Además, la mercancía olvidada puede sufrir deterioro o llegar demasiado tarde a una campaña.
+
+:::note[Ejemplo ilustrativo, no dato medido de un garden ALIAT]
+Si se producen 12 búsquedas difíciles al día y cada una consume 4 minutos adicionales, son **48 minutos diarios**. En 25 días de actividad, el resultado es **20 horas mensuales** dedicadas solo a buscar. Esta estimación excluye ventas perdidas y desplazamientos extra.
 :::
 
-## Señales de que te pasa
+## 2. Identifica qué tipo de fallo tienes
 
-- Un cliente pregunta por un producto y hay que "ir a buscar" sin saber a qué zona.
-- Aparece mercancía al reorganizar el almacén que nadie recordaba.
-- El mismo producto está en tres sitios distintos del garden y del almacén.
-- Cada persona del equipo llama a las zonas de una manera diferente.
+No todos los problemas de localización se solucionan de la misma forma.
 
-## Por qué pasa
+| Situación | Qué suele fallar | Primera medida |
+| --- | --- | --- |
+| «Sé que existe, pero no lo veo» | Ubicación desconocida | Crear un mapa y asignar ubicación |
+| «Aparece en tres lugares» | Ubicaciones secundarias sin control | Registrar dónde está cada cantidad |
+| «Nadie lo encuentra salvo una persona» | Conocimiento informal | Códigos visibles y consulta compartida |
+| «Lo movimos por la campaña» | Traslados sin actualizar | Rutina de actualización tras cada movimiento |
+| «Está pendiente de colocar» | Recepción sin proceso de ubicación | Zona temporal y plazo de resolución |
+| «Sale en el sistema, pero no existe» | Diferencia de inventario | Conteo e investigación del movimiento |
 
-- **No hay un mapa de ubicaciones** con nombres que todo el equipo use igual.
-- **La mercancía se coloca donde hay hueco** al recibirla, no donde le toca.
-- **El garden cambia con la temporada**: la planta de exterior se mueve, los expositores rotan y nadie actualiza dónde queda cada familia.
-- **El almacén no se separa** en reserva de tienda, mercancía pendiente de colocar y devoluciones.
+**Importante:** localización y exactitud del inventario son problemas distintos. Si las unidades no existen físicamente, ningún mapa permitirá encontrarlas. En ese caso, empieza por [conteos fiables](/problemas/conteos/) y revisa también las [entradas y salidas](/problemas/movimientos/).
 
-## Qué te cuesta
+## 3. Diseña el mapa de tu garden
 
-- Ventas perdidas por producto que sí tenías.
-- Compras duplicadas de lo que ya estaba en el almacén.
-- Horas de equipo buscando en lugar de vendiendo o reponiendo.
-- Planta que se estropea en una esquina del almacén antes de llegar a tienda.
+La clave no es crear un plano arquitectónico perfecto, sino un lenguaje que todo el equipo comprenda. Un código sencillo debe permitir encontrar un producto sin preguntar a la persona que lo colocó.
 
-## Solución paso a paso
+<div class="loc-map">
+  <div class="loc-maphead"><div><span>ESQUEMA ILUSTRATIVO</span><strong>Un garden dividido en zonas reconocibles</strong></div><span class="loc-mapchip">Vista simplificada · no a escala</span></div>
+  <div class="loc-floor">
+    <div class="loc-room loc-room-ext"><span>EXT · Exterior</span><strong>EXT-01 · EXT-02 · EXT-03</strong><small>Planta, mesas y exposición</small></div>
+    <div class="loc-room loc-room-inv"><span>INV · Invernadero</span><strong>INV-01 · INV-02</strong><small>Planta protegida</small></div>
+    <div class="loc-room loc-room-tie"><span>TIE · Tienda</span><strong>TIE-01 · TIE-02 · TIE-03</strong><small>Herramientas y accesorios</small></div>
+    <div class="loc-room loc-room-alm"><span>ALM · Almacén</span><strong>ALM-A1 · ALM-A2 · ALM-B1</strong><small>Reserva y reposición</small></div>
+    <div class="loc-room loc-room-rec"><span>REC · Recepción</span><strong>REC-PEND · REC-INC</strong><small>Pendiente e incidencias</small></div>
+  </div>
+  <p>El nombre de las zonas puede variar. Lo importante es que la señal física, la hoja de ubicaciones y el sistema utilicen <strong>exactamente el mismo código</strong>.</p>
+</div>
 
-1. **Dibuja el mapa de zonas.** Divide garden y almacén en zonas con un código corto: `EXT` (exterior), `INV` (invernadero), `TIE` (tienda interior), `ALM` (almacén). Dentro de cada zona, numera pasillos o mesas: `EXT-03`, `ALM-B2`. Usa la [plantilla de mapa de zonas](/plantillas/).
-2. **Señaliza cada zona.** Un cartel visible y resistente al exterior con su código. Si no está escrito en el sitio, no existe.
-3. **Asigna cada familia a una zona.** Por ejemplo: sustratos y abonos en `ALM-A`, cerámica en `TIE-04`. Apúntalo en una tabla y cuélgala en el almacén.
-4. **Separa el almacén en tres áreas:** reserva de tienda, pendiente de colocar y devoluciones/mermas. Lo que entra va siempre a "pendiente de colocar" y no se queda ahí más de 48 horas.
-5. **Regla de recepción:** nada se coloca sin saber su zona. Si un producto no tiene zona asignada, se decide en el momento y se apunta.
-6. **Revisa el mapa al cambiar de temporada.** Antes de primavera y de Navidad, actualiza la asignación de familias a zonas.
+### Del mapa general a la ubicación concreta
 
-## Cómo saber que funciona
+Piensa en tres niveles: **zona → subzona → posición**. Usa solo el detalle que realmente necesites.
 
-- Cualquier persona del equipo encuentra un producto del sistema en menos de dos minutos.
-- La zona "pendiente de colocar" está vacía al final de cada semana.
+<div class="loc-code">
+  <div><small>ZONA</small><strong>ALM</strong><span>Almacén</span></div><b>–</b>
+  <div><small>PASILLO / ESTANTERÍA</small><strong>B</strong><span>Estantería B</span></div><b>–</b>
+  <div><small>NIVEL / HUECO</small><strong>03</strong><span>Posición 03</span></div>
+  <div class="loc-code-result"><small>CÓDIGO FINAL</small><strong>ALM-B-03</strong></div>
+</div>
 
-## Plantillas
+| Producto | Ubicación principal | Ubicación secundaria | Observación |
+| --- | --- | --- | --- |
+| Sustrato universal 50 L | ALM-A-01 | EXT-03 | Palés en reserva y unidades de venta |
+| Maceta terracota 30 cm | TIE-04 | ALM-B-03 | Exposición y reserva |
+| Abono líquido 1 L | TIE-07 | Sin secundaria | Solo tienda |
+| Rosal en maceta | EXT-02 | Sin secundaria | Posición estacional |
 
-- [Mapa de zonas y codificación](/plantillas/)
-- [Tabla de asignación de familias a zonas](/plantillas/)
+*Ejemplos ficticios de códigos y referencias para ilustrar el sistema.*
 
-:::tip[¿No tienes tiempo de implantarlo?]
-Pide el [diagnóstico gratuito](/#contacto) y te ayudamos a definir el mapa de tu garden.
+:::tip[No empieces codificando cada centímetro]
+En una mesa de planta viva puede bastar con `EXT-02`. Para estanterías de piezas pequeñas, quizá necesites pasillo, módulo y balda. **Más detalle no siempre significa más control:** usa el mínimo nivel necesario para localizar con rapidez.
 :::
+
+## 4. Cómo organizar cada tipo de mercancía
+
+### Planta viva: ubicación flexible, información actualizada
+
+En planta, las ubicaciones cambian por exposición solar, riego, temperatura y campaña. Es normal mover un lote; lo que no debería ser normal es perder su rastro.
+
+- **Agrupa por familia y necesidad de conservación**, no solo por espacio libre.
+- Crea códigos visibles en mesas y áreas de exposición.
+- Si mueves una partida a otro sector, comunica y registra el cambio en el mismo turno.
+- Separa claramente planta apta para venta, pendiente de revisión y merma.
+- En campañas de mucha rotación, revisa las ubicaciones al inicio y al cierre del día cuando sea necesario.
+
+### Producto seco: una ubicación principal y reservas controladas
+
+Herramientas, sustratos, decoración, macetas y abonos permiten un sistema más estable. Asigna una ubicación de venta y, si procede, una o varias ubicaciones de reserva. Evita que los productos de baja rotación queden repartidos por huecos olvidados.
+
+### Productos voluminosos o pesados: acceso y seguridad
+
+Una buena ubicación no es solo fácil de recordar. También debe permitir una retirada segura, respetar la capacidad de la estantería y evitar desplazamientos innecesarios. Sitúa los artículos de alta rotación donde puedan prepararse sin obstaculizar el paso ni comprometer la seguridad. No improvises alturas ni cargas fuera de los límites definidos para el espacio.
+
+## 5. Las cinco reglas operativas que sostienen el sistema
+
+<div class="loc-rules">
+  <div><span>01</span><strong>Todo espacio tiene nombre</strong><p>Carteles legibles, códigos coherentes y un mapa accesible para personal fijo y temporal.</p></div>
+  <div><span>02</span><strong>Todo producto tiene un destino</strong><p>En recepción se determina su ubicación antes de que se distribuya por tienda o almacén.</p></div>
+  <div><span>03</span><strong>Todo traslado importante se refleja</strong><p>Si existe control digital de ubicaciones, actualiza el movimiento. Si no, utiliza un registro compartido.</p></div>
+  <div><span>04</span><strong>Las zonas temporales no son invisibles</strong><p>Pendiente de ubicar, devoluciones, incidencias y mermas deben distinguirse del stock disponible.</p></div>
+  <div><span>05</span><strong>Las ubicaciones se revisan</strong><p>Cuando cambia una campaña o crece una familia, revisa el mapa y comunica los cambios.</p></div>
+</div>
+
+### Recepción y reposición: un ejemplo de principio a fin
+
+1. **Llega el camión.** La mercancía entra a la zona `REC-PEND`, no directamente a cualquier hueco disponible.
+2. **Se valida la entrada.** Se comparan albarán, referencias, cantidades y estado físico.
+3. **Se determina el destino.** Por ejemplo, cinco cajas a `TIE-04` y otras diez a `ALM-B-03`.
+4. **Se etiqueta y ubica.** El personal identifica los artículos y registra dónde se colocan.
+5. **Se repone desde reserva.** Si se trasladan unidades a exposición, el cambio queda reflejado cuando el sistema controla cantidades por ubicación.
+6. **Se resuelve la incidencia.** Cualquier referencia sin ubicación o con error de código queda en una lista de excepciones y tiene responsable.
+
+La trazabilidad de estas acciones conecta directamente con el reto de [entradas y salidas de mercancía](/problemas/movimientos/).
+
+## 6. Plan de implantación en cuatro semanas
+
+No es necesario paralizar el garden ni implantar un software complejo desde el primer día.
+
+| Cuándo | Objetivo | Entregable |
+| --- | --- | --- |
+| Semana 1 | Recorrer el espacio e identificar puntos conflictivos | Mapa inicial de zonas, almacén y áreas temporales |
+| Semana 2 | Codificar y señalizar | Carteles instalados y tabla de ubicaciones |
+| Semana 3 | Asignar familias y formar al equipo | Referencias prioritarias con ubicación y protocolo de movimientos |
+| Semana 4 | Probar, medir y corregir | Prueba de localización, lista de incidencias y mejoras |
+
+**Empieza por un piloto.** Escoge 20 o 30 referencias que se busquen con frecuencia o generen más incidencias. Corrige el proceso con ellas antes de extenderlo al resto del catálogo.
+
+:::note[¿Quién debería responsabilizarse?]
+El responsable del garden valida el mapa y las normas. Una persona de referencia mantiene la tabla de ubicaciones. **Todo el equipo**, incluyendo caja, reposición y recepción, debe saber consultar y comunicar cambios. No conviertas a una sola persona en la única que sabe dónde están las cosas.
+:::
+
+## 7. Mide si realmente mejora: tres indicadores
+
+<div class="loc-metrics">
+  <div><span>INDICADOR 01</span><strong>Tiempo de localización</strong><p>Minutos desde que se solicita una referencia hasta que se encuentra.</p><small>Objetivo: reducirlo respecto al punto de partida.</small></div>
+  <div><span>INDICADOR 02</span><strong>Ubicaciones correctas</strong><p>Referencias encontradas donde indica el registro ÷ referencias comprobadas × 100.</p><small>Objetivo: aumentar la concordancia.</small></div>
+  <div><span>INDICADOR 03</span><strong>Incidencias de búsqueda</strong><p>Solicitudes en las que el producto no se localiza o hay que pedir ayuda.</p><small>Objetivo: menos incidencias por semana.</small></div>
+</div>
+
+### Mini prueba de localización
+
+Selecciona **10 artículos al azar**, incluyendo productos de planta viva, decoración y almacén. Pide a alguien que no conozca sus ubicaciones de memoria que los encuentre usando únicamente el sistema acordado.
+
+Registra cuánto tarda, si encuentra cada referencia en la ubicación indicada y qué dudas aparecen. Repite la misma prueba después de aplicar los cambios, con una selección de dificultad comparable. Así tendrás evidencia de mejora, no solo una sensación de mayor orden.
+
+<div class="loc-example">
+ <span>EJEMPLO ILUSTRATIVO · NO ES UN RESULTADO REAL</span>
+ <div class="loc-example-grid"><div><small>ANTES</small><strong>7 min</strong><span>Tiempo medio por búsqueda</span><div class="loc-bar"><i style="width:100%"></i></div></div><div><small>DESPUÉS</small><strong>2 min</strong><span>Tiempo medio por búsqueda</span><div class="loc-bar"><i style="width:29%"></i></div></div></div>
+ <p>En este ejemplo hipotético, cada búsqueda requiere cinco minutos menos. La mejora real deberá medirse en tu propio garden.</p>
+</div>
+
+## 8. Errores frecuentes que conviene evitar
+
+- **Crear códigos demasiado largos.** Nadie los memoriza y se cometen errores al introducirlos.
+- **Confundir familia con ubicación.** «Abonos» indica qué es el producto; `TIE-07` dice dónde encontrarlo.
+- **Permitir zonas sin identificar.** Los espacios provisionales suelen convertirse en almacenes permanentes.
+- **Cambiar productos sin avisar.** El mapa queda obsoleto si no acompaña los movimientos.
+- **Guardar únicamente la ubicación principal.** Si parte de la mercancía está en reserva, también necesitas poder encontrarla.
+- **Hacer el mapa sin involucrar al equipo.** Quienes reponen y buscan productos a diario conocen obstáculos que no se ven desde un despacho.
+- **No distinguir stock mal ubicado de stock inexistente.** Ambos producen síntomas similares, pero requieren soluciones diferentes.
+
+## 9. Checklist de implantación
+
+- [ ] Tenemos un mapa sencillo de todas las zonas del garden.
+- [ ] Las zonas y posiciones tienen códigos visibles.
+- [ ] Los códigos se usan igual en carteles, registros y comunicaciones.
+- [ ] Las referencias de mayor rotación tienen ubicación principal asignada.
+- [ ] Las reservas y ubicaciones secundarias están identificadas.
+- [ ] La mercancía pendiente de ubicar está separada y controlada.
+- [ ] Existe una regla para registrar traslados y cambios de campaña.
+- [ ] Todo el equipo sabe cómo consultar dónde está un producto.
+- [ ] Hemos medido el tiempo de búsqueda antes y después.
+- [ ] Revisamos periódicamente las incidencias y ubicaciones obsoletas.
+
+## 10. Qué hacer a continuación
+
+Si quieres comenzar hoy, toma una decisión sencilla: **elige una sola zona problemática, codifícala y comprueba si diez productos se encuentran sin ayuda.** Después amplía el sistema.
+
+<div class="loc-next">
+ <div><span>SIGUIENTE PASO</span><h3>Del mapa al garden real.</h3><p>Consulta las plantillas para estructurar las ubicaciones o utiliza el autodiagnóstico para comprobar si la localización es tu mayor prioridad.</p></div>
+ <div><a href="/plantillas/">Ver plantillas ↗</a><a href="/autodiagnostico/">Hacer autodiagnóstico ↗</a><a href="/#contacto">Hablar con Cymara ↗</a></div>
+</div>
+
+<style>{`
+.loc-lead{background:linear-gradient(125deg,#eff8f3,#dcefe6);padding:clamp(22px,4vw,42px);border-radius:22px;margin:10px 0 25px;border:1px solid #d3e7dc}
+.loc-kicker,.loc-maphead span,.loc-metrics>div>span,.loc-example>span,.loc-next>div>span{font:800 11px Outfit,system-ui,sans-serif;letter-spacing:.12em;color:#358571}
+.loc-lead h2{font:800 clamp(30px,4vw,46px)/1.1 Outfit,system-ui,sans-serif;letter-spacing:-.045em;color:#1e4b40;margin:14px 0}
+.loc-lead p{max-width:800px;line-height:1.75;color:#47675c;font-size:16px}.loc-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.loc-insights>div{background:#fff;border:1px solid #deebe3;border-radius:13px;padding:16px;display:flex;gap:12px;align-items:center}.loc-insights strong{font-size:24px;color:#358571}.loc-insights span{font-size:12px;color:#577366;line-height:1.3}
+.loc-cause{display:flex;gap:8px;align-items:stretch;margin:24px 0}.loc-cause>div{flex:1;min-width:0;background:#f5faf7;border:1px solid #dcece1;border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:7px}.loc-cause>div span{font-size:12px;color:#45968a;font-weight:800}.loc-cause>div strong{font-size:14px;color:#285648;line-height:1.3}.loc-cause small{font-size:12px;color:#627b6f;line-height:1.5}.loc-cause>b{display:grid;place-items:center;color:#45968a}
+.loc-map{border:1px solid #d6e6dc;border-radius:19px;padding:22px;background:#fff;margin:24px 0}.loc-maphead{display:flex;justify-content:space-between;gap:12px;align-items:center}.loc-maphead>div{display:flex;flex-direction:column;gap:6px}.loc-maphead strong{font-size:18px;color:#254e40}.loc-mapchip{font-size:10px!important;letter-spacing:0!important;background:#eaf4ef;border-radius:30px;padding:7px 11px;white-space:nowrap}.loc-floor{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin:20px 0;padding:12px;background:#edf3ef;border-radius:14px;border:2px dashed #b7d3c4}.loc-room{border:1px solid #c1d7c8;border-radius:12px;padding:17px 13px;min-height:122px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;grid-column:span 2}.loc-room span{font-size:13px;font-weight:800;color:#204a3c}.loc-room strong{font-size:11px;color:#336b56;line-height:1.4}.loc-room small{font-size:11px;color:#577366}.loc-room-ext{grid-column:span 4;background:#d8edcf}.loc-room-inv{background:#d8f0e7}.loc-room-tie{background:#e6f0ff}.loc-room-alm{background:#f3e8d7}.loc-room-rec{background:#f5ead4}.loc-map>p{font-size:12px;color:#678073;line-height:1.55;margin:0}
+.loc-code{display:flex;align-items:stretch;gap:9px;flex-wrap:wrap;margin:23px 0}.loc-code>div{flex:1;min-width:105px;background:#eaf4ee;border:1px solid #d6e6da;padding:13px;border-radius:12px;display:flex;flex-direction:column;gap:5px}.loc-code>b{align-self:center;color:#388873}.loc-code small{font-size:10px;color:#59776b;font-weight:800}.loc-code strong{font-size:23px;color:#266f60}.loc-code span{font-size:11px;color:#5b796b}.loc-code .loc-code-result{background:#266f60;border-color:#266f60}.loc-code-result small,.loc-code-result strong{color:#fff}
+.loc-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.loc-rules>div{background:#f6faf7;border:1px solid #dcebe2;padding:20px;border-radius:14px}.loc-rules span{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:9px;background:#e1f0e7;color:#358571;font-size:12px;font-weight:800;margin-right:10px}.loc-rules strong{color:#275242}.loc-rules p{font-size:13px;line-height:1.6;color:#5b7469;margin:12px 0 0}
+.loc-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}.loc-metrics>div{background:white;border:1px solid #dce8df;border-radius:15px;padding:18px;display:flex;flex-direction:column;gap:10px}.loc-metrics strong{font-size:18px;color:#234e40}.loc-metrics p{font-size:13px;color:#5a7467;line-height:1.5;margin:0}.loc-metrics small{font-size:11px;color:#358571;margin-top:auto}
+.loc-example{background:#f0f8f3;border:1px solid #d5e8dc;border-radius:18px;padding:22px;margin:24px 0}.loc-example-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:20px 0}.loc-example-grid>div{display:flex;flex-direction:column;gap:6px}.loc-example-grid small{color:#557366;font-size:11px;font-weight:800}.loc-example-grid strong{color:#266e5a;font-size:37px;line-height:1}.loc-example-grid span{font-size:12px;color:#647d70}.loc-bar{height:9px;background:#d9e9df;border-radius:50px;overflow:hidden;margin-top:7px}.loc-bar i{display:block;background:#45968a;height:100%;border-radius:50px}.loc-example>p{font-size:12px;color:#647d70;margin:0}
+.loc-next{display:flex;align-items:center;justify-content:space-between;gap:22px;background:#e6f3eb;border:1px solid #d1e5d7;border-radius:18px;padding:28px;margin:27px 0}.loc-next h3{font-size:25px;color:#275443;margin:9px 0}.loc-next p{font-size:13px;color:#5b7469;line-height:1.6;max-width:500px}.loc-next>div:last-child{display:flex;flex-direction:column;gap:8px;min-width:195px}.loc-next a{background:#fff;border:1px solid #cee1d5;border-radius:25px;padding:10px 14px;color:#287866!important;text-decoration:none!important;font-size:12px;font-weight:800;text-align:center}
+@media(max-width:900px){.loc-insights,.loc-metrics{grid-template-columns:1fr 1fr}.loc-cause{display:grid;grid-template-columns:1fr 1fr}.loc-cause>b{display:none}}
+@media(max-width:650px){.loc-insights,.loc-metrics,.loc-rules,.loc-example-grid{grid-template-columns:1fr}.loc-floor{grid-template-columns:1fr 1fr}.loc-room,.loc-room-ext{grid-column:span 2}.loc-cause{grid-template-columns:1fr}.loc-maphead{flex-direction:column;align-items:start}.loc-next{flex-direction:column;align-items:stretch}.loc-next>div:last-child{min-width:0}}
+`}</style>
