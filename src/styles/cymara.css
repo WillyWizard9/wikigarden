@@ -122,3 +122,24 @@ starlight-toc,
 ) > div {margin-block:0!important;min-width:0;align-self:stretch;box-sizing:border-box}
 .wikiHome .challengeGrid,.wikiHome .workflowGrid,.diagnosticApp .scoreGrid {grid-auto-rows:minmax(0,1fr);align-items:stretch}
 .wikiHome .challengeGrid > a,.wikiHome .workflowGrid > div,.diagnosticApp .scoreGrid > article {margin-block:0!important;align-self:stretch;min-width:0}
+
+
+/* Notas informativas de Starlight: paleta mostaza, sin tonos azules o violetas. */
+:root,:root[data-theme='light']{
+  --sl-color-asides-note:#94701e;
+  --sl-color-asides-note-bg:#fbf3dd;
+  --sl-color-asides-note-border:#d4a547;
+}
+.sl-markdown-content .starlight-aside--note{
+  --sl-color-asides-note:#94701e;
+  background:#fbf3dd!important;
+  border-color:#d4a547!important;
+  color:#493d20!important;
+}
+.sl-markdown-content .starlight-aside--note .starlight-aside__title,
+.sl-markdown-content .starlight-aside--note .starlight-aside__icon{
+  color:#806017!important;
+}
+.sl-markdown-content .starlight-aside--note :is(p,li,strong){
+  color:#493d20;
+}
