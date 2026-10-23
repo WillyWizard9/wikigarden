@@ -1,0 +1,36 @@
+---
+const { title = 'Checklist', filename = 'checklist-garden' } = Astro.props;
+---
+<div class="checklistDownload">
+ <button type="button" class="checklistDownloadButton" data-title={title} data-filename={filename}>
+  <span aria-hidden="true">↓</span> Descargar checklist para imprimir
+ </button>
+ <small>Archivo HTML imprimible, con casillas para marcar. Puedes guardarlo como PDF desde tu navegador.</small>
+</div>
+<script>
+function initChecklistDownloads(){
+ document.querySelectorAll('.checklistDownloadButton').forEach(button=>{
+  if(button.dataset.ready)return;
+  button.dataset.ready='1';
+  button.addEventListener('click',()=>{
+   const wrap=button.closest('.checklistDownload');
+   let list=wrap?.nextElementSibling;
+   while(list && !list.matches('ul,ol'))list=list.nextElementSibling;
+   if(!list)return;
+   const lines=[...list.querySelectorAll(':scope > li')].map(li=>li.textContent?.trim()).filter(Boolean);
+   if(!lines.length)return;
+   const escapeHtml=(str)=>str.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+   const title=button.dataset.title||'Checklist';
+   const markup='<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>'+escapeHtml(title)+'</title><style>body{font:16px system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 25px;color:#203d34}header{border-bottom:3px solid #45968a;padding-bottom:20px;margin-bottom:30px}small{color:#428c78;font-weight:700;letter-spacing:.08em}h1{font-size:30px;line-height:1.2}li{list-style:none;display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px solid #dce8e1;break-inside:avoid}input{width:19px;height:19px;accent-color:#3a9079;flex:none;margin-top:3px}footer{margin-top:30px;font-size:12px;color:#6f8177}@media print{body{margin:0;max-width:none}input{appearance:none;border:1.5px solid #555;border-radius:2px}} </style></head><body><header><small>ALIAT · GUÍA PRÁCTICA</small><h1>'+escapeHtml(title)+'</h1><p>Marca las comprobaciones realizadas en tu garden.</p></header><ul>'+lines.map(s=>'<li><input type="checkbox" aria-label="Completado"><span>'+escapeHtml(s)+'</span></li>').join('')+'</ul><footer>WikiGarden · Cymara × ALIAT</footer></body></html>';
+   const blob=new Blob([markup],{type:'text/html;charset=utf-8'});
+   const url=URL.createObjectURL(blob);
+   const a=document.createElement('a');a.href=url;a.download=(button.dataset.filename||'checklist-garden')+'.html';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+ });
+}
+initChecklistDownloads();
+document.addEventListener('astro:page-load',initChecklistDownloads);
+</script>
+<style>
+.checklistDownload{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:8px 0 20px}.checklistDownloadButton{display:inline-flex;align-items:center;gap:9px;background:#277c68;color:white;border:0;border-radius:999px;padding:11px 17px;font:700 13px Outfit,system-ui,sans-serif;cursor:pointer}.checklistDownloadButton:hover{background:#1e5d50}.checklistDownloadButton span{font-size:19px;line-height:1}.checklistDownload small{font-size:12px;color:#6b8278}
+</style>
