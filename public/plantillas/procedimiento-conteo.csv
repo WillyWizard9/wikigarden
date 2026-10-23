@@ -1,0 +1,6 @@
+﻿Paso,Fase,Accion,Responsable,Control obligatorio,Evidencia,Completado SI NO,Observaciones
+1,Antes,Delimitar zonas,Coordinacion,Mapa y alcance acordados,,NO,
+2,Antes,Identificar movimientos pendientes,Recepcion,Albaranes y devoluciones revisados,,NO,
+3,Durante,Contar sin stock teorico,Contador,Registro por SKU y zona,,NO,
+4,Despues,Investigar discrepancias,Supervisor,Segundo recuento de excepciones,,NO,
+5,Despues,Aprobar ajustes,Responsable,Justificacion y autorizacion,,NO,
