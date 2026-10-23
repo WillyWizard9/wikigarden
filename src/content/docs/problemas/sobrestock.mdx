@@ -1,58 +1,223 @@
 ---
 title: 2. Sobrestock
-description: Capital inmovilizado en producto que no rota y pierde valor.
+description: Guía práctica para detectar exceso de inventario, calcular cobertura, liberar capital y prevenir mermas en el garden.
 ---
 
 import ActionPath from '../../../components/ActionPath.astro';
 
+<div class="over-hero">
+ <span class="over-eyebrow">RETO 02 · SOBRESTOCK</span>
+ <h2>Más mercancía no siempre significa más ventas.</h2>
+ <p>Un garden puede estar lleno de producto y seguir perdiendo ventas. El problema no es únicamente cuánto compras: es <strong>qué referencias acumulas, cuánto tardan en venderse y cuándo dejarán de tener valor comercial.</strong></p>
+ <div class="over-kpis"><div><strong>Capital</strong><span>Dinero inmovilizado</span></div><div><strong>Espacio</strong><span>Capacidad ocupada</span></div><div><strong>Merma</strong><span>Valor que se deteriora</span></div></div>
+</div>
+
 <ActionPath kind="sobrestock" />
 
-Tener más stock del que vendes no da seguridad: inmoviliza dinero, ocupa espacio y, en planta viva, se convierte en merma.
+## 1. La paradoja del garden: almacén lleno, lineales vacíos
 
-:::note[Lo que vimos en el garden]
-[Pendiente: ejemplos concretos observados en la visita.]
+Imagina que compras 200 macetas decorativas para aprovechar un descuento. Vendes 45 durante la campaña y las restantes siguen ocupando sitio durante meses. Mientras tanto, te faltan referencias de sustrato que sí salen todas las semanas. Tienes mucho inventario, pero no necesariamente el inventario adecuado.
+
+<div class="over-chain">
+ <div><span>01</span><strong>Compras por volumen</strong><small>Se aprovecha una oferta o se sobreestima la demanda.</small></div><b>→</b><div><span>02</span><strong>Rotación insuficiente</strong><small>Parte de la mercancía permanece sin venderse.</small></div><b>→</b><div><span>03</span><strong>Capital bloqueado</strong><small>El stock ocupa dinero, espacio y atención.</small></div><b>→</b><div><span>04</span><strong>Decisiones forzadas</strong><small>Descuentos, traslados, deterioro o liquidación.</small></div>
+</div>
+
+La consecuencia es doble: **pagas por tener mercancía que no sale y puedes quedarte sin presupuesto para la que sí se vende**. En planta viva, además, el tiempo puede convertir rápidamente un exceso en una pérdida irreversible.
+
+:::note[Ejemplo ilustrativo: dinero parado]
+Si quedan 155 macetas compradas a un coste de 12 € por unidad, tienes **1.860 € a coste de adquisición** inmovilizados en esa referencia. No es una pérdida contable automática ni incluye gastos de almacenamiento. Es capital que aún no ha regresado a caja.
 :::
 
-## Señales de que te pasa
+## 2. Cómo saber si tienes sobrestock
 
-- El almacén está lleno pero faltan referencias en tienda.
-- Hay producto de la temporada pasada que sigue sin venderse.
-- Liquidas o tiras planta con frecuencia.
-- No sabes cuánto dinero tienes invertido en stock ahora mismo.
+El stock excesivo no se identifica únicamente mirando si los estantes están llenos. Se detecta comparando **existencias con demanda esperada, plazos de suministro, vida útil y objetivos de servicio**.
 
-## Por qué pasa
+| Señal | Posible explicación | Qué revisar |
+| --- | --- | --- |
+| Un producto lleva meses sin ventas | Demanda inexistente o campaña terminada | Antigüedad y ventas recientes |
+| El stock cubre muchas semanas | Compras demasiado grandes | Cobertura y próximo pedido |
+| Cada año sobra planta estacional | Previsión excesivamente optimista | Venta neta y merma de campañas anteriores |
+| Hay promociones constantes | Se intenta liberar stock acumulado | Margen después del descuento |
+| No cabe la mercancía nueva | Exceso en referencias de baja rotación | Ocupación y ubicaciones |
+| Falta un bestseller mientras sobra otro | Capital mal repartido | Distribución de inversión por familias |
 
-- **Se compra por miedo a la rotura**, sin datos de cuánto se vende realmente.
-- **Mínimos de compra y descuentos por volumen** que llevan a pedir más de lo necesario.
-- **Las compras de campaña no se ajustan** a lo que se vendió el año anterior.
-- **Nadie revisa** el producto que lleva semanas sin moverse.
+**Ojo:** una cobertura elevada puede ser razonable en artículos de importación con plazos largos o compras estacionales planificadas. Lo importante es interpretar el dato, no aplicar un umbral idéntico a todo el catálogo.
 
-## Qué te cuesta
+## 3. El indicador básico: semanas de cobertura
 
-- Dinero parado que no puedes usar para comprar lo que sí se vende.
-- Espacio en tienda y almacén.
-- Merma: planta que se estropea, producto que pasa de moda o caduca.
-- Descuentos y liquidaciones que se comen el margen.
+La cobertura responde a una pregunta: **con el ritmo de venta previsto, ¿para cuánto tiempo alcanza el stock disponible?**
 
-## Solución paso a paso
+<div class="over-formula">
+ <span>FÓRMULA BÁSICA</span>
+ <div><strong>Cobertura en semanas</strong><b>=</b><span>Stock disponible ÷ ventas medias semanales</span></div>
+ <p>Usa unidades comparables y una ventana de ventas representativa. Para campañas, es mejor emplear la demanda prevista de las próximas semanas que una media anual.</p>
+</div>
 
-1. **Calcula la cobertura de cada referencia:** stock actual ÷ ventas medias semanales = semanas de stock. Usa la [plantilla de cobertura](/plantillas/).
-2. **Clasifica tu surtido en ABC:** A = el 20 % de referencias que hace el 80 % de la venta; B = las siguientes; C = el resto. El sobrestock suele esconderse en las C.
-3. **Fija una cobertura objetivo por tipo de producto.** Por ejemplo: planta viva de 1 a 2 semanas; producto seco de 4 a 8 semanas. Ajusta las cifras a tu garden.
-4. **Marca las referencias que superan el doble de su objetivo.** Esa es tu lista de sobrestock.
-5. **Actúa sobre la lista:** devolución al proveedor si se puede, traspaso a otro garden de la red, promoción visible o liquidación controlada.
-6. **Ajusta la próxima compra:** no se pide ninguna referencia de la lista hasta que vuelva a su cobertura objetivo.
-7. **Revisa la lista cada mes.**
+### Ejemplo comparativo
 
-## Cómo saber que funciona
+<div class="over-products">
+ <div><div class="over-producthead"><span>SUSTRATO UNIVERSAL</span><b class="over-tag good">Rotación saludable*</b></div><h3>4 semanas</h3><p>120 sacos disponibles ÷ 30 sacos vendidos por semana</p><div class="over-meter"><i style="width:33%"></i></div><small>Se revisa con el plazo de reposición y la demanda prevista.</small></div>
+ <div><div class="over-producthead"><span>MACETA DECORATIVA</span><b class="over-tag warn">Revisar exceso*</b></div><h3>18 semanas</h3><p>90 unidades disponibles ÷ 5 vendidas por semana</p><div class="over-meter"><i style="width:100%"></i></div><small>La cobertura puede ser alta para un producto de compra fácil.</small></div>
+ <div><div class="over-producthead"><span>PLANTA DE TEMPORADA</span><b class="over-tag risk">Riesgo elevado*</b></div><h3>6 semanas</h3><p>60 plantas disponibles ÷ 10 vendidas por semana</p><div class="over-meter"><i style="width:50%"></i></div><small>El riesgo depende de la duración de campaña y el estado de la planta.</small></div>
+</div>
 
-- Las semanas de cobertura bajan mes a mes sin que aumenten las roturas.
-- La merma de planta viva se reduce.
+<small>*Ejemplos hipotéticos, no reglas universales. Las barras comparan coberturas entre ejemplos, no muestran un nivel de riesgo validado para todos los jardines.</small>
 
-## Plantillas
-
-- [Cálculo de cobertura y clasificación ABC](/plantillas/)
-
-:::tip[¿No tienes tiempo de implantarlo?]
-Pide el [diagnóstico gratuito](/#contacto) y calculamos contigo tu lista de sobrestock.
+:::caution[Cuando la venta es cero]
+Si no hay ventas durante el periodo analizado, **no dividas entre cero ni interpretes la cobertura como cero semanas**. Marca la referencia como «sin movimiento» y revisa si está descatalogada, fuera de temporada o mal expuesta.
 :::
+
+Si quieres experimentar con los valores, abre el [laboratorio interactivo de cobertura](/laboratorio/).
+
+## 4. Tres tipos de exceso, tres respuestas distintas
+
+<div class="over-types">
+ <div><span>TIPO A</span><h3>Exceso temporal</h3><p>Mercancía de temporada que aún puede venderse durante la campaña.</p><strong>Acción:</strong><small>Ajusta reposiciones, mejora exposición y vigila la venta semana a semana.</small></div>
+ <div><span>TIPO B</span><h3>Stock lento</h3><p>Producto duradero cuya demanda existe, pero es menor de lo previsto.</p><strong>Acción:</strong><small>Congela o reduce pedidos, revisa su espacio y estudia traspasos.</small></div>
+ <div><span>TIPO C</span><h3>Stock obsoleto o deteriorado</h3><p>Producto que ha perdido atractivo, funcionalidad o calidad.</p><strong>Acción:</strong><small>Valora devolución, liquidación o merma registrada según su estado.</small></div>
+</div>
+
+## 5. Clasifica el catálogo antes de actuar
+
+### ABC: prioriza por importancia económica
+
+La clasificación ABC ayuda a ordenar referencias según su contribución al valor vendido o al consumo anual. No asumas que siempre se cumple una distribución exacta 80/20.
+
+- **A:** referencias que acumulan la mayor parte del valor de ventas. Revísalas con mucha frecuencia.
+- **B:** importancia intermedia. Control periódico.
+- **C:** aportación menor. Evalúa si merecen todo el espacio que ocupan.
+
+### Combínalo con la rotación
+
+Una referencia A puede tener exceso si se compró demasiado. Una C puede ser imprescindible para completar la oferta aunque venda poco. Por eso conviene cruzar importancia, rotación, plazo de suministro y valor estratégico.
+
+<div class="over-matrix">
+ <div class="over-matrix-head"><span></span><strong>ROTACIÓN ALTA</strong><strong>ROTACIÓN BAJA</strong></div>
+ <div><strong>VALOR / IMPORTANCIA ALTA</strong><p class="over-mx mint"><b>Proteger disponibilidad</b><small>Reposición ajustada para evitar roturas.</small></p><p class="over-mx amber"><b>Analizar inmediatamente</b><small>Mucho dinero en artículos que salen despacio.</small></p></div>
+ <div><strong>VALOR / IMPORTANCIA BAJA</strong><p class="over-mx blue"><b>Simplificar reposición</b><small>Gestionar con rutinas y pedidos proporcionados.</small></p><p class="over-mx pink"><b>Reducir complejidad</b><small>Revisar surtido y espacio asignado.</small></p></div>
+</div>
+
+## 6. Decide qué hacer con el producto que sobra
+
+No liquides todo automáticamente. Las medidas tienen costes distintos y algunas conservan más valor que otras.
+
+| Decisión | Cuándo utilizarla | Precaución |
+| --- | --- | --- |
+| Detener o reducir reposición | Hay stock para cubrir demanda futura | Confirmar pedidos pendientes y estacionalidad |
+| Mejorar exposición | El artículo rota poco por visibilidad insuficiente | Medir si realmente aumenta la venta |
+| Traspasar entre gardens | Otra tienda tiene demanda y existe posibilidad operativa | Contar transporte y manipulación |
+| Negociar devolución | Contrato o proveedor permite retornos | Considerar penalizaciones |
+| Crear promoción o lote | Existe demanda sensible al precio | Comprobar margen y no canibalizar productos sanos |
+| Liquidar | El riesgo de obsolescencia supera la recuperación esperada | Registrar descuentos y rentabilidad |
+| Registrar merma | La planta o artículo ya no es vendible | No mantener stock ficticio disponible |
+
+### Caso ilustrativo: ¿promoción o esperar?
+
+Tienes 80 unidades a un coste de 10 € por unidad y un precio de venta de 18 €. Tras una campaña, estimas que 30 se venderán pronto al precio normal y 50 pueden quedarse mucho tiempo.
+
+Una promoción del 20 % situaría el precio en **14,40 €**. El margen bruto unitario antes de otros costes sería **4,40 €**, frente a **8 €** sin descuento. El análisis correcto no consiste solo en comparar esos márgenes: debes estimar **cuántas unidades adicionales venderás gracias a la promoción** y qué ocurriría si esperas.
+
+:::tip[La mejor liquidación puede ser no volver a comprar]
+Una oferta puede liberar espacio una vez. Corregir el siguiente pedido evita que el mismo sobrestock vuelva a aparecer.
+:::
+
+## 7. La planta viva necesita un tratamiento específico
+
+La planta no puede gestionarse exactamente igual que una maceta o una regadera. Tiene necesidades de conservación, un ciclo comercial y un riesgo de merma cambiante.
+
+<div class="over-lifecycle">
+ <div><span>RECIÉN RECIBIDA</span><strong>Comprobar</strong><small>Estado, unidades, calidad y exposición adecuada.</small></div>
+ <b>→</b><div><span>EN VENTA</span><strong>Monitorizar</strong><small>Demanda, salud de la planta y días de permanencia.</small></div>
+ <b>→</b><div><span>ROTACIÓN LENTA</span><strong>Intervenir</strong><small>Reubicar, revisar precio o reducir próximos pedidos.</small></div>
+ <b>→</b><div><span>DETERIORADA</span><strong>Registrar</strong><small>Decidir recuperación o merma; actualizar inventario.</small></div>
+</div>
+
+No utilices objetivos de cobertura de planta viva tomados de otra familia sin considerar variedad, meteorología, capacidad de mantenimiento y vida comercial. **La cobertura aceptable es una decisión operativa**, no un número mágico.
+
+## 8. Construye una rutina de prevención
+
+<div class="over-rules">
+ <div><span>01</span><strong>Revisa las excepciones</strong><p>Detecta artículos sin ventas, con cobertura muy alta o próximos al final de campaña.</p></div>
+ <div><span>02</span><strong>Separa disponible de no vendible</strong><p>La mercancía deteriorada o pendiente de revisión no debe inflar el stock útil.</p></div>
+ <div><span>03</span><strong>Considera pedidos en tránsito</strong><p>No compres sin sumar mercancía ya pedida y sin descontar compromisos relevantes.</p></div>
+ <div><span>04</span><strong>Ajusta por estación</strong><p>La demanda de primavera no se parece a la de noviembre. Revisa campañas y meteorología cuando corresponda.</p></div>
+ <div><span>05</span><strong>Relaciona compras y salidas</strong><p>El problema reaparece si compras no incorpora información actualizada de ventas, cobertura y merma.</p></div>
+</div>
+
+## 9. Plan de actuación en cuatro semanas
+
+| Semana | Qué hacer | Resultado |
+| --- | --- | --- |
+| **1 · Medir** | Exportar stock, coste, ventas y fechas; revisar calidad de datos | Primera lista de referencias candidatas |
+| **2 · Priorizar** | Clasificar por ABC, cobertura, antigüedad y riesgo | Lista de intervención con responsable |
+| **3 · Actuar** | Pausar compras, negociar devoluciones, reubicar o promocionar | Plan ejecutado por grupos de productos |
+| **4 · Prevenir** | Revisar puntos de pedido y crear rutina semanal o mensual | Seguimiento para evitar reincidencias |
+
+Empieza por las **20 referencias con más capital inmovilizado y menor rotación**. Es un piloto manejable y suele permitir separar problemas reales de simples variaciones estacionales. Confirma siempre su contexto antes de actuar.
+
+## 10. Cómo medir los avances
+
+<div class="over-metrics">
+ <div><span>01 · COBERTURA</span><strong>Semanas de stock</strong><p>Stock disponible ÷ demanda semanal representativa. Analiza por familia y temporada, no solo la media del garden.</p></div>
+ <div><span>02 · CAPITAL</span><strong>Valor inmovilizado</strong><p>Unidades en exceso × coste unitario. Es una medida de exposición, no de pérdida realizada.</p></div>
+ <div><span>03 · EDAD</span><strong>Stock sin movimiento</strong><p>Número y valor de referencias sin ventas durante un periodo definido.</p></div>
+ <div><span>04 · RESULTADO</span><strong>Merma y roturas</strong><p>Controla ambas: reducir inventario no sirve si se disparan las faltas de producto.</p></div>
+</div>
+
+### Comparación visual: un escenario de mejora
+
+<div class="over-before">
+ <span>SIMULACIÓN ILUSTRATIVA · NO SON RESULTADOS REALES</span>
+ <div class="over-before-grid">
+  <div><small>ANTES</small><strong>€12.000</strong><p>Valor a coste de referencias identificadas como exceso</p><div class="over-bar"><i style="width:100%"></i></div></div>
+  <div><small>DESPUÉS</small><strong>€7.500</strong><p>Valor a coste tras medidas de reducción de inventario</p><div class="over-bar"><i style="width:62.5%"></i></div></div>
+ </div>
+ <p>El ejemplo supone una reducción de **4.500 € (37,5 %)** del valor de ese grupo de stock. No implica automáticamente que se hayan recuperado 4.500 € en caja: depende de cómo se haya vendido, devuelto o dado de baja.</p>
+</div>
+
+## 11. Errores frecuentes
+
+- **Usar la media anual para una campaña estacional.** Oculta picos, finales de temporada y semanas de venta nula.
+- **Aplicar el mismo objetivo de cobertura a todo.** Planta viva y artículo importado requieren criterios distintos.
+- **Comprar más solo por obtener descuento.** El ahorro unitario puede quedar anulado por inmovilización y merma.
+- **Eliminar todas las referencias C.** Algunas completan el surtido o generan ventas complementarias.
+- **Liquidar sin calcular margen.** Puede destruir valor más rápido de lo que libera espacio.
+- **Reducir inventario sin vigilar roturas.** Una reducción mal ejecutada perjudica ventas y servicio.
+- **Tomar decisiones con stock desactualizado.** Antes de interpretar coberturas, revisa [conteos](/problemas/conteos/) y [entradas y salidas](/problemas/movimientos/).
+
+## 12. Checklist para tu garden
+
+- [ ] Sé cuánto stock tengo valorado a coste y por familia.
+- [ ] Conozco las ventas recientes y su estacionalidad.
+- [ ] Distingo stock disponible, en tránsito y no vendible.
+- [ ] Identifico referencias sin ventas y de cobertura elevada.
+- [ ] Reviso los riesgos específicos de la planta viva.
+- [ ] Tengo criterios distintos por tipo de producto.
+- [ ] He comprobado cantidades y pedidos ya realizados.
+- [ ] Dispongo de responsables y fechas para cada acción.
+- [ ] Evalúo el margen antes de lanzar promociones.
+- [ ] Mido si el exceso baja sin aumentar las roturas.
+- [ ] Ajusto las próximas compras para que el problema no se repita.
+
+## 13. Empieza hoy con un ejercicio sencillo
+
+Elige una familia (por ejemplo, cerámica decorativa), reúne **stock actual, coste unitario y ventas de las últimas semanas**, calcula cobertura por referencia y marca las que requieren revisión. Después distingue entre artículos de temporada, baja rotación y stock realmente obsoleto.
+
+<div class="over-next">
+ <div><span>PRÓXIMO PASO</span><h3>Convierte el exceso en decisiones.</h3><p>Prueba el laboratorio para simular coberturas, consulta las plantillas o habla con Cymara para revisar tu situación.</p></div>
+ <div><a href="/laboratorio/">Abrir laboratorio ↗</a><a href="/plantillas/">Ver plantillas ↗</a><a href="/#contacto">Hablar con Cymara ↗</a></div>
+</div>
+
+<style>{`
+.over-hero{background:linear-gradient(125deg,#f0f8f4,#dceee6);border:1px solid #d3e7dc;padding:clamp(22px,4vw,42px);border-radius:22px;margin:10px 0 26px}.over-eyebrow,.over-before>span,.over-next>div>span{font:800 11px Outfit,system-ui,sans-serif;letter-spacing:.11em;color:#348572}.over-hero h2{font:800 clamp(30px,4vw,46px)/1.1 Outfit,system-ui,sans-serif;color:#1e4b40;letter-spacing:-.045em;margin:14px 0}.over-hero p{font-size:16px;line-height:1.75;color:#49685d;max-width:820px}.over-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.over-kpis>div{background:#fff;border:1px solid #dcebe3;border-radius:13px;padding:16px;display:flex;flex-direction:column;gap:5px}.over-kpis strong{font-size:20px;color:#287665}.over-kpis span{font-size:12px;color:#648073}
+.over-chain,.over-lifecycle{display:flex;align-items:stretch;gap:8px;margin:25px 0}.over-chain>div,.over-lifecycle>div{flex:1;min-width:0;background:#f6faf7;border:1px solid #dcebe2;border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:7px}.over-chain>div span,.over-lifecycle>div span{font-size:11px;color:#358c78;font-weight:800}.over-chain>div strong,.over-lifecycle>div strong{font-size:14px;color:#244d3f}.over-chain small,.over-lifecycle small{font-size:12px;color:#647d72;line-height:1.5}.over-chain>b,.over-lifecycle>b{display:grid;place-items:center;color:#388d78}
+.over-formula{background:#eaf4ef;border:1px solid #d5e7dc;border-radius:17px;padding:23px;margin:24px 0}.over-formula>span{font-size:11px;color:#378a75;letter-spacing:.1em;font-weight:800}.over-formula>div{display:flex;align-items:center;gap:15px;margin:18px 0;flex-wrap:wrap;color:#254f40}.over-formula strong{font-size:20px}.over-formula b{font-size:23px;color:#398d78}.over-formula>div span{background:#fff;border-radius:10px;padding:10px 14px;font-size:15px;font-weight:700}.over-formula p{font-size:12px;line-height:1.6;color:#657e72;margin:0}
+.over-products,.over-types,.over-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}.over-products>div,.over-types>div,.over-metrics>div{min-width:0;background:#fff;border:1px solid #dce8e0;border-radius:15px;padding:18px;display:flex;flex-direction:column;gap:10px}.over-producthead{display:flex;flex-direction:column;gap:8px}.over-producthead>span,.over-types>div>span,.over-metrics>div>span{font-size:10px;font-weight:800;letter-spacing:.08em;color:#438b78}.over-tag{align-self:start;font-size:10px;padding:5px 9px;border-radius:20px}.over-tag.good{background:#e2f1e8;color:#286b54}.over-tag.warn{background:#faefd9;color:#886b29}.over-tag.risk{background:#f9e6e0;color:#985741}.over-products h3{font-size:30px;color:#266a59;margin:5px 0 0}.over-products p,.over-types p,.over-metrics p{font-size:13px;line-height:1.55;color:#63786f;margin:0}.over-products small,.over-types small{font-size:11px;line-height:1.55;color:#71877d;margin-top:auto}.over-meter,.over-bar{height:9px;background:#e2eee7;border-radius:30px;overflow:hidden;margin-top:9px}.over-meter i,.over-bar i{display:block;background:#489785;height:100%;border-radius:30px}.over-types strong{font-size:12px;color:#2c6150;margin-top:auto}.over-types h3{font-size:18px;color:#234f40;margin:5px 0}.over-types small{margin:0}
+.over-matrix{background:#fff;border:1px solid #dce9e2;border-radius:17px;padding:16px;margin:24px 0}.over-matrix-head,.over-matrix>div:not(:first-child){display:grid;grid-template-columns:165px 1fr 1fr;gap:10px;align-items:stretch;margin-bottom:10px}.over-matrix-head strong{font-size:11px;letter-spacing:.07em;text-align:center;color:#447b69}.over-matrix>div:not(:first-child)>strong{font-size:12px;color:#3a6456;align-self:center}.over-mx{border-radius:12px;padding:15px;display:flex;flex-direction:column;gap:7px;margin:0!important;line-height:1.45}.over-mx b{font-size:13px;color:#275442}.over-mx small{font-size:11px;color:#557363}.over-mx.mint{background:#e3f3e9}.over-mx.amber{background:#f8edd6}.over-mx.blue{background:#e8eff6}.over-mx.pink{background:#f7e6e3}
+.over-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.over-rules>div{background:#f6faf7;border:1px solid #dcebe2;border-radius:14px;padding:20px}.over-rules span{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:9px;background:#e1f0e7;color:#358571;font-size:12px;font-weight:800;margin-right:10px}.over-rules strong{font-size:14px;color:#275242}.over-rules p{font-size:13px;line-height:1.6;color:#5b7469;margin:12px 0 0}
+.over-metrics{grid-template-columns:repeat(4,minmax(0,1fr))}.over-metrics strong{font-size:17px;color:#275442}
+.over-before{background:#eef8f1;border:1px solid #d5e8dc;border-radius:18px;padding:22px;margin:24px 0}.over-before-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:22px 0}.over-before-grid>div{display:flex;flex-direction:column;gap:8px}.over-before-grid small{font-size:11px;color:#607a6e;font-weight:800}.over-before-grid strong{font-size:35px;color:#276c58}.over-before-grid p{font-size:12px;color:#5f786c;margin:0}.over-before>p{font-size:12px;color:#627c6d;line-height:1.6}
+.over-next{display:flex;justify-content:space-between;align-items:center;gap:20px;background:#e5f3ea;border:1px solid #d1e4d7;border-radius:18px;padding:28px;margin:26px 0}.over-next h3{font-size:25px;color:#275443;margin:8px 0}.over-next p{font-size:13px;color:#5b7469;line-height:1.6;max-width:550px}.over-next>div:last-child{display:flex;flex-direction:column;gap:8px;min-width:175px}.over-next a{background:#fff;border:1px solid #cee1d5;border-radius:25px;padding:10px 14px;color:#287866!important;text-decoration:none!important;font-size:12px;font-weight:800;text-align:center}
+@media(max-width:950px){.over-products,.over-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.over-chain,.over-lifecycle{display:grid;grid-template-columns:1fr 1fr}.over-chain>b,.over-lifecycle>b{display:none}}
+@media(max-width:650px){.over-kpis,.over-products,.over-types,.over-metrics,.over-rules,.over-before-grid{grid-template-columns:1fr}.over-chain,.over-lifecycle{grid-template-columns:1fr}.over-matrix-head,.over-matrix>div:not(:first-child){grid-template-columns:110px 1fr 1fr;gap:5px}.over-mx{padding:8px}.over-mx b{font-size:11px}.over-mx small{font-size:10px}.over-next{flex-direction:column;align-items:stretch}.over-next>div:last-child{min-width:0}}
+`}</style>
