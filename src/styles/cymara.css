@@ -74,3 +74,31 @@ starlight-toc,
 .main-pane .content-panel{max-width:1180px!important;width:100%!important;margin-inline:auto!important}
 .main-pane .sl-container{max-width:1180px!important;width:100%!important}
 @media(max-width:800px){.main-pane{padding-inline:16px!important}}
+
+
+/* Equal-card layout: neutralise Starlight's sibling spacing inside custom grids.
+   Scope this reset to known card containers, never the whole website. */
+:where(.wikiHome .challengeGrid,.wikiHome .workflowGrid,
+.loc-insights,.loc-cause,.loc-rules,.loc-metrics,
+.over-kpis,.over-chain,.over-products,.over-types,.over-rules,.over-metrics,
+.buy-hero-stats,.buy-dual,.buy-week,.buy-categories,.buy-metrics,
+.cnt-hero-grid,.cnt-flow,.cnt-phases,.cnt-compare,.cnt-steps,.cnt-freq,.cnt-metrics,
+.mov-pillars,.mov-two,.mov-cash,.mov-labels,.mov-moves,.mov-routine,.mov-metrics,
+.diagnosticApp .scoreGrid) {
+  align-items:stretch;
+}
+:where(.wikiHome .challengeGrid,.wikiHome .workflowGrid,
+.loc-insights,.loc-cause,.loc-rules,.loc-metrics,
+.over-kpis,.over-chain,.over-products,.over-types,.over-rules,.over-metrics,
+.buy-hero-stats,.buy-dual,.buy-week,.buy-categories,.buy-metrics,
+.cnt-hero-grid,.cnt-flow,.cnt-phases,.cnt-compare,.cnt-steps,.cnt-freq,.cnt-metrics,
+.mov-pillars,.mov-two,.mov-cash,.mov-labels,.mov-moves,.mov-routine,.mov-metrics,
+.diagnosticApp .scoreGrid) > :is(div,article,a) {
+  box-sizing:border-box;
+  margin:0!important;
+  min-width:0;
+  width:100%;
+  max-width:none;
+  height:100%;
+  align-self:stretch;
+}
