@@ -74,14 +74,3 @@ starlight-toc,
 .main-pane .content-panel{max-width:1180px!important;width:100%!important;margin-inline:auto!important}
 .main-pane .sl-container{max-width:1180px!important;width:100%!important}
 @media(max-width:800px){.main-pane{padding-inline:16px!important}}
-
-
-/* Guías de retos: alturas coherentes en todas las filas de tarjetas.
-   Neutraliza márgenes automáticos de Starlight, incluido el primer elemento. */
-:where(.loc-insights,.loc-rules,.loc-metrics,.loc-cause,.loc-floor,.over-kpis,.over-products,.over-types,.over-metrics,.over-rules,.over-chain,.buy-hero-stats,.buy-dual,.buy-week,.buy-categories,.buy-metrics,.cnt-hero-grid,.cnt-flow,.cnt-phases,.cnt-steps,.cnt-compare,.cnt-freq,.cnt-metrics,.mov-pillars,.mov-two,.mov-cash,.mov-labels,.mov-moves,.mov-routine,.mov-metrics,.mov-delivery-head,.mov-doc-grid) {align-items:stretch!important}
-:where(.loc-insights,.loc-rules,.loc-metrics,.loc-cause,.loc-floor,.over-kpis,.over-products,.over-types,.over-metrics,.over-rules,.over-chain,.buy-hero-stats,.buy-dual,.buy-week,.buy-categories,.buy-metrics,.cnt-hero-grid,.cnt-flow,.cnt-phases,.cnt-steps,.cnt-compare,.cnt-freq,.cnt-metrics,.mov-pillars,.mov-two,.mov-cash,.mov-labels,.mov-moves,.mov-routine,.mov-metrics,.mov-delivery-head,.mov-doc-grid) > div {
-  box-sizing:border-box!important;min-width:0!important;margin:0!important;height:100%!important;
-}
-:where(.loc-insights,.loc-rules,.loc-metrics,.over-kpis,.over-products,.over-types,.over-metrics,.over-rules,.buy-hero-stats,.buy-dual,.buy-week,.buy-categories,.buy-metrics,.cnt-hero-grid,.cnt-phases,.cnt-steps,.cnt-compare,.cnt-freq,.cnt-metrics,.mov-pillars,.mov-two,.mov-cash,.mov-labels,.mov-moves,.mov-routine,.mov-metrics) > div:first-child{
-  grid-column:auto!important;grid-row:auto!important;max-width:none!important;
-}
