@@ -220,5 +220,13 @@ Si quieres comenzar hoy, toma una decisión sencilla: **elige una sola zona prob
 @media(max-width:900px){.loc-insights,.loc-metrics{grid-template-columns:1fr 1fr}.loc-cause{display:grid;grid-template-columns:1fr 1fr}.loc-cause>b{display:none}}
 @media(max-width:650px){.loc-insights,.loc-metrics,.loc-rules,.loc-example-grid{grid-template-columns:1fr}.loc-floor{grid-template-columns:1fr 1fr}.loc-room,.loc-room-ext{grid-column:span 2}.loc-cause{grid-template-columns:1fr}.loc-maphead{flex-direction:column;align-items:start}.loc-next{flex-direction:column;align-items:stretch}.loc-next>div:last-child{min-width:0}}
 `}</style>
+<style>{`
+/* Plano: el primer bloque no debe modificar la altura de su fila */
+.loc-floor{grid-auto-rows:minmax(135px,auto);align-items:stretch}.loc-floor>.loc-room{height:100%!important;min-height:0!important;margin:0!important;align-self:stretch;justify-content:center;gap:12px;box-sizing:border-box}
+/* Código: todas las celdas y separadores en la misma línea base */
+.loc-code{display:grid!important;grid-template-columns:minmax(0,1fr) 14px minmax(0,1fr) 14px minmax(0,1fr) minmax(0,1.05fr);align-items:stretch;gap:8px}.loc-code>div{min-width:0!important;margin:0!important;height:100%;justify-content:center;box-sizing:border-box}.loc-code>b{margin:0!important;align-self:center;justify-self:center}
+@media(max-width:760px){.loc-code{grid-template-columns:1fr 14px 1fr 14px 1fr}.loc-code .loc-code-result{grid-column:1/-1;min-height:90px}}
+@media(max-width:480px){.loc-code{grid-template-columns:1fr}.loc-code>b{display:none}.loc-code .loc-code-result{grid-column:auto}}
+`}</style>
 
 <GuideContact />
