@@ -4,6 +4,7 @@ description: Guía práctica de recepción, conciliación de albaranes, etiqueta
 ---
 
 import ActionPath from '../../../components/ActionPath.astro';
+import GuideContact from '../../../components/GuideContact.astro';
 
 <div class="mov-hero">
  <span class="mov-kicker">RETO 05 · ENTRADAS Y SALIDAS DE MERCANCÍA</span>
@@ -256,3 +257,5 @@ Si no puedes reconstruir ese recorrido, ahí está la primera oportunidad de mej
 @media(max-width:1000px){.mov-moves,.mov-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.mov-triangle{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.mov-triangle>b{display:none}}
 @media(max-width:650px){.mov-pillars,.mov-two,.mov-labels,.mov-cash,.mov-delivery-head,.mov-routine,.mov-metrics,.mov-moves,.mov-before-row{grid-template-columns:1fr}.mov-triangle{grid-template-columns:1fr}.mov-doc-grid{grid-template-columns:1fr 1fr}.mov-pos{padding:15px}.mov-pos-bottom{grid-template-columns:1fr}.mov-pos-bottom>span{transform:rotate(90deg);justify-self:start}.mov-next{flex-direction:column;align-items:stretch}.mov-next>div:last-child{min-width:0}}
 `}</style>
+
+<GuideContact />
