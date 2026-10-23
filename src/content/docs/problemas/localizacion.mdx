@@ -46,14 +46,18 @@ Si se producen 12 búsquedas difíciles al día y cada una consume 4 minutos adi
 
 No todos los problemas de localización se solucionan de la misma forma.
 
-| Situación | Qué suele fallar | Primera medida |
-| --- | --- | --- |
-| «Sé que existe, pero no lo veo» | Ubicación desconocida | Crear un mapa y asignar ubicación |
-| «Aparece en tres lugares» | Ubicaciones secundarias sin control | Registrar dónde está cada cantidad |
-| «Nadie lo encuentra salvo una persona» | Conocimiento informal | Códigos visibles y consulta compartida |
-| «Lo movimos por la campaña» | Traslados sin actualizar | Rutina de actualización tras cada movimiento |
-| «Está pendiente de colocar» | Recepción sin proceso de ubicación | Zona temporal y plazo de resolución |
-| «Sale en el sistema, pero no existe» | Diferencia de inventario | Conteo e investigación del movimiento |
+<div class="loc-table-scroll">
+<table class="loc-full-table">
+<colgroup><col /><col /><col /></colgroup>
+<thead><tr><th scope="col">Situación</th><th scope="col">Qué suele fallar</th><th scope="col">Primera medida</th></tr></thead>
+<tbody><tr><td>«Sé que existe, pero no lo veo»</td><td>Ubicación desconocida</td><td>Crear un mapa y asignar ubicación</td></tr>
+<tr><td>«Aparece en tres lugares»</td><td>Ubicaciones secundarias sin control</td><td>Registrar dónde está cada cantidad</td></tr>
+<tr><td>«Nadie lo encuentra salvo una persona»</td><td>Conocimiento informal</td><td>Códigos visibles y consulta compartida</td></tr>
+<tr><td>«Lo movimos por la campaña»</td><td>Traslados sin actualizar</td><td>Rutina de actualización tras cada movimiento</td></tr>
+<tr><td>«Está pendiente de colocar»</td><td>Recepción sin proceso de ubicación</td><td>Zona temporal y plazo de resolución</td></tr>
+<tr><td>«Sale en el sistema, pero no existe»</td><td>Diferencia de inventario</td><td>Conteo e investigación del movimiento</td></tr></tbody>
+</table>
+</div>
 
 **Importante:** localización y exactitud del inventario son problemas distintos. Si las unidades no existen físicamente, ningún mapa permitirá encontrarlas. En ese caso, empieza por [conteos fiables](/problemas/conteos/) y revisa también las [entradas y salidas](/problemas/movimientos/).
 
@@ -84,12 +88,16 @@ Piensa en tres niveles: **zona → subzona → posición**. Usa solo el detalle 
   <div class="loc-code-result"><small>CÓDIGO FINAL</small><strong>ALM-B-03</strong></div>
 </div>
 
-| Producto | Ubicación principal | Ubicación secundaria | Observación |
-| --- | --- | --- | --- |
-| Sustrato universal 50 L | ALM-A-01 | EXT-03 | Palés en reserva y unidades de venta |
-| Maceta terracota 30 cm | TIE-04 | ALM-B-03 | Exposición y reserva |
-| Abono líquido 1 L | TIE-07 | Sin secundaria | Solo tienda |
-| Rosal en maceta | EXT-02 | Sin secundaria | Posición estacional |
+<div class="loc-table-scroll">
+<table class="loc-full-table">
+<colgroup><col /><col /><col /><col /></colgroup>
+<thead><tr><th scope="col">Producto</th><th scope="col">Ubicación principal</th><th scope="col">Ubicación secundaria</th><th scope="col">Observación</th></tr></thead>
+<tbody><tr><td>Sustrato universal 50 L</td><td>ALM-A-01</td><td>EXT-03</td><td>Palés en reserva y unidades de venta</td></tr>
+<tr><td>Maceta terracota 30 cm</td><td>TIE-04</td><td>ALM-B-03</td><td>Exposición y reserva</td></tr>
+<tr><td>Abono líquido 1 L</td><td>TIE-07</td><td>Sin secundaria</td><td>Solo tienda</td></tr>
+<tr><td>Rosal en maceta</td><td>EXT-02</td><td>Sin secundaria</td><td>Posición estacional</td></tr></tbody>
+</table>
+</div>
 
 *Ejemplos ficticios de códigos y referencias para ilustrar el sistema.*
 
@@ -142,12 +150,16 @@ La trazabilidad de estas acciones conecta directamente con el reto de [entradas 
 
 No es necesario paralizar el garden ni implantar un software complejo desde el primer día.
 
-| Cuándo | Objetivo | Entregable |
-| --- | --- | --- |
-| Semana 1 | Recorrer el espacio e identificar puntos conflictivos | Mapa inicial de zonas, almacén y áreas temporales |
-| Semana 2 | Codificar y señalizar | Carteles instalados y tabla de ubicaciones |
-| Semana 3 | Asignar familias y formar al equipo | Referencias prioritarias con ubicación y protocolo de movimientos |
-| Semana 4 | Probar, medir y corregir | Prueba de localización, lista de incidencias y mejoras |
+<div class="loc-table-scroll">
+<table class="loc-full-table">
+<colgroup><col /><col /><col /></colgroup>
+<thead><tr><th scope="col">Cuándo</th><th scope="col">Objetivo</th><th scope="col">Entregable</th></tr></thead>
+<tbody><tr><td>Semana 1</td><td>Recorrer el espacio e identificar puntos conflictivos</td><td>Mapa inicial de zonas, almacén y áreas temporales</td></tr>
+<tr><td>Semana 2</td><td>Codificar y señalizar</td><td>Carteles instalados y tabla de ubicaciones</td></tr>
+<tr><td>Semana 3</td><td>Asignar familias y formar al equipo</td><td>Referencias prioritarias con ubicación y protocolo de movimientos</td></tr>
+<tr><td>Semana 4</td><td>Probar, medir y corregir</td><td>Prueba de localización, lista de incidencias y mejoras</td></tr></tbody>
+</table>
+</div>
 
 **Empieza por un piloto.** Escoge 20 o 30 referencias que se busquen con frecuencia o generen más incidencias. Corrige el proceso con ellas antes de extenderlo al resto del catálogo.
 
@@ -230,3 +242,13 @@ Si quieres comenzar hoy, toma una decisión sencilla: **elige una sola zona prob
 `}</style>
 
 <GuideContact />
+
+<style>{`
+.loc-table-scroll{display:block!important;width:100%!important;min-width:0;max-width:100%!important;overflow-x:auto;border:1px solid #dce8e1;border-radius:14px;margin:22px 0;box-sizing:border-box}
+.loc-table-scroll table.loc-full-table{display:table!important;table-layout:fixed!important;width:100%!important;min-width:100%!important;max-width:none!important;border:0!important;border-collapse:collapse!important;margin:0!important;border-radius:0}
+.loc-table-scroll .loc-full-table :is(th,td){text-align:center!important;vertical-align:middle!important;box-sizing:border-box;padding:15px 13px!important;border-bottom:1px solid #dce8e1!important;white-space:normal!important;overflow-wrap:break-word;line-height:1.45}
+.loc-table-scroll .loc-full-table th{background:#eaf4ef!important;color:#225446!important;font-weight:800}
+.loc-table-scroll .loc-full-table td{background:#fff!important;color:#52635e!important}
+.loc-table-scroll .loc-full-table tr:last-child td{border-bottom:0!important}
+@media(max-width:680px){.loc-table-scroll table.loc-full-table{min-width:670px!important}}
+`}</style>
