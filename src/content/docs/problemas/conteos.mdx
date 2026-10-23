@@ -1,61 +1,260 @@
 ---
 title: 4. Conteos poco fiables
-description: El inventario del sistema no coincide con lo que hay en el lineal.
+description: Guía completa para organizar inventarios físicos, implantar conteos cíclicos, investigar diferencias y mejorar la fiabilidad del stock.
 ---
 
 import ActionPath from '../../../components/ActionPath.astro';
 
+<div class="cnt-hero">
+ <span class="cnt-kicker">RETO 04 · EXACTITUD DEL INVENTARIO</span>
+ <h2>Si no sabes lo que tienes, es difícil decidir qué necesitas.</h2>
+ <p>Un inventario fiable no se consigue contando todo una vez al año. Se construye con <strong>procedimientos repetibles, ubicaciones claras, movimientos bien registrados y una investigación de las diferencias</strong>. En un garden, donde conviven planta viva, productos de alto volumen y campañas estacionales, esos controles son especialmente importantes.</p>
+ <div class="cnt-hero-grid"><div><strong>Contar</strong><span>Lo que realmente existe</span></div><div><strong>Investigar</strong><span>Por qué hay diferencias</span></div><div><strong>Prevenir</strong><span>Que vuelvan a aparecer</span></div></div>
+</div>
+
 <ActionPath kind="conteos" />
 
-Si el stock del sistema no coincide con la realidad, todo lo demás falla: no encuentras el producto, compras de más o de menos y no sabes cuánto vale tu almacén. Es el problema que conviene resolver primero.
+## 1. El stock del sistema y el stock real no siempre coinciden
 
-:::note[Lo que vimos en el garden]
-[Pendiente: cómo se cuenta hoy, cada cuánto y qué diferencias aparecen.]
+Imagina que el sistema indica **24 unidades** de una determinada maceta, pero en la tienda y el almacén solo se encuentran **17**. El equipo puede seguir vendiendo hasta agotar las unidades físicas; sin embargo, el sistema continuará mostrando disponibilidad. Cuando un cliente pregunte por la referencia, aparecerá una promesa que el garden no puede cumplir.
+
+<div class="cnt-flow">
+ <div><span>01</span><strong>Se produce un movimiento</strong><small>Venta, devolución, rotura, traslado o recepción.</small></div><b>→</b><div><span>02</span><strong>No queda bien reflejado</strong><small>La cantidad o el producto registrado son incorrectos.</small></div><b>→</b><div><span>03</span><strong>El stock se desajusta</strong><small>El sistema deja de representar la mercancía real.</small></div><b>→</b><div><span>04</span><strong>La decisión falla</strong><small>Se promete una venta imposible o se compra innecesariamente.</small></div>
+</div>
+
+Los conteos detectan diferencias, pero **ajustar una cifra sin entender su causa no impide que el problema se repita**.
+
+:::note[Ejemplo ilustrativo]
+Si una referencia aparece con 24 unidades y el recuento físico validado arroja 17, existe una diferencia de **−7 unidades**. A un coste unitario supuesto de 9 €, la diferencia valorada a coste es **−63 €**. Eso no demuestra por sí solo un robo o una pérdida económica definitiva: puede existir un error de código, ubicación, recepción o registro pendiente.
 :::
 
-## Señales de que te pasa
+## 2. Identifica las causas, no solo las discrepancias
 
-- Solo se hace inventario completo una vez al año, o nunca.
-- Tras contar hay diferencias grandes que nadie sabe explicar.
-- El equipo no se fía del stock que marca el sistema.
-- Roturas, mermas y plantas muertas no siempre se registran.
+| Síntoma | Posible causa | Qué comprobar |
+| --- | --- | --- |
+| Sobra stock físico respecto al sistema | Recepción no registrada o venta mal asociada | Albaranes, TPV y códigos |
+| Falta stock físico | Merma, venta, traslado o daño sin registrar | Movimientos y zonas |
+| Un artículo sobra y otro falta | Confusión entre referencias similares | Códigos, etiquetas y variantes |
+| Una zona cuadra, otra no | Traslado entre ubicaciones sin actualizar | Historial de movimientos |
+| La diferencia aparece tras una campaña | Recepciones y ventas muy intensas | Fechas, lotes, caja y devoluciones |
+| Planta viva no coincide | Mermas o cambios de estado no registrados | Registro diario de planta no vendible |
 
-## Por qué pasa
+**Distinción esencial:** un problema de [localización](/problemas/localizacion/) no siempre implica unidades perdidas. Primero comprueba todas las ubicaciones posibles. Si las unidades realmente no están, investiga los [movimientos de entrada y salida](/problemas/movimientos/).
 
-- **Inventario anual de golpe:** cansado, con prisas y con errores.
-- **No hay un procedimiento de conteo** escrito: cada persona cuenta a su manera.
-- **Movimientos que no pasan por el sistema:** mermas, regalos, roturas, traspasos o devoluciones.
-- **Errores en la recepción:** se da entrada a lo pedido, no a lo recibido.
+## 3. Cómo preparar un inventario físico fiable
 
-## Qué te cuesta
+La preparación suele tener tanto impacto en la calidad del resultado como el propio conteo.
 
-- Decisiones de compra sobre datos falsos.
-- Ventas perdidas por stock "fantasma" que el sistema da por existente.
-- Una valoración de stock errónea en el cierre contable.
-- Días de cierre y horas extra para el inventario anual.
+<div class="cnt-phases">
+ <div><span>ANTES</span><h3>Preparar</h3><p>Delimita zonas, limpia registros pendientes, identifica referencias y asigna responsables.</p><strong>Evita contar el caos.</strong></div>
+ <div><span>DURANTE</span><h3>Contar</h3><p>Trabaja por zonas, sin ver la cantidad teórica, y registra cada producto una sola vez.</p><strong>Evita duplicidades.</strong></div>
+ <div><span>DESPUÉS</span><h3>Validar</h3><p>Recuenta excepciones, investiga diferencias y aprueba los ajustes con trazabilidad.</p><strong>Evita corregir sin aprender.</strong></div>
+</div>
 
-## Solución paso a paso
+### Antes: siete comprobaciones imprescindibles
 
-1. **Pasa a conteo cíclico.** En lugar de contarlo todo una vez al año, cuenta un trozo cada semana: las A cada mes, las B cada trimestre y las C dos veces al año.
-2. **Escribe el procedimiento de conteo:** por zonas (usando el [mapa de zonas](/problemas/localizacion/)), de izquierda a derecha y de arriba abajo, con la tienda cerrada o con la zona acotada.
-3. **Cuenta a ciegas:** quien cuenta no ve la cantidad del sistema. Así no se "ajusta" el conteo a lo esperado.
-4. **Recuenta las diferencias grandes** antes de ajustar. Si se confirma, investiga la causa.
-5. **Registra siempre las mermas:** un sitio fijo para dejar lo roto o muerto y un registro diario en el sistema.
-6. **Recepción contra albarán:** se da entrada a lo que llega, no a lo que se pidió.
-7. **Mide la fiabilidad:** el porcentaje de referencias contadas cuyo stock coincide con el sistema.
+1. **Define el alcance.** ¿Contarás toda la tienda, un almacén o una familia? Deja claro qué zonas y referencias entran.
+2. **Congela o controla movimientos.** Lo más sencillo es contar fuera del horario comercial. Si no es posible, registra exactamente qué entra, sale o se mueve mientras cuentas.
+3. **Divide el espacio.** Usa el [mapa de ubicaciones](/problemas/localizacion/) y asigna cada mesa, pasillo o estantería a un único equipo.
+4. **Separa lo vendible de lo no vendible.** Planta muerta, artículos dañados y devoluciones no deben mezclarse con mercancía apta para venta.
+5. **Resuelve pendientes críticos.** Revisa albaranes sin registrar, devoluciones y transferencias aún abiertas.
+6. **Prepara medios.** Dispositivos o fichas, códigos legibles, listas de zonas y criterio para unidades de medida.
+7. **Instruye al equipo.** Explica cómo tratar packs, variantes, palés incompletos, referencias sin etiqueta y productos en varias ubicaciones.
 
-## Cómo saber que funciona
-
-- La fiabilidad sube por encima del 95 % de referencias correctas.
-- El inventario anual deja de ser un evento de varios días.
-
-## Plantillas
-
-- [Procedimiento de conteo](/plantillas/)
-- [Calendario de conteo cíclico](/plantillas/)
-- [Hoja de conteo a ciegas](/plantillas/)
-- [Registro de mermas](/plantillas/)
-
-:::tip[¿No te fías de tus conteos o no tienes equipo para hacerlos?]
-Cymara tiene una herramienta digital de conteo y puede hacer el conteo por ti. Pregunta por ello en el [diagnóstico gratuito](/#contacto).
+:::caution[Evita ajustar el stock mientras todavía se está contando]
+Los ajustes deben realizarse sobre recuentos **validados**, controlando los movimientos ocurridos durante la sesión. Ajustar antes de investigar puede ocultar una recepción pendiente o generar una nueva discrepancia.
 :::
+
+## 4. Procedimiento de conteo: de la zona al dato validado
+
+<div class="cnt-steps">
+ <div><span>01</span><strong>Abre una zona</strong><p>Identifica un espacio físico con principio y final inequívocos.</p></div>
+ <div><span>02</span><strong>Cuenta a ciegas</strong><p>Quien cuenta ve el artículo y la unidad de medida, pero no la cantidad esperada.</p></div>
+ <div><span>03</span><strong>Registra la cantidad</strong><p>Guarda referencia, zona, unidades, fecha y persona que contó.</p></div>
+ <div><span>04</span><strong>Cierra la zona</strong><p>Señala que ha terminado para que nadie vuelva a contabilizarla.</p></div>
+ <div><span>05</span><strong>Investiga excepciones</strong><p>Recuenta lo que no cuadra y revisa movimientos cercanos.</p></div>
+ <div><span>06</span><strong>Aprueba ajustes</strong><p>Documenta motivo, responsable y corrección aplicada al sistema.</p></div>
+</div>
+
+### ¿Por qué contar a ciegas?
+
+Cuando una persona ve que el sistema dice «20», corre el riesgo de dar por buenas 20 unidades aunque haya contado 19 o 21. El conteo a ciegas reduce ese sesgo. Tras el recuento, un responsable compara el resultado con el sistema y decide qué diferencias merecen una segunda comprobación.
+
+### Ejemplo de hoja de conteo
+
+| Zona | Referencia | Unidad | Conteo físico | Estado |
+| --- | --- | --- | ---: | --- |
+| TIE-04 | Maceta terracota 30 cm | unidad | 17 | Pendiente de comparar |
+| ALM-A-01 | Sustrato universal 50 L | saco | 48 | Pendiente de comparar |
+| EXT-02 | Rosal en maceta | planta | 26 | Pendiente de comparar |
+
+*Referencias y cifras ficticias para ilustrar el procedimiento. La cantidad del sistema no figura en la hoja de trabajo del contador.*
+
+## 5. Inventario anual y conteo cíclico: funciones diferentes
+
+Un inventario completo ofrece una fotografía del negocio en una fecha. El **conteo cíclico** distribuye verificaciones durante el año, permitiendo detectar problemas más cerca del momento en que ocurren.
+
+<div class="cnt-compare">
+ <div><span>INVENTARIO COMPLETO</span><h3>Fotografía general</h3><p>Comprueba todas las zonas y referencias incluidas en el alcance.</p><strong>Ventaja</strong><small>Visión global y soporte para necesidades de cierre.</small><strong>Limitación</strong><small>Puede requerir mucha coordinación y tiempo.</small></div>
+ <div><span>CONTEO CÍCLICO</span><h3>Control continuo</h3><p>Verifica pequeñas partes del inventario según una frecuencia planificada.</p><strong>Ventaja</strong><small>Investiga incidencias antes y reduce acumulación de errores.</small><strong>Limitación</strong><small>Exige rutina, seguimiento y responsables claros.</small></div>
+</div>
+
+Ambos sistemas pueden coexistir. **El conteo cíclico no elimina automáticamente un inventario de cierre** si existen requisitos contables, contractuales o de auditoría que exijan procedimientos específicos.
+
+## 6. Organiza un calendario de conteos cíclicos
+
+Una propuesta inicial consiste en clasificar referencias por valor de consumo, rotación, historial de diferencias y riesgo de merma. Las frecuencias deben adaptarse a cada garden.
+
+<div class="cnt-freq">
+ <div><span>GRUPO A</span><strong>Mensual</strong><p>Alta rotación, alto valor o gran impacto en disponibilidad.</p><div><i style="width:100%"></i></div><small>Ejemplo orientativo</small></div>
+ <div><span>GRUPO B</span><strong>Trimestral</strong><p>Referencias de importancia o variabilidad intermedia.</p><div><i style="width:65%"></i></div><small>Ejemplo orientativo</small></div>
+ <div><span>GRUPO C</span><strong>Semestral</strong><p>Baja rotación y menor riesgo, sin olvidar familias sensibles.</p><div><i style="width:34%"></i></div><small>Ejemplo orientativo</small></div>
+</div>
+
+Por ejemplo, puedes reservar 20 minutos diarios para una zona de alta rotación y una sesión semanal para el resto. La frecuencia ideal depende del catálogo, la carga del equipo y los errores observados.
+
+:::tip[No confundas ABC con riesgo]
+Una planta de poco valor unitario puede requerir controles frecuentes por su merma. Un producto de gran valor puede exigir vigilancia adicional aunque se venda poco. Combina el ABC con el riesgo operativo, no lo utilices como única regla.
+:::
+
+## 7. Cómo investigar una diferencia de inventario
+
+<div class="cnt-example">
+ <span>CASO ILUSTRATIVO · NO SON DATOS REALES DE ALIAT</span><h3>El sistema marca 24. El equipo cuenta 17.</h3>
+ <div class="cnt-numbers"><div><small>STOCK SISTEMA</small><strong>24</strong><span>unidades</span><div class="cnt-bar"><i style="width:100%"></i></div></div><div><small>STOCK FÍSICO</small><strong>17</strong><span>unidades</span><div class="cnt-bar"><i style="width:70.83%"></i></div></div><div class="cnt-diff"><small>DIFERENCIA</small><strong>−7</strong><span>unidades a investigar</span></div></div>
+ <p>Antes de aprobar un ajuste de −7, comprueba si existen unidades en otra ubicación, un albarán pendiente, una venta registrada con otro código o una merma no comunicada.</p>
+</div>
+
+### Secuencia de investigación
+
+1. **Recuenta la misma zona.** Si es posible, con una segunda persona.
+2. **Revisa ubicaciones adicionales.** Una referencia puede existir en tienda y en reserva.
+3. **Comprueba unidades y variantes.** Caja, pack y unidad suelta no siempre son equivalentes.
+4. **Consulta los últimos movimientos.** Recepciones, ventas, devoluciones, traspasos y mermas.
+5. **Identifica la causa más probable.** No etiquetes toda diferencia como «pérdida» sin evidencia.
+6. **Aprueba y registra el ajuste.** Deja constancia de qué ocurrió y qué medida impedirá repetirlo.
+
+| Causa confirmada | Acción correctiva |
+| --- | --- |
+| Venta en código equivocado | Corregir maestro de artículos y revisar caja |
+| Recepción sin validar | Implantar verificación contra albarán |
+| Traslado no registrado | Establecer registro de cambios de ubicación |
+| Planta deteriorada | Registrar merma diariamente |
+| Conteo duplicado | Marcar zonas cerradas y responsabilidades |
+| Causa no encontrada | Documentar incidencia y elevar controles de esa familia |
+
+## 8. Particularidades del conteo en un garden
+
+### Planta viva
+
+- Identifica variedad, tamaño y presentación cuando afecten a la referencia.
+- Distingue planta vendible, recuperable y no vendible.
+- Evita duplicidades entre mesas de exposición y reserva.
+- Registra la merma con su motivo, en vez de esperar al inventario anual.
+
+### Sustratos, tierra y abonos
+
+- Aclara si se cuenta en sacos, bolsas, palés, kilos o unidades de venta.
+- Comprueba formatos parecidos que pueden confundirse.
+- Evita estimar visualmente palés incompletos cuando se necesite precisión.
+
+### Macetas, decoración y herramientas
+
+- Revisa variantes de tamaño, color y modelo.
+- Cuenta unidades expuestas, reservas y posibles embalajes con cantidad distinta.
+- Usa el código del producto, no solo una descripción genérica.
+
+### Venta durante el conteo
+
+Si el establecimiento sigue abierto, define un procedimiento para registrar los movimientos posteriores al corte de inventario. Sin ese control, una venta realizada entre el recuento físico y la comparación con el sistema puede parecer una diferencia inexistente.
+
+## 9. Organiza el trabajo de las personas
+
+| Rol | Responsabilidad |
+| --- | --- |
+| Coordinación | Delimitar alcance, asignar zonas y decidir el cierre |
+| Contador | Identificar y contar sin utilizar la cifra teórica |
+| Segundo contador | Verificar diferencias relevantes de forma independiente |
+| Responsable de ajustes | Aprobar correcciones documentadas |
+| Apoyo de recepción/caja | Aclarar movimientos pendientes e incidencias |
+
+En equipos pequeños una persona puede asumir varias funciones, pero **la validación de diferencias importantes debería tener revisión independiente siempre que sea posible**.
+
+## 10. Mide la fiabilidad del inventario
+
+Una cifra de «exactitud» puede significar cosas diferentes. Define el indicador antes de establecer el objetivo.
+
+<div class="cnt-metrics">
+ <div><span>01 · EXACTITUD</span><strong>Referencias correctas</strong><p>Referencias contadas sin discrepancia ÷ total de referencias contadas × 100.</p></div>
+ <div><span>02 · DIFERENCIAS</span><strong>Valor ajustado</strong><p>Importe absoluto de ajustes aprobados durante el periodo. No compenses faltantes y sobrantes al medir desviación.</p></div>
+ <div><span>03 · OPERATIVA</span><strong>Zonas completadas</strong><p>Zonas contadas conforme al calendario ÷ zonas previstas × 100.</p></div>
+ <div><span>04 · CAUSAS</span><strong>Reincidencias</strong><p>Porcentaje de discrepancias que vuelven a aparecer por la misma causa.</p></div>
+</div>
+
+### Ejemplo de exactitud por referencia
+
+Si cuentas 120 referencias y 108 coinciden exactamente con el sistema:
+
+<div class="cnt-math"><div><strong>108</strong><span>Referencias correctas</span></div><b>÷</b><div><strong>120</strong><span>Referencias revisadas</span></div><b>× 100 =</b><div class="cnt-result"><strong>90%</strong><span>Exactitud por referencia</span></div></div>
+
+**Importante:** ese 90 % no indica el porcentaje de unidades correctas ni el error económico. Una discrepancia de una unidad y otra de cien unidades cuentan igual en este indicador. Para una visión completa, acompáñalo del valor y magnitud de las diferencias.
+
+## 11. Plan de implantación en cuatro semanas
+
+| Semana | Prioridad | Entregable |
+| --- | --- | --- |
+| **1 · Preparar** | Identificar zonas y familias, revisar movimientos pendientes | Mapa y procedimiento de conteo |
+| **2 · Pilotar** | Contar algunas zonas con método ciego y segundo recuento | Primeras diferencias clasificadas |
+| **3 · Corregir** | Investigar causas y ajustar registros con autorización | Registro de incidencias y acciones |
+| **4 · Sistematizar** | Aprobar calendario cíclico y responsables | Rutina y tablero de indicadores |
+
+Empieza por una zona delimitada y una selección de referencias representativa. Amplía cuando el equipo domine el método.
+
+## 12. Errores frecuentes
+
+- **Contar viendo el stock teórico.** Puede sesgar el resultado.
+- **No fijar un momento de corte.** Las ventas y recepciones posteriores crean falsas discrepancias.
+- **Contar dos veces una zona.** Omitir el cierre o marcado del espacio provoca duplicidades.
+- **Ajustar directamente sin recontar.** Oculta errores de proceso.
+- **Usar unidades diferentes.** Confundir caja con unidad o formatos de tamaño distinto.
+- **Dejar las mermas para final de año.** La disponibilidad deja de ser fiable.
+- **Celebrar una exactitud alta sin revisar el valor.** Pocas diferencias muy grandes también pueden ser graves.
+- **No investigar causas recurrentes.** El mismo error vuelve en el próximo inventario.
+
+## 13. Checklist para el próximo conteo
+
+- [ ] Las zonas están delimitadas y tienen responsable.
+- [ ] Las referencias están identificadas con códigos correctos.
+- [ ] Tenemos un procedimiento de corte o registro de movimientos.
+- [ ] Las entradas y devoluciones pendientes están identificadas.
+- [ ] Se distingue mercancía vendible de merma o incidencias.
+- [ ] El contador no ve la cantidad del sistema.
+- [ ] Se cuenta con una unidad de medida acordada.
+- [ ] Las zonas terminadas quedan marcadas.
+- [ ] Las diferencias relevantes se vuelven a contar.
+- [ ] Los ajustes necesitan validación y motivo.
+- [ ] Registramos causas para evitar su repetición.
+- [ ] Existe un calendario de conteos cíclicos posterior.
+
+## 14. Empieza esta semana
+
+Selecciona una zona pequeña, establece el corte, haz un conteo a ciegas y revisa las diferencias una por una. **No busques solo corregir la cifra: busca el mecanismo que la desajustó.**
+
+<div class="cnt-next">
+ <div><span>SIGUIENTE PASO</span><h3>Convierte el recuento en confianza.</h3><p>Consulta las plantillas, revisa las entradas y salidas o contacta con Cymara para organizar el inventario de tu garden.</p></div>
+ <div><a href="/plantillas/">Ver plantillas ↗</a><a href="/problemas/movimientos/">Entradas y salidas ↗</a><a href="/#contacto">Hablar con Cymara ↗</a></div>
+</div>
+
+<style>{`
+.cnt-hero{background:linear-gradient(125deg,#eff8f3,#dcefe6);border:1px solid #d3e7dc;border-radius:22px;padding:clamp(22px,4vw,42px);margin:10px 0 26px}.cnt-kicker,.cnt-example>span,.cnt-next>div>span{font:800 11px Outfit,system-ui,sans-serif;letter-spacing:.11em;color:#358571}.cnt-hero h2{font:800 clamp(30px,4vw,46px)/1.1 Outfit,system-ui,sans-serif;letter-spacing:-.045em;color:#1e4b40;margin:14px 0}.cnt-hero p{max-width:820px;font-size:16px;line-height:1.75;color:#47675c}.cnt-hero-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:23px}.cnt-hero-grid>div{background:#fff;border:1px solid #dce9e2;border-radius:13px;padding:17px;display:flex;flex-direction:column;gap:5px}.cnt-hero-grid strong{font-size:21px;color:#287665}.cnt-hero-grid span{font-size:12px;color:#638174}
+.cnt-flow{display:flex;align-items:stretch;gap:8px;margin:24px 0}.cnt-flow>div{flex:1;min-width:0;background:#f6faf7;border:1px solid #dcebe2;border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:7px}.cnt-flow>div span,.cnt-phases>div>span,.cnt-steps>div>span,.cnt-freq>div>span,.cnt-metrics>div>span{font-size:10px;color:#358c78;font-weight:800;letter-spacing:.06em}.cnt-flow>div strong{font-size:14px;color:#244d3f}.cnt-flow small{font-size:12px;line-height:1.5;color:#647d72}.cnt-flow>b{display:grid;place-items:center;color:#388d78}
+.cnt-phases,.cnt-compare,.cnt-freq{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}.cnt-phases>div,.cnt-compare>div,.cnt-freq>div{display:flex;flex-direction:column;gap:9px;background:#fff;border:1px solid #dce9e1;border-radius:15px;padding:19px;min-width:0}.cnt-phases h3,.cnt-compare h3{font-size:20px;color:#275442;margin:0}.cnt-phases p,.cnt-compare p,.cnt-freq p{font-size:13px;line-height:1.6;color:#617a6c;margin:0;flex:1}.cnt-phases strong,.cnt-compare strong{font-size:12px;color:#287461}.cnt-compare{grid-template-columns:repeat(2,minmax(0,1fr))}.cnt-compare small,.cnt-freq small{font-size:11px;line-height:1.5;color:#657e72}
+.cnt-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:23px 0}.cnt-steps>div{background:#f5faf7;border:1px solid #dcebe2;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:9px}.cnt-steps strong{font-size:15px;color:#285443}.cnt-steps p{font-size:12px;line-height:1.55;color:#637b70;margin:0}
+.cnt-freq strong{font-size:29px;letter-spacing:-.04em;color:#27705d}.cnt-freq>div>div,.cnt-bar{height:9px;background:#e1ede5;border-radius:30px;overflow:hidden}.cnt-freq i,.cnt-bar i{display:block;background:#45968a;height:100%;border-radius:30px}
+.cnt-example{background:#eef8f1;border:1px solid #d5e8dc;border-radius:18px;padding:24px;margin:24px 0}.cnt-example h3{font-size:22px;color:#285545;margin:13px 0}.cnt-numbers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:19px 0}.cnt-numbers>div{display:flex;flex-direction:column;gap:8px}.cnt-numbers small,.cnt-math span{font-size:11px;color:#607b6d;font-weight:800}.cnt-numbers strong{font-size:36px;color:#276d5a;line-height:1}.cnt-numbers span{font-size:12px;color:#617b6f}.cnt-numbers .cnt-diff{background:#fff;border:1px solid #d4e6d8;border-radius:12px;padding:14px}.cnt-example>p{font-size:12px;line-height:1.6;color:#617b70}
+.cnt-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0}.cnt-metrics>div{background:#fff;border:1px solid #dce9e2;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}.cnt-metrics strong{font-size:17px;color:#285545}.cnt-metrics p{font-size:12px;line-height:1.55;color:#657d71;margin:0}
+.cnt-math{display:flex;align-items:stretch;gap:9px;flex-wrap:wrap;margin:23px 0}.cnt-math>div{flex:1;min-width:130px;border:1px solid #dbe9e0;background:#f6faf7;border-radius:13px;padding:15px;display:flex;flex-direction:column;gap:6px}.cnt-math>b{align-self:center;color:#358873;font-size:17px}.cnt-math strong{font-size:33px;color:#28705b}.cnt-math .cnt-result{background:#287866;border-color:#287866}.cnt-math .cnt-result *{color:#fff}
+.cnt-next{display:flex;align-items:center;justify-content:space-between;gap:22px;background:#e6f3eb;border:1px solid #d1e5d7;border-radius:18px;padding:27px;margin:26px 0}.cnt-next h3{font-size:25px;color:#275443;margin:9px 0}.cnt-next p{font-size:13px;color:#5b7469;line-height:1.6;max-width:530px}.cnt-next>div:last-child{display:flex;flex-direction:column;gap:8px;min-width:185px}.cnt-next a{background:#fff;border:1px solid #cee1d5;border-radius:25px;padding:10px 14px;color:#287866!important;text-decoration:none!important;font-size:12px;font-weight:800;text-align:center}
+@media(max-width:960px){.cnt-flow{display:grid;grid-template-columns:1fr 1fr}.cnt-flow>b{display:none}.cnt-metrics{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.cnt-hero-grid,.cnt-phases,.cnt-freq,.cnt-steps,.cnt-metrics,.cnt-numbers{grid-template-columns:1fr}.cnt-flow,.cnt-compare{grid-template-columns:1fr}.cnt-next{flex-direction:column;align-items:stretch}.cnt-next>div:last-child{min-width:0}}
+`}</style>
