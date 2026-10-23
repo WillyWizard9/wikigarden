@@ -1,3 +1,3 @@
 ﻿SKU,Producto,Demanda diaria,Plazo proveedor dias,Stock seguridad,Stock vendible,En transito,Comprometido,Punto de pedido,Posicion inventario,Activar revision,Cantidad objetivo,Cantidad sugerida
-SUS50,Sustrato universal 50 L,6,7,18,35,50,10,=C2*D2+E2,=F2+G2-H2,=IF(J2<=I2,"""REVISAR""","""OK"")",120,=MAX(0,L2-J2)
-ABO01,Abono liquido 1 L,2,5,6,12,0,0,=C3*D3+E3,=F3+G3-H3,=IF(J3<=I3,"""REVISAR""","""OK"")",35,=MAX(0,L3-J3)
+SUS50,Sustrato universal 50 L,6,7,18,35,50,10,=C2*D2+E2,=F2+G2-H2,"=IF(J2<=I2,""REVISAR"",""OK"")",120,=MAX(0,L2-J2)
+ABO01,Abono liquido 1 L,2,5,6,12,0,0,=C3*D3+E3,=F3+G3-H3,"=IF(J3<=I3,""REVISAR"",""OK"")",35,=MAX(0,L3-J3)
