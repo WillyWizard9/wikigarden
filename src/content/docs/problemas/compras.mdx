@@ -1,65 +1,233 @@
 ---
 title: 3. Planificación de compras
-description: Compras semanales y de temporada que consumen demasiado tiempo de análisis.
+description: Guía para planificar reposiciones y campañas, calcular puntos de pedido y reducir roturas y exceso de stock en el garden.
 ---
 
 import ActionPath from '../../../components/ActionPath.astro';
 
+<div class="buy-hero">
+ <span class="buy-kicker">RETO 03 · PLANIFICACIÓN DE COMPRAS</span>
+ <h2>Comprar mejor no es comprar menos. Es comprar lo que toca, cuando toca.</h2>
+ <p>La experiencia del comprador es valiosa. El problema aparece cuando <strong>toda la planificación depende de recorrer el garden, recordar lo que pasó el año pasado o decidir a ojo</strong>. Un buen sistema combina datos de ventas, existencias reales, plazos de proveedor y conocimiento del negocio.</p>
+ <div class="buy-hero-stats"><div><strong>Demanda</strong><small>¿Qué se venderá?</small></div><div><strong>Inventario</strong><small>¿Qué tenemos y qué viene?</small></div><div><strong>Plazo</strong><small>¿Cuándo llegará?</small></div></div>
+</div>
+
 <ActionPath kind="compras" />
 
-En un garden la compra tiene dos ritmos: la reposición semanal y las campañas de temporada. Los dos necesitan datos, no solo experiencia.
+## 1. Por qué las compras son una de las decisiones más importantes
 
-:::note[Lo que vimos en el garden]
-[Pendiente: cómo se preparan hoy las compras semanales y de campaña, y cuánto tiempo llevan.]
+En un garden se compran dos tipos de futuro. El primero es cercano: reponer el sustrato, el abono o la herramienta que se vende cada semana. El segundo es estacional: anticipar la campaña de primavera, Navidad o una promoción concreta.
+
+Un pedido acertado mantiene la disponibilidad sin bloquear dinero. Uno mal ajustado puede provocar dos errores opuestos:
+
+<div class="buy-dual">
+ <div><span>ERROR A · COMPRAR DE MENOS</span><h3>Rotura de stock</h3><p>El cliente viene a buscar una referencia y no está disponible. Pierdes la oportunidad de venta y quizá también la confianza del cliente.</p><strong>Consecuencia:</strong><small>Venta perdida, urgencias, pedidos extra y mayor presión sobre el equipo.</small></div>
+ <div><span>ERROR B · COMPRAR DE MÁS</span><h3>Sobrestock</h3><p>La mercancía se acumula, ocupa espacio y compromete capital. En planta viva, además, puede deteriorarse antes de venderse.</p><strong>Consecuencia:</strong><small>Coste de almacenamiento, descuentos, merma y menos presupuesto para productos demandados.</small></div>
+</div>
+
+El objetivo no es eliminar por completo estos riesgos, algo difícil en un negocio estacional, sino **tomar decisiones consistentes y aprender de las desviaciones**.
+
+:::note[Ejemplo ilustrativo]
+Un garden vende normalmente 40 sacos de sustrato a la semana. Si espera hasta tener 10 unidades para pedir y el proveedor tarda dos semanas, puede quedarse sin existencias antes de recibir el pedido. El problema no es necesariamente vender más de lo previsto: quizá el pedido se hace demasiado tarde.
 :::
 
-## Señales de que te pasa
+## 2. Los cinco datos mínimos que necesita cada pedido
 
-- El pedido semanal se hace recorriendo el garden y apuntando a mano.
-- Preparar los pedidos te lleva varias horas a la semana.
-- En campaña te quedas sin lo que más se vende y te sobra lo demás.
-- Las compras dependen de una sola persona que "lo tiene en la cabeza".
+| Dato | Pregunta que responde | Fuente habitual |
+| --- | --- | --- |
+| Ventas recientes | ¿A qué ritmo sale la referencia? | TPV / ERP |
+| Stock disponible | ¿Cuántas unidades vendibles tenemos? | Inventario actualizado |
+| Pedidos pendientes | ¿Qué mercancía llegará próximamente? | Compras y albaranes |
+| Plazo de entrega | ¿Cuánto tarda realmente el proveedor? | Histórico de recepciones |
+| Eventos futuros | ¿Cambiará la demanda? | Campañas, calendario y criterio comercial |
 
-## Por qué pasa
+**Antes de automatizar una propuesta de compra, asegúrate de que las ventas descuentan correctamente las existencias.** Si los movimientos están mal registrados, el cálculo partirá de datos equivocados. Revisa [entradas y salidas](/problemas/movimientos/) y [conteos](/problemas/conteos/).
 
-- **No se usan los datos de venta** del sistema para decidir cuánto pedir.
-- **No hay un punto de pedido** definido por referencia.
-- **La campaña se planifica copiando el año anterior**, sin ajustar por lo que realmente se vendió ni por cambios de surtido.
-- **El stock del sistema no es fiable**, así que nadie se fía de él para pedir (ver [conteos](/problemas/conteos/)).
+## 3. Calcula el punto de pedido
 
-## Qué te cuesta
+El **punto de pedido** es el nivel de existencias que indica cuándo conviene lanzar una reposición. Para una demanda relativamente estable puede utilizarse una fórmula sencilla:
 
-- Horas de trabajo cualificado cada semana.
-- Roturas en lo que más se vende y sobrestock en lo que menos.
-- Dependencia de una persona: si falta, las compras se resienten.
+<div class="buy-formula">
+ <span>FÓRMULA DE REFERENCIA</span>
+ <div><strong>Punto de pedido</strong><b>=</b><span>Demanda diaria prevista × plazo de entrega en días + stock de seguridad</span></div>
+ <p>Las unidades deben ser coherentes. Si compras solo ciertos días, considera además los días que faltan hasta la siguiente revisión del pedido.</p>
+</div>
 
-## Solución: compra semanal
+### Ejemplo: sustrato universal
 
-1. **Define para cada referencia A y B** su venta media semanal y su plazo de entrega del proveedor.
-2. **Calcula el punto de pedido:** venta semanal × (plazo de entrega en semanas + 1 semana de seguridad).
-3. **Cada semana, saca del sistema** las referencias cuyo stock está por debajo del punto de pedido. Esa es la base del pedido.
-4. **Revisa la lista con criterio:** tiempo, eventos o promociones previstas. Ajusta, pero partiendo del dato.
-5. **Agrupa por proveedor y día de pedido.** Fija un calendario: cada proveedor tiene su día.
+Supongamos una venta prevista de **6 sacos diarios**, un proveedor con **7 días de plazo** y un **stock de seguridad de 18 sacos**.
 
-## Solución: compras de temporada
+<div class="buy-equation"><div><small>DEMANDA DURANTE EL PLAZO</small><strong>42</strong><span>6 × 7 días</span></div><b>+</b><div><small>STOCK DE SEGURIDAD</small><strong>18</strong><span>Unidades de protección</span></div><b>=</b><div class="total"><small>PUNTO DE PEDIDO</small><strong>60</strong><span>Sacos</span></div></div>
 
-1. **Saca las ventas de la campaña anterior por familia y semana**, no solo el total.
-2. **Separa lo que se vendió de lo que se compró.** Lo que se liquidó o se tiró no es demanda.
-3. **Ajusta por cambios conocidos:** nuevas referencias, cambios de precio, metros de exposición.
-4. **Reparte la compra en varias entregas** en lugar de una sola al inicio de campaña, cuando el proveedor lo permita.
-5. **Revisa a mitad de campaña** y ajusta las últimas entregas.
+Cuando la **posición de inventario** se acerca o desciende de 60, corresponde revisar una reposición. No significa necesariamente pedir 60 sacos. Para decidir la cantidad debes considerar existencias, pedidos abiertos, demanda futura y el stock objetivo.
 
-## Cómo saber que funciona
-
-- El pedido semanal se prepara en menos de una hora.
-- Menos roturas en referencias A y menos sobrestock al cerrar campaña.
-
-## Plantillas
-
-- [Calculadora de punto de pedido](/plantillas/)
-- [Calendario de pedidos por proveedor](/plantillas/)
-- [Plan de compra de campaña](/plantillas/)
-
-:::tip[¿Quieres automatizarlo?]
-El software de compras de Cymara genera cada semana la propuesta de pedido y el plan de campaña a partir de tus ventas. Pregunta por él en el [diagnóstico gratuito](/#contacto).
+:::caution[Stock disponible no es lo mismo que posición de inventario]
+Para decidir cuándo pedir, puede utilizarse la **posición de inventario = existencias disponibles + pedidos pendientes de recibir − unidades comprometidas**. No sumes mercancía en tránsito dos veces ni cuentes como vendible el stock dañado o reservado.
 :::
+
+## 4. Diferencia cuándo pedir de cuánto pedir
+
+El punto de pedido responde a **cuándo actuar**. La cantidad a solicitar responde a **hasta qué nivel conviene reponer**.
+
+Por ejemplo, si quieres cubrir tres semanas de demanda y calculas 40 unidades semanales, necesitas 120 unidades para ese horizonte. Si dispones de 35, tienes otras 50 pendientes de recibir y 10 comprometidas, la necesidad neta orientativa sería:
+
+<div class="buy-calculation">
+ <span>EJEMPLO ILUSTRATIVO · NO ES UNA RECOMENDACIÓN AUTOMÁTICA</span>
+ <div><strong>120</strong><small>Objetivo de stock</small></div><b>−</b><div><strong>35</strong><small>Stock vendible</small></div><b>−</b><div><strong>50</strong><small>Pedido en tránsito</small></div><b>+</b><div><strong>10</strong><small>Comprometido</small></div><b>=</b><div class="buy-highlight"><strong>45</strong><small>Unidades a considerar</small></div>
+ <p>Antes de emitirlo, revisa fechas de llegada, lotes mínimos, múltiplos de embalaje, estacionalidad y si el objetivo cubre correctamente el periodo hasta la siguiente revisión.</p>
+</div>
+
+Si la cantidad necesaria fuera negativa, no significa que debas comprar una cantidad negativa: simplemente no existe necesidad neta bajo esos supuestos.
+
+## 5. Diseña una rutina semanal que ahorre tiempo
+
+<div class="buy-week">
+ <div><span>01 · EXTRAER</span><strong>Datos actualizados</strong><p>Reúne ventas, stock disponible, pedidos abiertos y devoluciones.</p></div>
+ <div><span>02 · CALCULAR</span><strong>Lista de excepciones</strong><p>Identifica referencias por debajo del punto de pedido o con demanda próxima inusual.</p></div>
+ <div><span>03 · REVISAR</span><strong>Juicio comercial</strong><p>Ajusta por campañas, clima, nuevas referencias y compromisos conocidos.</p></div>
+ <div><span>04 · ENVIAR</span><strong>Pedido por proveedor</strong><p>Agrupa artículos, valida mínimos y confirma fechas de entrega.</p></div>
+ <div><span>05 · APRENDER</span><strong>Seguimiento</strong><p>Contrasta lo que llegó, lo que se vendió y los errores de previsión.</p></div>
+</div>
+
+### Dos escenarios habituales
+
+**Si compras varias veces por semana**, los pedidos pueden ser más pequeños y reaccionar a cambios de demanda, siempre que transporte y mínimos lo permitan.
+
+**Si compras una vez por semana**, debes proteger también el periodo entre revisiones: el producto puede caer por debajo del punto de pedido justo después de cerrar el pedido y no volver a revisarse durante días.
+
+:::tip[Una lista de compra no debería obligarte a recorrer todo el garden]
+Lo ideal es que la información produzca una **propuesta inicial de pedido**. El responsable la revisa y corrige las excepciones. La experiencia deja de emplearse en recopilar datos y pasa a emplearse en tomar mejores decisiones.
+:::
+
+## 6. Compras de campaña: del total anual a la curva semanal
+
+En campañas estacionales, sumar las ventas del año anterior no basta. Importa **en qué semanas se vendió cada producto** y cuántas ventas se perdieron por falta de stock.
+
+<div class="buy-season">
+ <div class="buy-seasonhead"><span>DEMANDA POR SEMANA · EJEMPLO ILUSTRATIVO</span><strong>Campaña de primavera</strong></div>
+ <div class="buy-bars">
+  <div><i style="height:25%"></i><span>S1</span></div><div><i style="height:42%"></i><span>S2</span></div><div><i style="height:78%"></i><span>S3</span></div><div><i style="height:100%"></i><span>S4</span></div><div><i style="height:83%"></i><span>S5</span></div><div><i style="height:62%"></i><span>S6</span></div><div><i style="height:36%"></i><span>S7</span></div><div><i style="height:19%"></i><span>S8</span></div>
+ </div>
+ <p>Una misma cantidad total puede generar roturas en el pico de demanda y exceso al final de temporada si las entregas llegan en el momento equivocado.</p>
+</div>
+
+### Cómo construir una previsión útil
+
+1. **Reconstruye la campaña anterior por semanas y familias.** Distingue venta normal, promociones, devoluciones y liquidaciones.
+2. **Identifica las roturas.** Si se agotó un artículo, las ventas observadas pueden ser inferiores a su demanda real.
+3. **Ajusta cambios conocidos.** Considera precios, días festivos, expositores, competencia, surtido y comportamiento climático.
+4. **Planifica entregas escalonadas.** Cuando el proveedor lo permita, reparte el suministro para reducir capital inmovilizado.
+5. **Revisa durante la campaña.** Compara venta real con prevista y ajusta entregas pendientes antes de que sea demasiado tarde.
+
+**Distingue el clima de una predicción infalible.** La meteorología afecta a muchas familias, pero una previsión climática no garantiza un volumen concreto de ventas.
+
+## 7. Gestiona cada familia de producto de forma distinta
+
+<div class="buy-categories">
+ <div><span>01</span><h3>Planta viva</h3><p>Vida comercial limitada, merma y demanda muy sensible a estación y condiciones de conservación.</p><strong>Prioridad:</strong><small>Entregas frecuentes cuando sea viable, revisión de calidad y ajuste rápido de campaña.</small></div>
+ <div><span>02</span><h3>Sustratos y abonos</h3><p>Referencias de reposición frecuente, con espacio de almacenamiento y formatos diversos.</p><strong>Prioridad:</strong><small>Disponibilidad de los superventas, plazos reales y capacidad física.</small></div>
+ <div><span>03</span><h3>Herramientas y accesorios</h3><p>Algunas referencias tienen demanda estable; otras, ventas irregulares o especializadas.</p><strong>Prioridad:</strong><small>Distinguir básicos de artículos de venta esporádica y evitar sobreaprovisionar los segundos.</small></div>
+ <div><span>04</span><h3>Decoración estacional</h3><p>Ventana comercial corta y riesgo de terminar con mercancía que pierde atractivo.</p><strong>Prioridad:</strong><small>Planificar cantidades, calendario de entregas y salida del remanente.</small></div>
+</div>
+
+## 8. Los proveedores forman parte de la previsión
+
+Un cálculo solo es útil si incluye cómo responde realmente el proveedor. Un plazo prometido de 4 días no sirve para planificar si las últimas entregas tardaron 9.
+
+| Factor | Pregunta que debes hacer | Acción |
+| --- | --- | --- |
+| Plazo real | ¿Cuántos días tarda normalmente? | Medir entre pedido y recepción |
+| Variabilidad | ¿A veces tarda mucho más? | Ajustar la protección según riesgo |
+| Mínimos | ¿Existe importe o cantidad mínima? | Agrupar pedidos sin crear exceso |
+| Múltiplos | ¿Se vende en cajas o palés completos? | Redondear la compra con criterio |
+| Disponibilidad | ¿Hay referencias de suministro irregular? | Identificar alternativas |
+| Fiabilidad | ¿Llega completo y a tiempo? | Revisar incidencias de entrega |
+
+**No persigas un descuento de compra ignorando su coste total.** Comprar 100 unidades para abaratar cada pieza puede salir más caro si solo necesitas 35 y el resto termina liquidado.
+
+## 9. Matriz de prioridades: dónde invertir tu tiempo
+
+<div class="buy-matrix">
+ <div class="buy-matrix-title"><span></span><strong>RIESGO DE ROTURA ALTO</strong><strong>RIESGO DE ROTURA BAJO</strong></div>
+ <div><strong>IMPACTO EN VENTA ALTO</strong><p class="buy-matrix-cell buy-hot"><b>Actuar primero</b><small>Validar existencias y acelerar reposición.</small></p><p class="buy-matrix-cell buy-watch"><b>Asegurar disponibilidad</b><small>Mantener cobertura y revisar desviaciones.</small></p></div>
+ <div><strong>IMPACTO EN VENTA BAJO</strong><p class="buy-matrix-cell buy-mid"><b>Resolver por excepción</b><small>Evaluar alternativas y frecuencia de pedido.</small></p><p class="buy-matrix-cell buy-cool"><b>Automatizar revisión</b><small>Evitar dedicar demasiado tiempo a referencias secundarias.</small></p></div>
+</div>
+
+Esta matriz es un instrumento de priorización, no sustituye al análisis de margen, importancia para el cliente o valor estratégico de la referencia.
+
+## 10. Plan de implantación en cuatro semanas
+
+| Semana | Acción | Resultado esperado |
+| --- | --- | --- |
+| **1 · Datos** | Validar stock, ventas y plazos de 20–30 referencias relevantes | Base fiable para un piloto |
+| **2 · Parámetros** | Definir demanda, seguridad, punto de pedido y revisión | Reglas iniciales documentadas |
+| **3 · Operativa** | Preparar un pedido con propuesta basada en datos y revisar excepciones | Primer proceso repetible |
+| **4 · Medición** | Analizar roturas, exceso y tiempo de preparación | Ajustes antes de escalar |
+
+Elige un piloto mixto: referencias de alta rotación, artículos estacionales y productos de suministro irregular. Así descubrirás qué criterios requieren reglas distintas.
+
+## 11. Mide si compras mejor
+
+<div class="buy-metrics">
+ <div><span>01 · SERVICIO</span><strong>Disponibilidad</strong><p>Porcentaje de comprobaciones o necesidades de venta con producto disponible. Define siempre cómo se mide.</p></div>
+ <div><span>02 · INVENTARIO</span><strong>Semanas de cobertura</strong><p>Stock dividido entre demanda semanal representativa. Contrasta con objetivos por familia.</p></div>
+ <div><span>03 · EFICIENCIA</span><strong>Tiempo para pedir</strong><p>Minutos dedicados a preparar, revisar y emitir pedidos por semana.</p></div>
+ <div><span>04 · PREVISIÓN</span><strong>Error de demanda</strong><p>Diferencia entre venta prevista y demanda real estimada; registra las roturas que distorsionan las ventas.</p></div>
+</div>
+
+<div class="buy-comparison">
+ <span>EJEMPLO HIPOTÉTICO · NO ES UN RESULTADO REAL</span>
+ <h3>Menos tiempo preparando pedidos</h3>
+ <div class="buy-comparison-grid"><div><small>ANTES</small><strong>180 min</strong><span>Recorrer, anotar y consolidar</span><div class="buy-meter"><i style="width:100%"></i></div></div><div><small>DESPUÉS</small><strong>55 min</strong><span>Revisar una propuesta y excepciones</span><div class="buy-meter"><i style="width:30.6%"></i></div></div></div>
+ <p>En esta simulación, la preparación semanal se reduce 125 minutos. No garantiza ese ahorro para todos los gardens; se debe medir con el proceso y herramientas de cada uno.</p>
+</div>
+
+## 12. Errores frecuentes
+
+- **Copiar la compra del año anterior.** Lo comprado no es igual a lo vendido ni a la demanda real.
+- **Olvidar pedidos pendientes.** Genera duplicidades y exceso de stock.
+- **Pedir solo cuando el lineal parece vacío.** Puede ser demasiado tarde si el proveedor tarda varios días.
+- **Tratar todos los productos igual.** Planta viva y artículos importados tienen riesgos distintos.
+- **Fijar una seguridad arbitraria para siempre.** Debe revisarse ante cambios de demanda o suministro.
+- **No recoger las causas de una excepción.** Si siempre corriges manualmente el mismo producto, el parámetro necesita una revisión.
+- **Optimizar compras sin comprobar inventario.** Una cifra de stock equivocada puede invalidar toda la propuesta.
+
+## 13. Checklist de aplicación
+
+- [ ] Dispongo de ventas recientes por referencia y semana.
+- [ ] El stock refleja recepciones, ventas, devoluciones y mermas.
+- [ ] Identifico pedidos pendientes de recibir.
+- [ ] Conozco plazos de entrega reales de los proveedores clave.
+- [ ] He definido un sistema de revisión por proveedor.
+- [ ] Las referencias prioritarias tienen punto de pedido.
+- [ ] Distingo cuánto pedir de cuándo pedir.
+- [ ] Ajusto previsiones de campaña por semana.
+- [ ] Considero promociones, clima y cambios de surtido.
+- [ ] Mido disponibilidad, sobrestock y tiempo invertido.
+- [ ] Reviso y corrijo los parámetros con regularidad.
+
+## 14. Empieza por un solo proveedor
+
+Escoge un proveedor habitual. Identifica las veinte referencias que más necesitas reponer, anota stock, ventas, pedidos abiertos y plazos, y construye una primera propuesta de compra. Compárala con lo que habrías pedido manualmente. **Investiga las diferencias antes de cambiarlo todo.**
+
+<div class="buy-next">
+ <div><span>SIGUIENTE PASO</span><h3>Convierte las compras en un proceso.</h3><p>Experimenta con el punto de pedido en el laboratorio, consulta las plantillas o habla con Cymara para revisar tu operativa.</p></div>
+ <div><a href="/laboratorio/">Abrir laboratorio ↗</a><a href="/plantillas/">Ver plantillas ↗</a><a href="/#contacto">Hablar con Cymara ↗</a></div>
+</div>
+
+<style>{`
+.buy-hero{background:linear-gradient(125deg,#eff8f3,#dcefe6);border:1px solid #d3e7dc;border-radius:22px;padding:clamp(22px,4vw,42px);margin:10px 0 26px}.buy-kicker,.buy-comparison>span,.buy-next>div>span{font:800 11px Outfit,system-ui,sans-serif;letter-spacing:.11em;color:#358571}.buy-hero h2{font:800 clamp(30px,4vw,46px)/1.1 Outfit,system-ui,sans-serif;letter-spacing:-.045em;color:#1e4b40;margin:14px 0}.buy-hero p{font-size:16px;line-height:1.75;color:#47675c;max-width:800px}.buy-hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:23px}.buy-hero-stats>div{background:#fff;border:1px solid #dce9e2;border-radius:13px;padding:17px;display:flex;flex-direction:column;gap:6px}.buy-hero-stats strong{font-size:21px;color:#287665}.buy-hero-stats small{font-size:12px;color:#638174}
+.buy-dual{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0}.buy-dual>div{border:1px solid #dce9e2;background:#f7faf8;border-radius:15px;padding:21px;display:flex;flex-direction:column;gap:10px}.buy-dual>div>span{font-size:11px;color:#358571;font-weight:800;letter-spacing:.07em}.buy-dual h3{font-size:22px;color:#244f40;margin:0}.buy-dual p,.buy-dual small{font-size:13px;color:#647c70;line-height:1.6;margin:0}.buy-dual strong{color:#2b6754;font-size:12px;margin-top:auto}
+.buy-formula{background:#eaf4ef;border:1px solid #d5e7dc;border-radius:17px;padding:23px;margin:24px 0}.buy-formula>span,.buy-calculation>span,.buy-seasonhead>span{font-size:11px;color:#378a75;letter-spacing:.1em;font-weight:800}.buy-formula>div{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin:18px 0;color:#254f40}.buy-formula strong{font-size:20px}.buy-formula b{font-size:24px;color:#398d78}.buy-formula>div span{background:white;border-radius:10px;padding:11px 15px;font-size:15px;font-weight:700}.buy-formula p{font-size:12px;color:#647e72;line-height:1.6}
+.buy-equation{display:flex;align-items:stretch;flex-wrap:wrap;gap:9px;margin:23px 0}.buy-equation>div{flex:1;min-width:130px;display:flex;flex-direction:column;gap:7px;padding:17px;background:#f4faf6;border:1px solid #deebe2;border-radius:12px}.buy-equation>b{align-self:center;color:#328873;font-size:24px}.buy-equation small,.buy-calculation small{font-size:10px;letter-spacing:.04em;color:#638071;font-weight:800}.buy-equation strong,.buy-calculation strong{font-size:36px;line-height:1;color:#28705b}.buy-equation span{font-size:12px;color:#638071}.buy-equation .total,.buy-calculation .buy-highlight{background:#277763;border-color:#277763}.buy-equation .total *,.buy-calculation .buy-highlight *{color:#fff}
+.buy-calculation{background:#f4faf6;border:1px solid #dcebe1;border-radius:17px;padding:20px;margin:24px 0;display:flex;align-items:stretch;flex-wrap:wrap;gap:9px}.buy-calculation>span,.buy-calculation>p{flex:1 1 100%}.buy-calculation>div{flex:1;min-width:85px;border-radius:11px;background:#fff;border:1px solid #e0ebe4;padding:14px 10px;display:flex;flex-direction:column;gap:8px}.buy-calculation>b{align-self:center;color:#358773;font-size:19px}.buy-calculation strong{font-size:27px}.buy-calculation p{font-size:12px;color:#61786c;line-height:1.6;margin:7px 0 0}
+.buy-week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:24px 0}.buy-week>div{background:#fff;border:1px solid #dce9e1;border-radius:13px;padding:15px;display:flex;flex-direction:column;gap:9px}.buy-week span,.buy-categories span,.buy-metrics span{font-size:10px;letter-spacing:.07em;color:#398976;font-weight:800}.buy-week strong{font-size:15px;color:#2a5546}.buy-week p{font-size:12px;line-height:1.55;color:#637d70;margin:0}
+.buy-season{background:#f6faf8;border:1px solid #dbeae2;border-radius:17px;padding:23px;margin:23px 0}.buy-seasonhead{display:flex;flex-direction:column;gap:7px}.buy-seasonhead strong{font-size:20px;color:#265945}.buy-bars{height:210px;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));align-items:end;gap:13px;padding-top:20px;border-bottom:1px solid #cfe1d5;margin:20px 0}.buy-bars>div{height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:10px}.buy-bars i{display:block;width:100%;max-width:54px;min-height:4px;background:linear-gradient(#5fb09a,#358f78);border-radius:8px 8px 0 0}.buy-bars span{font-size:11px;font-weight:700;color:#638073;flex-shrink:0}.buy-season p{font-size:12px;line-height:1.6;color:#627b6f}
+.buy-categories{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0}.buy-categories>div{background:#fff;border:1px solid #dce9e2;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}.buy-categories h3{font-size:17px;color:#285545;margin:0}.buy-categories p{font-size:12px;line-height:1.6;color:#647b70;margin:0;flex:1}.buy-categories strong{font-size:12px;color:#33735e}.buy-categories small{font-size:11px;line-height:1.55;color:#647b70}
+.buy-matrix{background:#fff;border:1px solid #dce9e1;border-radius:17px;padding:16px;margin:24px 0}.buy-matrix-title,.buy-matrix>div:not(:first-child){display:grid;grid-template-columns:150px 1fr 1fr;gap:9px;margin-bottom:9px}.buy-matrix-title strong{font-size:11px;color:#477c6c;text-align:center}.buy-matrix>div:not(:first-child)>strong{font-size:11px;color:#477264;align-self:center}.buy-matrix-cell{display:flex;flex-direction:column;gap:7px;border-radius:11px;padding:14px;margin:0!important}.buy-matrix-cell b{font-size:13px;color:#254d40}.buy-matrix-cell small{font-size:11px;color:#5b7468;line-height:1.5}.buy-hot{background:#f5e4d8}.buy-watch{background:#e3f1e9}.buy-mid{background:#f9efd9}.buy-cool{background:#eaf1f7}
+.buy-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0}.buy-metrics>div{background:#fff;border:1px solid #dce9e2;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}.buy-metrics strong{font-size:17px;color:#285545}.buy-metrics p{font-size:12px;line-height:1.6;color:#657d71;margin:0}
+.buy-comparison{background:#eef8f1;border:1px solid #d5e8dc;border-radius:18px;padding:22px;margin:25px 0}.buy-comparison h3{font-size:22px;color:#285545;margin:12px 0}.buy-comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0}.buy-comparison-grid>div{display:flex;flex-direction:column;gap:9px}.buy-comparison-grid small{font-size:11px;color:#5a776b;font-weight:800}.buy-comparison-grid strong{font-size:34px;color:#28705b}.buy-comparison-grid span{font-size:12px;color:#647d71}.buy-meter{height:9px;background:#deede3;border-radius:20px;overflow:hidden}.buy-meter i{display:block;height:100%;background:#45968a;border-radius:20px}.buy-comparison>p{font-size:12px;color:#647d70;line-height:1.6}
+.buy-next{display:flex;align-items:center;justify-content:space-between;gap:22px;background:#e6f3eb;border:1px solid #d1e5d7;border-radius:18px;padding:27px;margin:26px 0}.buy-next h3{font-size:25px;color:#275443;margin:9px 0}.buy-next p{font-size:13px;color:#5b7469;line-height:1.6;max-width:520px}.buy-next>div:last-child{display:flex;flex-direction:column;gap:8px;min-width:180px}.buy-next a{background:#fff;border:1px solid #cee1d5;border-radius:25px;padding:10px 14px;color:#287866!important;text-decoration:none!important;font-size:12px;font-weight:800;text-align:center}
+@media(max-width:1050px){.buy-week{grid-template-columns:repeat(3,minmax(0,1fr))}.buy-categories,.buy-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.buy-hero-stats,.buy-dual,.buy-categories,.buy-metrics,.buy-comparison-grid{grid-template-columns:1fr}.buy-week{grid-template-columns:1fr 1fr}.buy-matrix-title,.buy-matrix>div:not(:first-child){grid-template-columns:95px 1fr 1fr;gap:5px}.buy-matrix-cell{padding:8px}.buy-matrix-cell b{font-size:11px}.buy-matrix-cell small{font-size:10px}.buy-next{flex-direction:column;align-items:stretch}.buy-next>div:last-child{min-width:0}}
+`}</style>
