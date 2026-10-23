@@ -1,0 +1,3 @@
+﻿SKU,Producto,Familia,Stock disponible,Venta semanal,Coste unitario EUR,Valor stock EUR,Cobertura semanas,Venta anual EUR,Clasificacion ABC,Accion recomendada
+SUS50,Sustrato universal 50 L,Sustratos,120,30,4.50,=D2*F2,=IF(E2>0,D2/E2,0),6240,A,Revisar plazo de entrega
+MAC30,Maceta terracota 30 cm,Macetas,90,5,8,=D3*F3,=IF(E3>0,D3/E3,0),3120,B,Investigar exceso
