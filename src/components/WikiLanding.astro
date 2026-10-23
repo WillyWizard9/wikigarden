@@ -39,6 +39,10 @@ document.querySelectorAll('#gardenmap [data-zone]').forEach(button=>button.addEv
 .logistics{gap:15px}.logistics .logbox{display:grid;place-items:center;width:44px;height:44px;background:#b4ddcf;border-radius:11px;color:#216c5d;font-size:28px;font-weight:700}.logistics .logcenter{display:grid;place-items:center;width:55px;height:55px;background:#fff;border:2px dashed #87bda9;border-radius:12px;color:#358979;font-size:30px}
 </style>
 <style>
+/* Evitar que el espaciado de los botones altere las filas del plano */
+.wikiHome .map>.zone{margin:0!important;min-height:0;height:100%;align-self:stretch;box-sizing:border-box;padding:8px 5px;line-height:1.2}.wikiHome .map>.zone small{margin:5px 0 0!important;line-height:1.1}
+</style>
+<style>
 /* Alineación precisa de cifras y tarjetas de la portada */
 .wikiHome .statrow{
  display:grid!important;
