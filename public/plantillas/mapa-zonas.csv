@@ -1,0 +1,3 @@
+﻿Zona,Codigo,Subzona,Tipo de almacenamiento,Capacidad,Responsable,Estado,Observaciones
+Exterior,EXT-01,Mesas de planta,Planta viva,,Responsable de zona,Activo,Ejemplo; sustituir por datos reales
+Almacen,ALM-A-01,Estanteria A nivel 1,Reserva,,Responsable de almacen,Activo,Ejemplo
