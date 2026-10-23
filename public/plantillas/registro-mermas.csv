@@ -1,0 +1,3 @@
+﻿Fecha,Zona,SKU,Producto,Cantidad,Coste unitario EUR,Valor de merma EUR,Tipo de merma,Causa,Responsable,Autorizado,Movimiento registrado
+ ,EXT-02,ROS01,Rosal en maceta,3,6,=E2*F2,Planta muerta,Deterioro,Responsable planta,NO,NO
+ ,ALM-A-01,SUS50,Sustrato universal 50 L,1,4.5,=E3*F3,Rotura,Envase roto,Responsable almacen,NO,NO
