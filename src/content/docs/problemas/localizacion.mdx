@@ -7,6 +7,7 @@ import ActionPath from '../../../components/ActionPath.astro';
 import GuideContact from '../../../components/GuideContact.astro';
 import ChecklistDownload from '../../../components/ChecklistDownload.astro';
 import GuideJourney from '../../../components/GuideJourney.astro';
+import GuideConversion from '../../../components/GuideConversion.astro';
 
 <div class="loc-lead">
   <span class="loc-kicker">RETO 01 · LOCALIZACIÓN DEL STOCK</span>
@@ -268,6 +269,8 @@ Si quieres comenzar hoy, toma una decisión sencilla: **elige una sola zona prob
 @media(max-width:760px){.loc-code{grid-template-columns:1fr 14px 1fr 14px 1fr}.loc-code .loc-code-result{grid-column:1/-1;min-height:90px}}
 @media(max-width:480px){.loc-code{grid-template-columns:1fr}.loc-code>b{display:none}.loc-code .loc-code-result{grid-column:auto}}
 `}</style>
+
+<GuideConversion goal="Localizar mejor el stock" offer="Cymara puede ayudarte a analizar los problemas de inventario y definir un proceso de conteo y control físico más fiable." />
 
 <GuideContact />
 
