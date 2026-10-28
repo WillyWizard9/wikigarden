@@ -6,6 +6,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Wiki de control de stock',
+      favicon: '/favicon.svg',
       description: 'Guía práctica de control de stock para los garden centers de ALIAT, por Cymara.',
       defaultLocale: 'root',
       locales: { root: { label: 'Español', lang: 'es' } },
