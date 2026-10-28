@@ -5,6 +5,8 @@ description: Guía práctica de recepción, conciliación de albaranes, etiqueta
 
 import ActionPath from '../../../components/ActionPath.astro';
 import GuideContact from '../../../components/GuideContact.astro';
+import GuideJourney from '../../../components/GuideJourney.astro';
+import GuideConversion from '../../../components/GuideConversion.astro';
 import ChecklistDownload from '../../../components/ChecklistDownload.astro';
 
 <div class="mov-hero">
@@ -15,6 +17,10 @@ import ChecklistDownload from '../../../components/ChecklistDownload.astro';
 </div>
 
 <ActionPath kind="movimientos" />
+
+<GuideJourney kind="movimientos" />
+
+<section class="journeyPanel" data-journey-panel="0">
 
 ## 1. Dos puertas por las que se descontrola el inventario
 
@@ -72,6 +78,11 @@ Como mínimo: proveedor, número y fecha de albarán, pedido relacionado, refere
 Si el documento queda sin registrar o sin conciliar, asigna un responsable y una fecha de seguimiento. Las incidencias sin propietario terminan convirtiéndose en diferencias de inventario que nadie recuerda cómo empezaron.
 :::
 
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="1" hidden>
+
 ## 3. No confundas albarán, factura y entrada de stock
 
 Estos tres conceptos se relacionan, pero cumplen funciones distintas:
@@ -100,6 +111,11 @@ Un producto puede tener descripción parecida a otro, pero no ser la misma refer
 5. Los artículos de venta a granel, packs o productos sin código comercial cuentan con un **método específico y controlado** de selección en caja.
 
 No es necesario que todos los productos utilicen el mismo tipo de etiqueta. Lo imprescindible es que la operativa pueda identificar el artículo sin ambigüedad.
+
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="2" hidden>
 
 ## 5. Cobro en caja: donde cada venta debe convertirse en una salida correcta
 
@@ -176,6 +192,11 @@ No es necesario abrir una investigación completa por cada operación correcta. 
 
 *La distribución temporal es una propuesta orientativa, no una duración garantizada. Gardens de mayor volumen pueden necesitar más tiempo o controles automatizados.*
 
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="3" hidden>
+
 ## 9. Indicadores para comprobar que está funcionando
 
 <div class="mov-metrics">
@@ -201,6 +222,11 @@ No es necesario abrir una investigación completa por cada operación correcta. 
 <tr><td>**4 · Seguimiento**</td><td>Revisar indicadores y cerrar causas recurrentes</td><td>Rutina diaria y responsables definidos</td></tr></tbody></table></div>
 
 Empieza con un piloto de **diez referencias de alta rotación y un proveedor frecuente**. Comprueba una recepción real y después varias ventas en caja de esas referencias. Si aparece un error, podrás localizar qué paso lo provoca antes de escalar al resto del garden.
+
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="4" hidden>
 
 ## 11. Errores habituales que conviene evitar
 
@@ -237,6 +263,9 @@ Elige una referencia de alta rotación. Busca el **último pedido, su albarán, 
 
 Si no puedes reconstruir ese recorrido, ahí está la primera oportunidad de mejora.
 
+</section>
+
+
 <style>{`
 .mov-hero{background:linear-gradient(125deg,#eff8f3,#dcefe6);border:1px solid #d3e7dc;border-radius:22px;padding:clamp(22px,4vw,42px);margin:10px 0 26px}.mov-kicker,.mov-before>span,.mov-next>div>span{font:800 11px Outfit,system-ui,sans-serif;letter-spacing:.11em;color:#358571}.mov-hero h2{font:800 clamp(30px,4vw,46px)/1.1 Outfit,system-ui,sans-serif;letter-spacing:-.045em;color:#1e4b40;margin:14px 0}.mov-hero p{max-width:820px;font-size:16px;line-height:1.75;color:#47675c}.mov-pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:23px}.mov-pillars>div{background:#fff;border:1px solid #dce9e2;border-radius:13px;padding:17px;display:flex;flex-direction:column;gap:6px}.mov-pillars strong{font-size:19px;color:#287665}.mov-pillars span{font-size:12px;color:#638174}
 .mov-two,.mov-cash,.mov-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:23px 0}.mov-two>div,.mov-cash>div,.mov-labels>div{display:flex;flex-direction:column;gap:10px;background:#f6faf7;border:1px solid #dce9e2;border-radius:15px;padding:20px}.mov-two>div>span,.mov-cash>div>span,.mov-labels>div>span,.mov-triangle>div>span,.mov-routine>div>span,.mov-metrics>div>span,.mov-moves>div>span{font-size:10px;font-weight:800;letter-spacing:.09em;color:#358571}.mov-two h3,.mov-cash h3{font-size:20px;color:#275443;margin:0}.mov-two p,.mov-cash p,.mov-labels p{font-size:13px;color:#5e776a;line-height:1.6;margin:0}.mov-two strong{font-size:12px;color:#29735f;margin-top:auto}.mov-two small{font-size:12px;color:#657e70;line-height:1.5}
@@ -254,5 +283,7 @@ Si no puedes reconstruir ese recorrido, ahí está la primera oportunidad de mej
 @media(max-width:650px){.mov-pillars,.mov-two,.mov-labels,.mov-cash,.mov-delivery-head,.mov-routine,.mov-metrics,.mov-moves,.mov-before-row{grid-template-columns:1fr}.mov-triangle{grid-template-columns:1fr}.mov-doc-grid{grid-template-columns:1fr 1fr}.mov-pos{padding:15px}.mov-pos-bottom{grid-template-columns:1fr}.mov-pos-bottom>span{transform:rotate(90deg);justify-self:start}.mov-next{flex-direction:column;align-items:stretch}.mov-next>div:last-child{min-width:0}}
 .mov-doc-table{display:block;width:100%;max-width:100%;overflow-x:auto;border-radius:12px;border:1px solid #e0eae4;box-sizing:border-box}.mov-doc .mov-doc-table>table{display:table!important;width:100%!important;min-width:100%!important;max-width:none!important;table-layout:fixed!important;margin:0!important;border:0!important;border-collapse:collapse!important}.mov-doc .mov-doc-table :is(th,td){padding:16px 12px!important;text-align:center!important;vertical-align:middle!important;white-space:normal!important;overflow-wrap:break-word;border-bottom:1px solid #e0eae4}.mov-doc .mov-doc-table tbody tr:last-child td{border-bottom:0}@media(max-width:600px){.mov-doc .mov-doc-table>table{min-width:520px!important}}
 `}</style>
+
+<GuideConversion goal="Controlar entradas y salidas" offer="Cymara puede ayudarte a revisar los controles de inventario y detectar dónde se producen diferencias." />
 
 <GuideContact />
