@@ -1,0 +1,95 @@
+---
+const steps = [
+  'Comprender el problema',
+  'Crear el mapa de ubicaciones',
+  'Organizar y controlar',
+  'Implantar y medir',
+  'Revisar y completar'
+];
+---
+<section class="guideJourney" data-guide-journey aria-label="Recorrido de aprendizaje de Localización">
+ <div class="journeyTop">
+  <div><span class="journeyKicker">TU RECORRIDO · LOCALIZACIÓN</span><h2>De la teoría a la práctica, paso a paso</h2><p>Todo el contenido original, organizado en cinco etapas. Puedes avanzar libremente y marcar las etapas completadas.</p></div>
+  <span class="journeyCounter" data-counter>0 de 5 completados</span>
+ </div>
+ <div class="journeyTrack" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-label="Pasos completados" data-track><div data-fill></div></div>
+ <nav class="journeySteps" aria-label="Pasos de la guía">
+  {steps.map((label,i)=><button class="journeyStep" type="button" data-go={i} aria-current={i===0?'step':undefined}><span class="journeyNumber">{i+1}</span><span>{label}</span></button>)}
+ </nav>
+ <div class="journeyActions">
+  <button type="button" data-prev>← Paso anterior</button>
+  <label class="journeyDone"><input type="checkbox" data-done /> <span>He completado este paso</span></label>
+  <button type="button" data-next>Siguiente paso →</button>
+ </div>
+</section>
+<script>
+function setupGuideJourney(){
+ const root=document.querySelector('[data-guide-journey]');
+ if(!root||root.dataset.ready==='1')return;
+ const parent=root.parentElement;if(!parent)return;
+ const headings=[...parent.children].filter(el=>el.matches('h2')&&/^\\d+\\. /.test(el.textContent?.trim()||''));
+ if(headings.length!==10)return; // Keep the original article intact if the structure changes.
+ root.dataset.ready='1';
+ const boundaries=[0,2,3,5,7,10];
+ const panels=[];
+ for(let g=0;g<5;g++){
+  const start=headings[boundaries[g]];
+  const end=boundaries[g+1]<10?headings[boundaries[g+1]]:null;
+  const panel=document.createElement('section');
+  panel.className='journeyPanel';
+  panel.setAttribute('aria-label','Paso '+(g+1));
+  let cursor=start;
+  parent.insertBefore(panel,start);
+  while(cursor&&cursor!==end){
+   if(cursor.matches?.('.guideContact,style'))break;
+   const next=cursor.nextElementSibling;
+   panel.appendChild(cursor);
+   cursor=next;
+  }
+  panels.push(panel);
+ }
+ const key='wikigarden:localizacion:steps:v1';
+ let done=[false,false,false,false,false];
+ try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(Array.isArray(saved)&&saved.length===5)done=saved.map(Boolean)}catch{}
+ let current=0;
+ const buttons=[...root.querySelectorAll('[data-go]')],checkbox=root.querySelector('[data-done]'),next=root.querySelector('[data-next]'),prev=root.querySelector('[data-prev]');
+ function render(scroll=false){
+  panels.forEach((p,i)=>{p.hidden=i!==current});
+  buttons.forEach((b,i)=>{b.classList.toggle('active',i===current);b.classList.toggle('completed',done[i]);if(i===current)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');b.querySelector('.journeyNumber').textContent=done[i]?'✓':String(i+1)});
+  checkbox.checked=done[current];
+  const count=done.filter(Boolean).length;
+  root.querySelector('[data-counter]').textContent=count+' de 5 completados';
+  root.querySelector('[data-fill]').style.width=count*20+'%';
+  root.querySelector('[data-track]').setAttribute('aria-valuenow',String(count));
+  prev.disabled=current===0;next.textContent=current===4?'Volver al inicio ↻':'Siguiente paso →';
+  if(scroll)root.scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ buttons.forEach((b,i)=>b.addEventListener('click',()=>{current=i;render(true)}));
+ prev.addEventListener('click',()=>{current=Math.max(0,current-1);render(true)});
+ next.addEventListener('click',()=>{current=current===4?0:current+1;render(true)});
+ checkbox.addEventListener('change',()=>{done[current]=checkbox.checked;try{localStorage.setItem(key,JSON.stringify(done))}catch{}render()});
+ render();
+}
+setupGuideJourney();document.addEventListener('astro:page-load',setupGuideJourney);
+</script>
+<style is:global>
+.guideJourney{margin:28px 0 20px;padding:clamp(18px,3vw,28px);background:#edf7f1;border:1px solid #d5e8dc;border-radius:20px;font-family:Outfit,system-ui,sans-serif;color:#254e40;scroll-margin-top:90px}
+.guideJourney .journeyKicker{font-size:10px;letter-spacing:.11em;font-weight:800;color:#368874}
+.guideJourney .journeyTop{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+.guideJourney .journeyTop h2{font-size:clamp(20px,2.8vw,28px);margin:8px 0;line-height:1.2}
+.guideJourney .journeyTop p{font-size:13px;color:#627e70;line-height:1.6;margin:0;max-width:640px}
+.guideJourney .journeyCounter{white-space:nowrap;font-size:12px;font-weight:800;color:#327963;background:white;border-radius:25px;padding:8px 12px}
+.guideJourney .journeyTrack{height:10px;background:#d5e9dd;overflow:hidden;border-radius:20px;margin:20px 0}
+.guideJourney .journeyTrack>div{height:100%;width:0;background:#45968a;border-radius:20px;transition:width .25s}
+.guideJourney .journeySteps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.guideJourney .journeyStep{display:flex;flex-direction:column;align-items:flex-start;gap:9px;text-align:left;background:#fff;border:1px solid #dbeae2;border-radius:12px;padding:12px;min-width:0;min-height:97px;color:#567365;font:700 12px/1.4 Outfit,system-ui,sans-serif;cursor:pointer;margin:0!important}
+.guideJourney .journeyStep.active{border-color:#45968a;box-shadow:0 0 0 1px #45968a;color:#245b4a}.guideJourney .journeyStep.completed .journeyNumber{background:#45968a;color:#fff}
+.guideJourney .journeyNumber{width:26px;height:26px;background:#e4f2ea;color:#287c65;display:grid;place-items:center;border-radius:8px;font-weight:800}
+.guideJourney .journeyActions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px}
+.guideJourney .journeyActions>button{background:#fff;border:1px solid #cce2d4;border-radius:24px;padding:10px 14px;color:#267662;font:700 12px Outfit,system-ui,sans-serif;cursor:pointer}
+.guideJourney .journeyActions>button[data-next]{background:#348c75;color:#fff}.guideJourney .journeyActions>button:disabled{opacity:.35;cursor:not-allowed}
+.guideJourney .journeyDone{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#2e765e;cursor:pointer}.guideJourney .journeyDone input{accent-color:#348c75;width:18px;height:18px}
+.journeyPanel[hidden]{display:none!important}.journeyPanel{margin:0 0 20px;min-width:0}.journeyPanel>:first-child{margin-top:0}
+@media(max-width:800px){.guideJourney .journeySteps{grid-template-columns:repeat(2,minmax(0,1fr))}.guideJourney .journeyStep{min-height:75px}.guideJourney .journeyTop{flex-direction:column}.guideJourney .journeyActions{flex-wrap:wrap}.guideJourney .journeyDone{order:-1;width:100%;justify-content:center}}
+@media(max-width:450px){.guideJourney .journeySteps{grid-template-columns:1fr 1fr}.guideJourney .journeyStep{padding:9px;font-size:11px}}
+</style>
