@@ -30,7 +30,7 @@ const groups=[
    <div class="scoreTrack"><div style="width:0%"></div></div>
    <a href={group.href}>Ver soluciones ↗</a>
  </article>)}
- </div><div class="recommendation" id="recommendation"></div><div class="resultActions"><button type="button" id="redo">Modificar respuestas ↺</button><a href="/#contacto">Solicitar diagnóstico gratuito ↗</a></div><p class="disclaimer">Esta herramienta es orientativa, no una auditoría de inventario. Si varios problemas alcanzan 3 puntos, revisa primero la fiabilidad del stock y sus movimientos de entrada y salida.</p></section>
+ </div><div class="recommendation" id="recommendation"></div><div class="resultActions"><button type="button" id="redo">Modificar respuestas ↺</button><a href="/#contacto">Hablar con Cymara ↗</a></div><p class="disclaimer">Esta herramienta es orientativa, no una auditoría de inventario. Si varios problemas alcanzan 3 puntos, revisa primero la fiabilidad del stock y sus movimientos de entrada y salida.</p></section>
 </section>
 <script>
 function initDiagnostic(){
@@ -53,7 +53,15 @@ function initDiagnostic(){
  const title=document.createElement('h3');const detail=document.createElement('p');const why=document.createElement('p');const link=document.createElement('a');
  if(max===0){title.textContent='Mantén el control y sigue comprobando tus datos.';detail.textContent='No has marcado señales de alerta en estas doce preguntas. Eso es positivo, pero no equivale a una auditoría: podrían existir desviaciones no detectadas.';why.textContent='Siguiente paso: programa verificaciones periódicas del stock y revisa indicadores de mermas y roturas para mantener esa situación.';link.textContent='Revisar las buenas prácticas de conteo ↗';link.href='/problemas/conteos/';}
  else {const first=tied && scores.some(x=>x.id==='conteos'&&x.score===3)?scores.find(x=>x.id==='conteos'):tied && scores.some(x=>x.id==='movimientos'&&x.score===3)?scores.find(x=>x.id==='movimientos'):sorted[0];const rationale=explanations[first.id];title.textContent=tied && (first.id==='conteos'||first.id==='movimientos')?'Primero, asegura la fiabilidad de los movimientos y las existencias.':'Tu primera prioridad: '+first.name+'.';detail.textContent=(tied?'Hay varias áreas con 3 de 3 señales. Antes de intervenir simultáneamente en todas, conviene asegurar la fiabilidad de las existencias y de sus movimientos. ':first.score===3?'Has identificado las 3 señales de este problema. ':first.score===2?'Has identificado 2 de las 3 señales de este problema. ':'Aunque las señales son limitadas, esta es una de las áreas que conviene vigilar. ')+rationale.impact;why.textContent='¿Por qué empezar aquí? '+rationale.why;link.textContent='Abrir la guía de '+first.name+' ↗';link.href=first.href;}
- recommend.append(label,title,detail,why,link);
+ const support=document.createElement('p');
+ support.className='diagnosticCommercial';
+ if(max===0){support.textContent='¿Quieres validar tus resultados? Cymara puede revisar tus procesos de inventario y ayudarte a detectar oportunidades de mejora.';}
+ else {
+  const first=sorted[0];
+  const services={sobrestock:'Cymara Forecasting y consultoría pueden ayudarte a mejorar la planificación y reducir el stock inmovilizado.',compras:'Cymara Forecasting puede ayudarte a convertir ventas y datos de stock en decisiones de reposición.',conteos:'Cymara Stocktake y los servicios de conteo físico pueden ayudarte a ejecutar inventarios más fiables.',localizacion:'Cymara puede ayudarte a revisar los procesos de inventario y control de ubicaciones.',movimientos:'Cymara puede ayudarte a auditar las diferencias de stock y mejorar los procesos de control.'};
+  support.textContent='Si necesitas ayuda para aplicarlo: '+services[first.id];
+ }
+ recommend.append(label,title,detail,why,link,support);
  form.hidden=true;result.hidden=false;result.focus({preventScroll:true});result.scrollIntoView({behavior:'smooth',block:'start'});});
  root.querySelector('#redo').addEventListener('click',()=>{result.hidden=true;form.hidden=false;root.scrollIntoView({behavior:'smooth',block:'start'});});update();
 }
