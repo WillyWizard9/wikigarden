@@ -5,6 +5,8 @@ description: Guía práctica para detectar exceso de inventario, calcular cobert
 
 import ActionPath from '../../../components/ActionPath.astro';
 import GuideContact from '../../../components/GuideContact.astro';
+import GuideJourney from '../../../components/GuideJourney.astro';
+import GuideConversion from '../../../components/GuideConversion.astro';
 import ChecklistDownload from '../../../components/ChecklistDownload.astro';
 
 <div class="over-hero">
@@ -15,6 +17,10 @@ import ChecklistDownload from '../../../components/ChecklistDownload.astro';
 </div>
 
 <ActionPath kind="sobrestock" />
+
+<GuideJourney kind="sobrestock" />
+
+<section class="journeyPanel" data-journey-panel="0">
 
 ## 1. La paradoja del garden: almacén lleno, lineales vacíos
 
@@ -42,6 +48,11 @@ El stock excesivo no se identifica únicamente mirando si los estantes están ll
 <tr><td>Falta un bestseller mientras sobra otro</td><td>Capital mal repartido</td><td>Distribución de inversión por familias</td></tr></tbody></table></div>
 
 **Ojo:** una cobertura elevada puede ser razonable en artículos de importación con plazos largos o compras estacionales planificadas. Lo importante es interpretar el dato, no aplicar un umbral idéntico a todo el catálogo.
+
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="1" hidden>
 
 ## 3. El indicador básico: semanas de cobertura
 
@@ -97,6 +108,11 @@ Una referencia A puede tener exceso si se compró demasiado. Una C puede ser imp
  <div><strong>VALOR / IMPORTANCIA BAJA</strong><p class="over-mx blue"><b>Simplificar reposición</b><small>Gestionar con rutinas y pedidos proporcionados.</small></p><p class="over-mx pink"><b>Reducir complejidad</b><small>Revisar surtido y espacio asignado.</small></p></div>
 </div>
 
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="2" hidden>
+
 ## 6. Decide qué hacer con el producto que sobra
 
 No liquides todo automáticamente. Las medidas tienen costes distintos y algunas conservan más valor que otras.
@@ -142,6 +158,11 @@ No utilices objetivos de cobertura de planta viva tomados de otra familia sin co
  <div><span>05</span><strong>Relaciona compras y salidas</strong><p>El problema reaparece si compras no incorpora información actualizada de ventas, cobertura y merma.</p></div>
 </div>
 
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="3" hidden>
+
 ## 9. Plan de actuación en cuatro semanas
 
 <div class="guide-table-scroll"><table class="guide-full-table"><colgroup><col /><col /><col /></colgroup><thead><tr><th scope="col">Semana</th><th scope="col">Qué hacer</th><th scope="col">Resultado</th></tr></thead><tbody><tr><td>**1 · Medir**</td><td>Exportar stock, coste, ventas y fechas; revisar calidad de datos</td><td>Primera lista de referencias candidatas</td></tr>
@@ -170,6 +191,11 @@ Empieza por las **20 referencias con más capital inmovilizado y menor rotación
  </div>
  <p>El ejemplo supone una reducción de **4.500 € (37,5 %)** del valor de ese grupo de stock. No implica automáticamente que se hayan recuperado 4.500 € en caja: depende de cómo se haya vendido, devuelto o dado de baja.</p>
 </div>
+
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="4" hidden>
 
 ## 11. Errores frecuentes
 
@@ -202,6 +228,9 @@ Empieza por las **20 referencias con más capital inmovilizado y menor rotación
 
 Elige una familia (por ejemplo, cerámica decorativa), reúne **stock actual, coste unitario y ventas de las últimas semanas**, calcula cobertura por referencia y marca las que requieren revisión. Después distingue entre artículos de temporada, baja rotación y stock realmente obsoleto.
 
+</section>
+
+
 <style>{`
 .over-hero{background:linear-gradient(125deg,#f0f8f4,#dceee6);border:1px solid #d3e7dc;padding:clamp(22px,4vw,42px);border-radius:22px;margin:10px 0 26px}.over-eyebrow,.over-before>span,.over-next>div>span{font:800 11px Outfit,system-ui,sans-serif;letter-spacing:.11em;color:#348572}.over-hero h2{font:800 clamp(30px,4vw,46px)/1.1 Outfit,system-ui,sans-serif;color:#1e4b40;letter-spacing:-.045em;margin:14px 0}.over-hero p{font-size:16px;line-height:1.75;color:#49685d;max-width:820px}.over-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.over-kpis>div{background:#fff;border:1px solid #dcebe3;border-radius:13px;padding:16px;display:flex;flex-direction:column;gap:5px}.over-kpis strong{font-size:20px;color:#287665}.over-kpis span{font-size:12px;color:#648073}
 .over-chain,.over-lifecycle{display:flex;align-items:stretch;gap:8px;margin:25px 0}.over-chain>div,.over-lifecycle>div{flex:1;min-width:0;background:#f6faf7;border:1px solid #dcebe2;border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:7px}.over-chain>div span,.over-lifecycle>div span{font-size:11px;color:#358c78;font-weight:800}.over-chain>div strong,.over-lifecycle>div strong{font-size:14px;color:#244d3f}.over-chain small,.over-lifecycle small{font-size:12px;color:#647d72;line-height:1.5}.over-chain>b,.over-lifecycle>b{display:grid;place-items:center;color:#388d78}
@@ -215,5 +244,7 @@ Elige una familia (por ejemplo, cerámica decorativa), reúne **stock actual, co
 @media(max-width:950px){.over-products,.over-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.over-chain,.over-lifecycle{display:grid;grid-template-columns:1fr 1fr}.over-chain>b,.over-lifecycle>b{display:none}}
 @media(max-width:650px){.over-kpis,.over-products,.over-types,.over-metrics,.over-rules,.over-before-grid{grid-template-columns:1fr}.over-chain,.over-lifecycle{grid-template-columns:1fr}.over-matrix-head,.over-matrix>div:not(:first-child){grid-template-columns:110px 1fr 1fr;gap:5px}.over-mx{padding:8px}.over-mx b{font-size:11px}.over-mx small{font-size:10px}.over-next{flex-direction:column;align-items:stretch}.over-next>div:last-child{min-width:0}}
 `}</style>
+
+<GuideConversion goal="Reducir sobrestock" offer="Cymara Forecasting puede ayudar a trabajar con previsiones de demanda para tomar mejores decisiones de compra y reposición." />
 
 <GuideContact />
