@@ -43,9 +43,8 @@ const steps = [
    const first=headings[edges[i]],last=headings[edges[i+1]-1];
    const sectionParent=first.parentElement;
    if(!sectionParent||last.parentElement!==sectionParent)return;
-   const end=last.nextElementSibling;
    // Include all content until the next numbered heading (but never footer/contact).
-   const stop=edges[i+1]<10?headings[edges[i+1]]:end;
+   const stop=edges[i+1]<10?headings[edges[i+1]]:null;
    const panel=document.createElement('section');
    panel.className='journeyPanel';
    panel.setAttribute('aria-label','Paso '+(i+1));
