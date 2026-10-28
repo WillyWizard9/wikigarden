@@ -27,7 +27,7 @@ function setupGuideJourney(){
  const root=document.querySelector('[data-guide-journey]');
  if(!root||root.dataset.ready==='1')return;
  const parent=root.parentElement;if(!parent)return;
- const headings=[...parent.children].filter(el=>el.matches('h2')&&/^\\d+\\. /.test(el.textContent?.trim()||''));
+ const headings=[...parent.children].filter(el=>el.matches('h2')&&/^\d+\. /.test(el.textContent?.trim()||''));
  if(headings.length!==10)return; // Keep the original article intact if the structure changes.
  root.dataset.ready='1';
  const boundaries=[0,2,3,5,7,10];
