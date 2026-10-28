@@ -5,6 +5,8 @@ description: Guía para planificar reposiciones y campañas, calcular puntos de 
 
 import ActionPath from '../../../components/ActionPath.astro';
 import GuideContact from '../../../components/GuideContact.astro';
+import GuideJourney from '../../../components/GuideJourney.astro';
+import GuideConversion from '../../../components/GuideConversion.astro';
 import ChecklistDownload from '../../../components/ChecklistDownload.astro';
 
 <div class="buy-hero">
@@ -15,6 +17,10 @@ import ChecklistDownload from '../../../components/ChecklistDownload.astro';
 </div>
 
 <ActionPath kind="compras" />
+
+<GuideJourney kind="compras" />
+
+<section class="journeyPanel" data-journey-panel="0">
 
 ## 1. Por qué las compras son una de las decisiones más importantes
 
@@ -42,6 +48,11 @@ Un garden vende normalmente 40 sacos de sustrato a la semana. Si espera hasta te
 <tr><td>Eventos futuros</td><td>¿Cambiará la demanda?</td><td>Campañas, calendario y criterio comercial</td></tr></tbody></table></div>
 
 **Antes de automatizar una propuesta de compra, asegúrate de que las ventas descuentan correctamente las existencias.** Si los movimientos están mal registrados, el cálculo partirá de datos equivocados. Revisa [entradas y salidas](/problemas/movimientos/) y [conteos](/problemas/conteos/).
+
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="1" hidden>
 
 ## 3. Calcula el punto de pedido
 
@@ -78,6 +89,11 @@ Por ejemplo, si quieres cubrir tres semanas de demanda y calculas 40 unidades se
 </div>
 
 Si la cantidad necesaria fuera negativa, no significa que debas comprar una cantidad negativa: simplemente no existe necesidad neta bajo esos supuestos.
+
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="2" hidden>
 
 ## 5. Diseña una rutina semanal que ahorre tiempo
 
@@ -143,6 +159,11 @@ Un cálculo solo es útil si incluye cómo responde realmente el proveedor. Un p
 
 **No persigas un descuento de compra ignorando su coste total.** Comprar 100 unidades para abaratar cada pieza puede salir más caro si solo necesitas 35 y el resto termina liquidado.
 
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="3" hidden>
+
 ## 9. Matriz de prioridades: dónde invertir tu tiempo
 
 <div class="buy-matrix">
@@ -161,6 +182,11 @@ Esta matriz es un instrumento de priorización, no sustituye al análisis de mar
 <tr><td>**4 · Medición**</td><td>Analizar roturas, exceso y tiempo de preparación</td><td>Ajustes antes de escalar</td></tr></tbody></table></div>
 
 Elige un piloto mixto: referencias de alta rotación, artículos estacionales y productos de suministro irregular. Así descubrirás qué criterios requieren reglas distintas.
+
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="4" hidden>
 
 ## 11. Mide si compras mejor
 
@@ -209,6 +235,9 @@ Elige un piloto mixto: referencias de alta rotación, artículos estacionales y 
 
 Escoge un proveedor habitual. Identifica las veinte referencias que más necesitas reponer, anota stock, ventas, pedidos abiertos y plazos, y construye una primera propuesta de compra. Compárala con lo que habrías pedido manualmente. **Investiga las diferencias antes de cambiarlo todo.**
 
+</section>
+
+
 <style>{`
 .buy-hero{background:linear-gradient(125deg,#eff8f3,#dcefe6);border:1px solid #d3e7dc;border-radius:22px;padding:clamp(22px,4vw,42px);margin:10px 0 26px}.buy-kicker,.buy-comparison>span,.buy-next>div>span{font:800 11px Outfit,system-ui,sans-serif;letter-spacing:.11em;color:#358571}.buy-hero h2{font:800 clamp(30px,4vw,46px)/1.1 Outfit,system-ui,sans-serif;letter-spacing:-.045em;color:#1e4b40;margin:14px 0}.buy-hero p{font-size:16px;line-height:1.75;color:#47675c;max-width:800px}.buy-hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:23px}.buy-hero-stats>div{background:#fff;border:1px solid #dce9e2;border-radius:13px;padding:17px;display:flex;flex-direction:column;gap:6px}.buy-hero-stats strong{font-size:21px;color:#287665}.buy-hero-stats small{font-size:12px;color:#638174}
 .buy-dual{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0}.buy-dual>div{border:1px solid #dce9e2;background:#f7faf8;border-radius:15px;padding:21px;display:flex;flex-direction:column;gap:10px}.buy-dual>div>span{font-size:11px;color:#358571;font-weight:800;letter-spacing:.07em}.buy-dual h3{font-size:22px;color:#244f40;margin:0}.buy-dual p,.buy-dual small{font-size:13px;color:#647c70;line-height:1.6;margin:0}.buy-dual strong{color:#2b6754;font-size:12px;margin-top:auto}
@@ -229,5 +258,7 @@ Escoge un proveedor habitual. Identifica las veinte referencias que más necesit
 @media(max-width:1050px){.buy-week{grid-template-columns:repeat(3,minmax(0,1fr))}.buy-categories,.buy-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.buy-hero-stats,.buy-dual,.buy-categories,.buy-metrics,.buy-comparison-grid{grid-template-columns:1fr}.buy-week{grid-template-columns:1fr 1fr}.buy-matrix-title,.buy-matrix>div:not(:first-child){grid-template-columns:95px 1fr 1fr;gap:5px}.buy-matrix-cell{padding:8px}.buy-matrix-cell b{font-size:11px}.buy-matrix-cell small{font-size:10px}.buy-next{flex-direction:column;align-items:stretch}.buy-next>div:last-child{min-width:0}}
 `}</style>
+
+<GuideConversion goal="Planificar compras" offer="Cymara Forecasting permite abordar la planificación de demanda y aprovisionamiento apoyándose en datos." />
 
 <GuideContact />
