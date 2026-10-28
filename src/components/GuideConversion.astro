@@ -1,0 +1,28 @@
+---
+const {goal='Mejorar el inventario',offer='Cymara puede ayudarte a implantar mejoras en la gestión de inventario.'}=Astro.props;
+---
+<section class="guideConversion" aria-label="Siguientes pasos">
+ <span class="conversionEyebrow">DE LA GUÍA A LA ACCIÓN</span>
+ <h2>Ya sabes cómo {goal.toLowerCase()}. ¿Cómo quieres ponerlo en práctica?</h2>
+ <p>Las recomendaciones de esta guía puedes aplicarlas con tu propio equipo. Si necesitas apoyo, también puedes hablar con Cymara.</p>
+ <div class="conversionChoices">
+  <div><span class="choiceSymbol">↗</span><h3>Con tu equipo</h3><p>Consulta las plantillas gratuitas y organiza tu plan de implantación.</p><a href="/plantillas/">Ver plantillas gratuitas →</a></div>
+  <div class="conversionFeatured"><span class="choiceSymbol">✦</span><h3>Con ayuda de Cymara</h3><p>{offer}</p><a href="#contacto">Solicitar orientación →</a></div>
+ </div>
+ <small>Sin compromiso. La utilidad de las guías y plantillas no depende de contratar un servicio.</small>
+</section>
+<style>
+.guideConversion{border:1px solid #d5e6dc;border-radius:20px;padding:clamp(20px,3vw,32px);margin:45px 0;background:#f8fbf8}
+.guideConversion .conversionEyebrow{font:800 11px Outfit,system-ui,sans-serif;letter-spacing:.1em;color:#408876}
+.guideConversion h2{font:800 clamp(24px,3vw,32px)/1.2 Outfit,system-ui,sans-serif;color:#224e40;margin:9px 0 10px}
+.guideConversion>p{color:#58766a;line-height:1.6;margin-bottom:20px}
+.guideConversion .conversionChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.guideConversion .conversionChoices>div{padding:24px;border-radius:16px;background:#fff;border:1px solid #dbe9e0;display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin:0}
+.guideConversion .conversionChoices>.conversionFeatured{background:#e9f5ee;border-color:#b7dbc8}
+.guideConversion .choiceSymbol{font-size:24px;color:#34856b}
+.guideConversion h3{font-size:19px;color:#214c3f;margin:0}
+.guideConversion .conversionChoices p{font-size:14px;line-height:1.6;color:#577368;margin:0 0 8px;flex:1}
+.guideConversion .conversionChoices a{font-weight:800;color:#24765d;text-decoration:none;border-bottom:1px solid currentColor}
+.guideConversion>small{display:block;margin-top:16px;color:#738b7d;font-size:11px}
+@media(max-width:650px){.guideConversion .conversionChoices{grid-template-columns:1fr}}
+</style>
