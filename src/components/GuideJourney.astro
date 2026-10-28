@@ -1,5 +1,13 @@
 ---
-const steps = [
+const { kind = 'localizacion' } = Astro.props;
+const stepSets = {
+ localizacion: ['Comprender el problema','Crear el mapa de ubicaciones','Organizar y controlar','Implantar y medir','Revisar y completar'],
+ sobrestock: ['Detectar el exceso','Medir y clasificar','Decidir acciones','Prevenir y medir','Completar el plan'],
+ compras: ['Entender las compras','Calcular la reposición','Planificar por familias','Implantar y medir','Revisar el plan'],
+ conteos: ['Detectar las diferencias','Preparar y contar','Investigar y organizar','Implantar y medir','Completar el conteo'],
+ movimientos: ['Identificar las fugas','Controlar recepciones','Registrar ventas y movimientos','Implantar y medir','Completar el control']
+};
+const steps = stepSets[kind] || [
   'Comprender el problema',
   'Crear el mapa de ubicaciones',
   'Organizar y controlar',
@@ -7,9 +15,9 @@ const steps = [
   'Revisar y completar'
 ];
 ---
-<section class="guideJourney" data-guide-journey aria-label="Recorrido de aprendizaje de Localización">
+<section class="guideJourney" data-guide-journey data-kind={kind} aria-label="Recorrido de aprendizaje de Localización">
  <div class="journeyTop">
-  <div><span class="journeyKicker">TU RECORRIDO · LOCALIZACIÓN</span><h2>De la teoría a la práctica, paso a paso</h2><p>Todo el contenido original, organizado en cinco etapas. Puedes avanzar libremente y marcar las etapas completadas.</p></div>
+  <div><span class="journeyKicker">TU RECORRIDO · {kind.toUpperCase()}</span><h2>De la teoría a la práctica, paso a paso</h2><p>Todo el contenido original, organizado en cinco etapas. Puedes avanzar libremente y marcar las etapas completadas.</p></div>
   <span class="journeyCounter" data-counter>0 de 5 completados</span>
  </div>
  <div class="journeyTrack" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-label="Pasos completados" data-track><div data-fill></div></div>
@@ -27,7 +35,8 @@ const steps = [
   function initJourney(){
     const root=document.querySelector('[data-guide-journey]');
     if(!root || root.dataset.ready==='1')return;
-    const panels=[...document.querySelectorAll('[data-journey-panel]')];
+    const kind=root.dataset.kind || 'localizacion';
+    const panels=[...document.querySelectorAll('[data-journey-panel]')].filter(el=>el.dataset.journeyPanel!==undefined);
     if(panels.length!==5)return;
     const tabs=[...root.querySelectorAll('[data-go]')];
     const previous=root.querySelector('[data-prev]');
@@ -35,7 +44,7 @@ const steps = [
     const checkbox=root.querySelector('[data-done]');
     if(tabs.length!==5 || !previous || !next || !checkbox)return;
     root.dataset.ready='1';
-    const storageKey='wikigarden:localizacion:steps:v3';
+    const storageKey='wikigarden:'+kind+':steps:v3';
     let completed=[false,false,false,false,false];
     try{
       const stored=JSON.parse(localStorage.getItem(storageKey)||'null');
