@@ -23,6 +23,8 @@ import GuideJourney from '../../../components/GuideJourney.astro';
 
 <GuideJourney />
 
+<section class="journeyPanel" data-journey-panel="0">
+
 ## 1. El problema es más grande que «perder tiempo buscando»
 
 Imagina la escena: un cliente necesita tres macetas grandes del mismo modelo. El sistema muestra ocho unidades. En el lineal solo queda una, y nadie sabe dónde están las otras siete. Un compañero busca en el almacén, otro mira en exterior y, mientras tanto, el cliente espera. Quizá se vaya sin comprar, aunque las macetas estén físicamente en el garden.
@@ -63,6 +65,11 @@ No todos los problemas de localización se solucionan de la misma forma.
 </div>
 
 **Importante:** localización y exactitud del inventario son problemas distintos. Si las unidades no existen físicamente, ningún mapa permitirá encontrarlas. En ese caso, empieza por [conteos fiables](/problemas/conteos/) y revisa también las [entradas y salidas](/problemas/movimientos/).
+
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="1" hidden>
 
 ## 3. Diseña el mapa de tu garden
 
@@ -108,6 +115,11 @@ Piensa en tres niveles: **zona → subzona → posición**. Usa solo el detalle 
 En una mesa de planta viva puede bastar con `EXT-02`. Para estanterías de piezas pequeñas, quizá necesites pasillo, módulo y balda. **Más detalle no siempre significa más control:** usa el mínimo nivel necesario para localizar con rapidez.
 :::
 
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="2" hidden>
+
 ## 4. Cómo organizar cada tipo de mercancía
 
 ### Planta viva: ubicación flexible, información actualizada
@@ -148,6 +160,11 @@ Una buena ubicación no es solo fácil de recordar. También debe permitir una r
 6. **Se resuelve la incidencia.** Cualquier referencia sin ubicación o con error de código queda en una lista de excepciones y tiene responsable.
 
 La trazabilidad de estas acciones conecta directamente con el reto de [entradas y salidas de mercancía](/problemas/movimientos/).
+
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="3" hidden>
 
 ## 6. Plan de implantación en cuatro semanas
 
@@ -190,6 +207,11 @@ Registra cuánto tarda, si encuentra cada referencia en la ubicación indicada y
  <p>En este ejemplo hipotético, cada búsqueda requiere cinco minutos menos. La mejora real deberá medirse en tu propio garden.</p>
 </div>
 
+
+</section>
+
+<section class="journeyPanel" data-journey-panel="4" hidden>
+
 ## 8. Errores frecuentes que conviene evitar
 
 - **Crear códigos demasiado largos.** Nadie los memoriza y se cometen errores al introducirlos.
@@ -219,6 +241,9 @@ Registra cuánto tarda, si encuentra cada referencia en la ubicación indicada y
 ## 10. Qué hacer a continuación
 
 Si quieres comenzar hoy, toma una decisión sencilla: **elige una sola zona problemática, codifícala y comprueba si diez productos se encuentran sin ayuda.** Después amplía el sistema.
+
+</section>
+
 
 <style>{`
 .loc-lead{background:linear-gradient(125deg,#eff8f3,#dcefe6);padding:clamp(22px,4vw,42px);border-radius:22px;margin:10px 0 25px;border:1px solid #d3e7dc}
