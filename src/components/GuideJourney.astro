@@ -24,76 +24,54 @@ const steps = [
 </section>
 <script is:inline>
 (function(){
- function setup(){
-  const root=document.querySelector('[data-guide-journey]');
-  if(!root||root.dataset.ready==='1')return;
-  // Los encabezados de MDX no siempre son hijos directos del componente.
-  const article=root.closest('.sl-markdown-content')||root.parentElement;
-  if(!article)return;
-  const headings=[...article.querySelectorAll('h2')].filter(h=>/^\s*(?:[1-9]|10)\.\s/.test(h.textContent||'') && !h.closest('.journeyPanel'));
-  if(headings.length!==10){
-   // Mostrar navegación usable incluso si cambian los wrappers del tema.
-   const positions=[0,2,3,5,7];
-   const tabs=[...root.querySelectorAll('[data-go]')];
-   tabs.forEach((b,i)=>b.addEventListener('click',()=>headings[positions[i]]?.scrollIntoView({behavior:'smooth',block:'start'})));
-   return;
+  function initJourney(){
+    const root=document.querySelector('[data-guide-journey]');
+    if(!root || root.dataset.ready==='1')return;
+    const panels=[...document.querySelectorAll('[data-journey-panel]')];
+    if(panels.length!==5)return;
+    const tabs=[...root.querySelectorAll('[data-go]')];
+    const previous=root.querySelector('[data-prev]');
+    const next=root.querySelector('[data-next]');
+    const checkbox=root.querySelector('[data-done]');
+    if(tabs.length!==5 || !previous || !next || !checkbox)return;
+    root.dataset.ready='1';
+    const storageKey='wikigarden:localizacion:steps:v3';
+    let completed=[false,false,false,false,false];
+    try{
+      const stored=JSON.parse(localStorage.getItem(storageKey)||'null');
+      if(Array.isArray(stored)&&stored.length===5)completed=stored.map(Boolean);
+    }catch(e){}
+    let active=0;
+    function show(shouldScroll){
+      panels.forEach((panel,i)=>{panel.hidden=i!==active;});
+      tabs.forEach((tab,i)=>{
+        tab.classList.toggle('active',i===active);
+        tab.classList.toggle('completed',completed[i]);
+        tab.setAttribute('aria-pressed',String(i===active));
+        tab.querySelector('.journeyNumber').textContent=completed[i]?'✓':String(i+1);
+      });
+      checkbox.checked=completed[active];
+      const count=completed.filter(Boolean).length;
+      root.querySelector('[data-counter]').textContent=count+' de 5 completados';
+      root.querySelector('[data-fill]').style.width=(count*20)+'%';
+      root.querySelector('[data-track]').setAttribute('aria-valuenow',String(count));
+      previous.disabled=active===0;
+      next.textContent=active===4?'Volver al inicio ↻':'Siguiente paso →';
+      if(shouldScroll)root.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    tabs.forEach((tab,i)=>tab.addEventListener('click',()=>{active=i;show(true)}));
+    previous.addEventListener('click',()=>{active=Math.max(0,active-1);show(true)});
+    next.addEventListener('click',()=>{active=(active+1)%5;show(true)});
+    checkbox.addEventListener('change',()=>{
+      completed[active]=checkbox.checked;
+      try{localStorage.setItem(storageKey,JSON.stringify(completed));}catch(e){}
+      show(false);
+    });
+    show(false);
   }
-  const edges=[0,2,3,5,7,10],panels=[];
-  for(let i=0;i<5;i++){
-   const first=headings[edges[i]],last=headings[edges[i+1]-1];
-   const sectionParent=first.parentElement;
-   if(!sectionParent||last.parentElement!==sectionParent)return;
-   // Include all content until the next numbered heading (but never footer/contact).
-   const stop=edges[i+1]<10?headings[edges[i+1]]:null;
-   const panel=document.createElement('section');
-   panel.className='journeyPanel';
-   panel.setAttribute('aria-label','Paso '+(i+1));
-   sectionParent.insertBefore(panel,first);
-   let node=first;
-   while(node&&node!==stop){
-    if(node.tagName==='STYLE'||node.classList?.contains('guideContact'))break;
-    const next=node.nextElementSibling;
-    panel.appendChild(node);
-    node=next;
-   }
-   panels.push(panel);
-  }
-  root.dataset.ready='1';
-  const key='wikigarden:localizacion:steps:v2';
-  let done=Array(5).fill(false);
-  try{
-   const saved=JSON.parse(localStorage.getItem(key)||'null');
-   if(Array.isArray(saved)&&saved.length===5)done=saved.map(Boolean);
-  }catch(e){}
-  let current=0;
-  const tabs=[...root.querySelectorAll('[data-go]')],box=root.querySelector('[data-done]'),prev=root.querySelector('[data-prev]'),next=root.querySelector('[data-next]');
-  function show(scroll){
-   panels.forEach((p,i)=>{p.hidden=i!==current;});
-   tabs.forEach((tab,i)=>{
-    tab.classList.toggle('active',i===current);
-    tab.classList.toggle('completed',done[i]);
-    tab.setAttribute('aria-pressed',String(i===current));
-    const num=tab.querySelector('.journeyNumber');
-    if(num)num.textContent=done[i]?'✓':String(i+1);
-   });
-   box.checked=done[current];
-   const count=done.filter(Boolean).length;
-   root.querySelector('[data-counter]').textContent=count+' de 5 completados';
-   root.querySelector('[data-fill]').style.width=(count*20)+'%';
-   root.querySelector('[data-track]').setAttribute('aria-valuenow',String(count));
-   prev.disabled=current===0;
-   next.textContent=current===4?'Volver al inicio ↻':'Siguiente paso →';
-   if(scroll)root.scrollIntoView({behavior:'smooth',block:'start'});
-  }
-  tabs.forEach((tab,i)=>tab.addEventListener('click',()=>{current=i;show(true)}));
-  prev.addEventListener('click',()=>{if(current>0)current--;show(true)});
-  next.addEventListener('click',()=>{current=(current+1)%5;show(true)});
-  box.addEventListener('change',()=>{done[current]=box.checked;try{localStorage.setItem(key,JSON.stringify(done))}catch(e){}show(false)});
-  show(false);
- }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});
- else setup();
- document.addEventListener('astro:page-load',setup);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initJourney,{once:true});
+  else initJourney();
+  document.addEventListener('astro:page-load',initJourney);
 })();
 </script>
 <style is:global>
