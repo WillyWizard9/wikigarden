@@ -15,7 +15,9 @@ export default defineConfig({
       sidebar: [
         { label: 'Empieza aquí', items: [
           { label: 'Bienvenida', slug: 'index' },
-          { label: 'Autodiagnóstico en 5 minutos', slug: 'autodiagnostico' },
+          { label: 'Autodiagnóstico · 25 preguntas', slug: 'autodiagnostico' },
+          { label: 'Evaluación de conocimientos · 15 preguntas', slug: 'evaluacion' },
+          { label: 'Mi perfil y medallas', slug: 'perfil' },
         ]},
         { label: 'Los cinco retos', items: [
           { label: '1. Stock mal localizado', slug: 'problemas/localizacion' },
