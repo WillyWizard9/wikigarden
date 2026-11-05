@@ -1,0 +1,13 @@
+---
+const {kind='localizacion'}=Astro.props;
+const files={"localizacion":[["Mapa de zonas y codificación","mapa-zonas"],["Asignación de familias a zonas","asignacion-familias"]],"sobrestock":[["Cobertura y clasificación ABC","cobertura-abc"]],"compras":[["Calculadora de punto de pedido","punto-pedido"],["Calendario de pedidos por proveedor","calendario-proveedores"],["Plan de compra de campaña","plan-campana"]],"conteos":[["Procedimiento de conteo","procedimiento-conteo"],["Calendario de conteo cíclico","calendario-conteo"],["Hoja de conteo a ciegas","hoja-conteo-ciego"],["Registro de mermas","registro-mermas"]],"movimientos":[]};
+const chosen=files[kind]||[];
+---
+<section class="guideDownloads" aria-label="Recursos descargables para este reto">
+ <div class="downloadHeading"><div><span>HERRAMIENTAS PARA APLICAR LO APRENDIDO</span><h2>Plantillas descargables</h2></div><a href="/plantillas/">Ver todas las plantillas →</a></div>
+ {chosen.length>0?<div class="downloadList">{chosen.map(([name,slug])=><a href={'/plantillas/'+slug+'.csv'} download><span class="downloadFileIcon">↓</span><span>{name}<small>Archivo editable CSV · Excel / Google Sheets</small></span><strong>Descargar ↗</strong></a>)}</div>:<p>Consulta el checklist de esta guía y las plantillas generales para preparar tus controles de entradas y salidas.</p>}
+</section>
+<style>
+.guideDownloads{margin:36px 0;padding:26px;border:1px solid #dce8e0;border-radius:18px;background:#fff}.downloadHeading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.downloadHeading span{font-size:10px;color:#3b8e70;font-weight:800;letter-spacing:.12em}.downloadHeading h2{color:#274e3b;margin:5px 0 18px;font-size:23px}.downloadHeading>a{font-size:12px;color:#277c60;text-decoration:none;font-weight:800}.downloadList{display:grid;gap:7px}.downloadList>a{display:flex;align-items:center;gap:12px;background:#f7faf7;border:1px solid #e3eee5;border-radius:12px;padding:12px 15px;text-decoration:none!important;color:#2b5944}.downloadFileIcon{height:35px;width:35px;border-radius:10px;display:grid;place-items:center;background:#e6f3ea;color:#368364;font-size:20px;font-weight:800}.downloadList a span:nth-child(2){font-weight:750;font-size:13px}.downloadList small{display:block;font-weight:400;color:#8da394;font-size:10px;margin-top:4px}.downloadList strong{font-size:12px;color:#288465;margin-left:auto;white-space:nowrap}.guideDownloads>p{color:#678574;font-size:13px}
+@media(max-width:520px){.guideDownloads{padding:15px}.downloadList>a{padding:10px}.downloadList strong{font-size:10px}}
+</style>
