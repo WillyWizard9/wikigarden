@@ -1,6 +1,17 @@
-# Wiki de control de stock · Cymara × ALIAT
+# WikiGarden · Cymara × ALIAT
 
-Guía para los garden centers de ALIAT. Hecha con Astro Starlight, alojada en Vercel y con acceso por email mediante Supabase.
+Guía interactiva de control de inventario para garden centers, creada con Astro Starlight y desplegada en Vercel.
+
+## Experiencia actual (demostración)
+
+- La ruta `/acceso/` muestra un formulario de usuario y contraseña **sin autenticar**: cualquier combinación permite entrar.
+- El nombre del usuario se guarda en `sessionStorage`; los pasos completados, medallas y resultados del test se guardan en `localStorage` del navegador.
+- Esta interfaz **no protege contenido, no identifica usuarios y no sincroniza progreso entre dispositivos**. No publiques datos privados basándote en esta pantalla.
+- Cinco retos con progreso en cinco etapas y medallas; examen de 15 preguntas; autodiagnóstico de 25 preguntas.
+- Formulario comercial disponible mediante `/api/contact`: requiere `RESEND_API_KEY` y `RESEND_FROM_EMAIL` configurados en Vercel para enviar realmente a info@cymara.es.
+- Si `WIKI_REQUIRE_AUTH=true`, se mantiene activo el middleware de autenticación real mediante Supabase: la pantalla de demostración **no sustituye** esa verificación. Para usar solamente la demostración, esta variable debe estar desactivada.
+
+## Integración real de acceso mediante Supabase (opcional)
 
 ## Editar el contenido
 
