@@ -54,3 +54,37 @@ import DefaultHeader from '@astrojs/starlight/components/Header.astro';
 @media(max-width:800px){.wg-profile-link{right:133px;padding:8px;font-size:11px}}
 @media(max-width:530px){.wg-profile-link{font-size:0;right:145px}.wg-profile-link::before{content:'◉';font-size:18px}}
 </style>
+
+<script is:inline>
+// Contabiliza descargas reales completadas desde este navegador, sin duplicar plantillas.
+(function(){
+ if(window.__wikiTemplateDownloadsReady)return;
+ window.__wikiTemplateDownloadsReady=true;
+ document.addEventListener('click',async function(event){
+  const link=event.target instanceof Element?event.target.closest('a[href]'):null;
+  if(!link || event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
+  const url=new URL(link.href,location.href);
+  if(url.origin!==location.origin || !/^\/plantillas\/[^/]+\.csv$/i.test(url.pathname))return;
+  event.preventDefault();
+  try{
+   const result=await fetch(url.href,{credentials:'same-origin'});
+   if(!result.ok)throw new Error('No se pudo descargar el archivo');
+   const blob=await result.blob();
+   const objectUrl=URL.createObjectURL(blob);
+   const a=document.createElement('a');a.href=objectUrl;a.download=url.pathname.split('/').pop();a.style.display='none';document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(objectUrl),1200);
+   try{
+    const key='wikigarden:downloaded-templates:v1';
+    const previous=JSON.parse(localStorage.getItem(key)||'[]');
+    const unique=new Set(Array.isArray(previous)?previous:[]);
+    unique.add(a.download);
+    localStorage.setItem(key,JSON.stringify([...unique]));
+    document.dispatchEvent(new CustomEvent('wikigarden:achievement-progress'));
+   }catch(e){}
+  }catch(e){
+   // Sin contar el logro si el servidor no ha servido el fichero.
+   location.assign(url.href);
+  }
+ },true);
+})();
+</script>
