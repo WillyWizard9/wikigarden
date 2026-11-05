@@ -7,6 +7,7 @@ import ActionPath from '../../../components/ActionPath.astro';
 import GuideContact from '../../../components/GuideContact.astro';
 import GuideJourney from '../../../components/GuideJourney.astro';
 import GuideConversion from '../../../components/GuideConversion.astro';
+import GuideTemplates from '../../../components/GuideTemplates.astro';
 import ChecklistDownload from '../../../components/ChecklistDownload.astro';
 
 <div class="over-hero">
@@ -78,7 +79,7 @@ La cobertura responde a una pregunta: **con el ritmo de venta previsto, ¿para c
 Si no hay ventas durante el periodo analizado, **no dividas entre cero ni interpretes la cobertura como cero semanas**. Marca la referencia como «sin movimiento» y revisa si está descatalogada, fuera de temporada o mal expuesta.
 :::
 
-Si quieres experimentar con los valores, abre el [laboratorio interactivo de cobertura](/laboratorio/).
+Para evaluar el exceso, compara la cobertura calculada con la rotación y la estacionalidad de cada referencia.
 
 ## 4. Tres tipos de exceso, tres respuestas distintas
 
@@ -186,8 +187,8 @@ Empieza por las **20 referencias con más capital inmovilizado y menor rotación
 <div class="over-before">
  <span>SIMULACIÓN ILUSTRATIVA · NO SON RESULTADOS REALES</span>
  <div class="over-before-grid">
-  <div><small>ANTES</small><strong>€12.000</strong><p>Valor a coste de referencias identificadas como exceso</p><div class="over-bar"><i style="width:100%"></i></div></div>
-  <div><small>DESPUÉS</small><strong>€7.500</strong><p>Valor a coste tras medidas de reducción de inventario</p><div class="over-bar"><i style="width:62.5%"></i></div></div>
+  <div><small>ANTES</small><strong>12.000 €</strong><p>Valor a coste de referencias identificadas como exceso</p><div class="over-bar"><i style="width:100%"></i></div></div>
+  <div><small>DESPUÉS</small><strong>7.500 €</strong><p>Valor a coste tras medidas de reducción de inventario</p><div class="over-bar"><i style="width:62.5%"></i></div></div>
  </div>
  <p>El ejemplo supone una reducción de **4.500 € (37,5 %)** del valor de ese grupo de stock. No implica automáticamente que se hayan recuperado 4.500 € en caja: depende de cómo se haya vendido, devuelto o dado de baja.</p>
 </div>
@@ -244,6 +245,8 @@ Elige una familia (por ejemplo, cerámica decorativa), reúne **stock actual, co
 @media(max-width:950px){.over-products,.over-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.over-chain,.over-lifecycle{display:grid;grid-template-columns:1fr 1fr}.over-chain>b,.over-lifecycle>b{display:none}}
 @media(max-width:650px){.over-kpis,.over-products,.over-types,.over-metrics,.over-rules,.over-before-grid{grid-template-columns:1fr}.over-chain,.over-lifecycle{grid-template-columns:1fr}.over-matrix-head,.over-matrix>div:not(:first-child){grid-template-columns:110px 1fr 1fr;gap:5px}.over-mx{padding:8px}.over-mx b{font-size:11px}.over-mx small{font-size:10px}.over-next{flex-direction:column;align-items:stretch}.over-next>div:last-child{min-width:0}}
 `}</style>
+
+<GuideTemplates kind="sobrestock" />
 
 <GuideConversion goal="Reducir sobrestock" offer="Cymara Forecasting puede ayudar a trabajar con previsiones de demanda para tomar mejores decisiones de compra y reposición." />
 
