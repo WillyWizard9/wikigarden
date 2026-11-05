@@ -46,7 +46,7 @@ const steps = stepSets[kind] || [
     const actions=root.querySelector('.journeyActions');
     const toast=document.querySelector('[data-medal-toast]');
     const originalHeadings=panels.map(p=>[...p.querySelectorAll('h2')]);
-    originalHeadings.forEach((list,step)=>list.forEach((h,sub)=>{h.textContent=h.textContent.replace(/^\\s*\\d+\\.\\s*/,String(step+1)+'.'+String(sub+1)+' · ')}));
+    originalHeadings.forEach((list,step)=>list.forEach((h,sub)=>{h.textContent=h.textContent.replace(/^\s*\d+\.\s*/,String(step+1)+'.'+String(sub+1)+' · ')}));
     if(tabs.length!==5 || !previous || !next || !checkbox)return;
     root.dataset.ready='1';
     const storageKey='wikigarden:'+kind+':steps:v3';
