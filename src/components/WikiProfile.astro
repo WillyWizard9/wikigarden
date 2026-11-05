@@ -2,6 +2,21 @@
 const names=['Localización','Sobrestock','Compras','Conteos','Entradas y salidas'];
 const keys=['localizacion','sobrestock','compras','conteos','movimientos'];
 const icons=['⌖','▦','↗','✓','⇄'];
+const stepLabels={
+ localizacion:['Comprender el problema','Crear el mapa de ubicaciones','Organizar y controlar','Implantar y medir','Revisar y completar'],
+ sobrestock:['Detectar el exceso','Medir y clasificar','Decidir acciones','Prevenir y medir','Completar el plan'],
+ compras:['Entender las compras','Calcular la reposición','Planificar por familias','Implantar y medir','Revisar el plan'],
+ conteos:['Detectar las diferencias','Preparar y contar','Investigar y organizar','Implantar y medir','Completar el conteo'],
+ movimientos:['Identificar las fugas','Controlar recepciones','Registrar ventas y movimientos','Implantar y medir','Completar el control']
+};
+const stepIcons={
+ localizacion:['🔍','🗺️','📍','🛠️','✅'],
+ sobrestock:['📦','📊','🧮','♻️','📉'],
+ compras:['🛒','🧾','🗓️','🚚','🎯'],
+ conteos:['⚖️','📋','🔢','🔬','🏁'],
+ movimientos:['🚪','📥','🏷️','🔄','🛡️']
+};
+const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',conteos:'🎖️',movimientos:'🔰'};
 ---
 <section class="profileApp" id="wg-profile">
  <div class="profileHero"><span class="profileEyebrow">MI ESPACIO · WIKIGARDEN</span><h2>Tu progreso tiene recompensa.</h2><p>Consulta los pasos completados y los logros que has conseguido en tu recorrido de aprendizaje.</p><div class="profileUser"><span>◉</span><strong id="profileName">Visitante</strong><span>Perfil de demostración</span></div></div>
@@ -9,17 +24,17 @@ const icons=['⌖','▦','↗','✓','⇄'];
  <div class="medalIntro"><h2>Tu medallero</h2><p>Cada paso que completas desbloquea una medalla. Las pendientes permanecen en blanco y negro.</p></div>
  <div class="medalGroups">
  {keys.map((key,k)=><section class="medalGroup" data-group={key}><div class="medalGroupHeader"><div class="medalIcon">{icons[k]}</div><div><h3>{names[k]}</h3><span data-group-progress>0 de 5 pasos</span></div><a href={'/problemas/'+key+'/'}>{key==='movimientos'?'Ver reto':'Continuar'} →</a></div><div class="medalList">
- {Array.from({length:5},(_,i)=><div class="medal" data-medal={i}><span class="medalDisc"><span>★</span></span><strong>{'Paso '+(i+1)}</strong><small>Pendiente</small></div>)}
- <div class="medal challengeMedal" data-challenge-medal><span class="medalDisc"><span>✦</span></span><strong>Reto completado</strong><small>5 de 5 pasos</small></div>
+ {stepLabels[key].map((label,i)=><div class="medal" data-medal={i} title={label}><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">{stepIcons[key][i]}</span></span><strong>{label}</strong><small>Pendiente</small></div>)}
+ <div class="medal challengeMedal" data-challenge-medal title={'Completar '+names[k]}><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">{challengeIcons[key]}</span></span><strong>Reto completado</strong><small>5 de 5 pasos</small></div>
  </div></section>)}
  </div>
  <section class="milestoneSection">
   <div class="medalIntro"><h2>Logros especiales</h2><p>Descubre, practica y demuestra lo aprendido. Cada actividad desbloquea una medalla distinta.</p></div>
   <div class="specialGrid">
-   <a href="/autodiagnostico/" class="specialAchievement" data-special="diagnostic"><span class="medalDisc"><span>✚</span></span><strong>Primer diagnóstico</strong><small>Completar las 25 preguntas</small><em data-status>Pendiente</em></a>
-   <a href="/plantillas/" class="specialAchievement" data-special="downloads"><span class="medalDisc"><span>↓</span></span><strong>Manos a la obra</strong><small data-download-caption>Descargar 3 plantillas distintas · 0/3</small><em data-status>Pendiente</em></a>
-   <a href="/evaluacion/" class="specialAchievement" data-special="exam-done"><span class="medalDisc"><span>✎</span></span><strong>Conocimientos a prueba</strong><small>Realizar el test de 15 preguntas</small><em data-status>Pendiente</em></a>
-   <a href="/evaluacion/" class="specialAchievement" data-special="exam-passed"><span class="medalDisc"><span>★</span></span><strong>Experto en inventario</strong><small>Aprobar con al menos 12/15</small><em data-status>Pendiente</em></a>
+   <a href="/autodiagnostico/" class="specialAchievement" data-special="diagnostic"><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">🩺</span></span><strong>Primer diagnóstico</strong><small>Completar las 25 preguntas</small><em data-status>Pendiente</em></a>
+   <a href="/plantillas/" class="specialAchievement" data-special="downloads"><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">📂</span></span><strong>Manos a la obra</strong><small data-download-caption>Descargar 3 plantillas distintas · 0/3</small><em data-status>Pendiente</em></a>
+   <a href="/evaluacion/" class="specialAchievement" data-special="exam-done"><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">📝</span></span><strong>Conocimientos a prueba</strong><small>Realizar el test de 15 preguntas</small><em data-status>Pendiente</em></a>
+   <a href="/evaluacion/" class="specialAchievement" data-special="exam-passed"><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">🎓</span></span><strong>Experto en inventario</strong><small>Aprobar con al menos 12/15</small><em data-status>Pendiente</em></a>
   </div>
  </section>
  <section class="platinumSection" id="platinumAchievement">
@@ -119,4 +134,100 @@ const icons=['⌖','▦','↗','✓','⇄'];
 @media(max-width:900px){.profileApp .specialGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.profileApp .medalDisc{width:60px;height:60px}}
 @media(max-width:700px){.profileApp .medalList{grid-template-columns:repeat(3,minmax(0,1fr))!important;row-gap:17px}.profileApp .challengeMedal{border-left:0;border-top:1px solid #dce7df;padding:12px 0 0}.profileApp .platinumSection{flex-direction:column;text-align:center}}
 @media(max-width:380px){.profileApp .specialGrid{grid-template-columns:1fr 1fr;gap:8px}.profileApp .specialAchievement{padding:17px 8px}}
+</style>
+<style is:global>
+/* Medallero: cada premio ocupa la misma celda, sin márgenes heredados de Starlight. */
+.profileApp .medalList{
+ display:grid!important;
+ grid-template-columns:repeat(6,minmax(0,1fr))!important;
+ gap:clamp(8px,1.8vw,22px)!important;
+ align-items:start!important;
+ grid-auto-rows:auto!important;
+ margin:0!important;
+}
+.profileApp .medalList > .medal{
+ display:grid!important;
+ grid-template-rows:92px minmax(50px,auto) 22px!important;
+ align-content:start!important;
+ align-items:start!important;
+ justify-items:center!important;
+ row-gap:8px!important;
+ min-width:0!important;
+ width:100%!important;
+ padding:0 3px!important;
+ margin:0!important;
+ text-align:center!important;
+ box-sizing:border-box!important;
+ border-radius:0!important;
+}
+.profileApp .medalList > .medal .medalDisc{
+ margin:0!important;
+ width:78px!important;
+ height:78px!important;
+ align-self:start!important;
+ justify-self:center!important;
+ flex-shrink:0!important;
+ box-sizing:border-box!important;
+}
+.profileApp .medalList > .medal > strong{
+ display:flex!important;
+ align-items:flex-start!important;
+ justify-content:center!important;
+ width:100%!important;
+ min-height:50px!important;
+ height:auto!important;
+ margin:0!important;
+ padding:0!important;
+ font-size:clamp(11px,1.1vw,14px)!important;
+ line-height:1.3!important;
+ text-wrap:balance;
+ overflow-wrap:anywhere!important;
+}
+.profileApp .medalList > .medal > small{
+ display:block!important;
+ margin:0!important;
+ padding:0!important;
+ line-height:1.3!important;
+ text-align:center!important;
+}
+.profileApp .medalList .challengeMedal{
+ border-left:1px solid #dce7df!important;
+ border-top:0!important;
+ padding-left:clamp(6px,1vw,16px)!important;
+}
+.profileApp .medalDisc .medalGlyph{
+ display:grid!important;
+ place-items:center!important;
+ margin:0!important;
+ font-size:clamp(24px,2.7vw,35px)!important;
+ line-height:1!important;
+ width:100%;
+ height:100%;
+ filter:grayscale(1);
+}
+.profileApp .medal.unlocked .medalGlyph,
+.profileApp .specialAchievement.unlocked .medalGlyph{filter:none}
+.profileApp .specialGrid .specialAchievement{
+ margin:0!important;
+ min-width:0!important;
+ align-items:center!important;
+}
+.profileApp .specialGrid .specialAchievement > :is(strong,small,em,.medalDisc){
+ margin:0!important;
+}
+.profileApp .specialGrid .specialAchievement > strong{
+ min-height:36px!important;
+ display:flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ text-align:center!important;
+ line-height:1.3!important;
+}
+@media(max-width:760px){
+ .profileApp .medalList{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:17px 9px!important}
+ .profileApp .medalList > .medal{grid-template-rows:67px minmax(49px,auto) 24px!important;row-gap:7px!important}
+ .profileApp .medalList > .medal .medalDisc{width:60px!important;height:60px!important}
+ .profileApp .medalList .challengeMedal{border-left:0!important;border-top:1px solid #dce7df!important;padding:7px 3px 0!important}
+ .profileApp .medalDisc .medalGlyph{font-size:25px!important}
+}
 </style>
