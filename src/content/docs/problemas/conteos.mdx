@@ -7,6 +7,7 @@ import ActionPath from '../../../components/ActionPath.astro';
 import GuideContact from '../../../components/GuideContact.astro';
 import GuideJourney from '../../../components/GuideJourney.astro';
 import GuideConversion from '../../../components/GuideConversion.astro';
+import GuideTemplates from '../../../components/GuideTemplates.astro';
 import ChecklistDownload from '../../../components/ChecklistDownload.astro';
 
 <div class="cnt-hero">
@@ -277,6 +278,8 @@ Selecciona una zona pequeña, establece el corte, haz un conteo a ciegas y revis
 @media(max-width:960px){.cnt-flow{display:grid;grid-template-columns:1fr 1fr}.cnt-flow>b{display:none}.cnt-metrics{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.cnt-hero-grid,.cnt-phases,.cnt-freq,.cnt-steps,.cnt-metrics,.cnt-numbers{grid-template-columns:1fr}.cnt-flow,.cnt-compare{grid-template-columns:1fr}.cnt-next{flex-direction:column;align-items:stretch}.cnt-next>div:last-child{min-width:0}}
 `}</style>
+
+<GuideTemplates kind="conteos" />
 
 <GuideConversion goal="Mejorar la fiabilidad del inventario" offer="Cymara Stocktake y el servicio de conteo físico pueden ayudar a organizar y ejecutar inventarios más fiables." />
 
