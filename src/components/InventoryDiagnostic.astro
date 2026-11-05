@@ -62,7 +62,7 @@ function initDiagnostic(){
   support.textContent='Si necesitas ayuda para aplicarlo: '+services[first.id];
  }
  recommend.append(label,title,detail,why,link,support);
- form.hidden=true;result.hidden=false;result.focus({preventScroll:true});result.scrollIntoView({behavior:'smooth',block:'start'});});
+ try{localStorage.setItem('wikigarden:diagnostic-completed:v1',new Date().toISOString())}catch(e){}form.hidden=true;result.hidden=false;result.focus({preventScroll:true});result.scrollIntoView({behavior:'smooth',block:'start'});});
  root.querySelector('#redo').addEventListener('click',()=>{result.hidden=true;form.hidden=false;root.scrollIntoView({behavior:'smooth',block:'start'});});update();
 }
 initDiagnostic();document.addEventListener('astro:page-load',initDiagnostic);
