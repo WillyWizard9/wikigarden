@@ -81,7 +81,9 @@ const steps = stepSets[kind] || [
       completed[active]=checkbox.checked;
       try{localStorage.setItem(storageKey,JSON.stringify(completed));}catch(e){}
       if(completed[active]&&toast){
-        toast.querySelector('[data-medal-text]').textContent='Paso '+(active+1)+' de '+kind+' completado. Ya puedes consultar tu medalla.';
+        const challengeWon=completed.every(Boolean);
+        toast.querySelector('strong').textContent=challengeWon?'¡Reto completo! Medalla especial desbloqueada.':'¡Logro desbloqueado!';
+        toast.querySelector('[data-medal-text]').textContent=challengeWon?'Has conseguido las cinco medallas de '+kind+'. La medalla de reto completo ya está en tu perfil.':'Paso '+(active+1)+' de '+kind+' completado. Ya puedes consultar tu medalla.';
         toast.hidden=false;toast.classList.remove('medalPop');void toast.offsetWidth;toast.classList.add('medalPop');
         window.setTimeout(()=>toast.hidden=true,5300);
       }
