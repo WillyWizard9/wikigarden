@@ -238,3 +238,21 @@ body:has(.loc-lead) .sl-markdown-content .table-wrapper > table :is(th,td){
 .sl-markdown-content .mov-doc-grid{align-items:stretch!important;grid-auto-rows:minmax(0,1fr)}
 .sl-markdown-content .mov-doc-grid>div{margin:0!important;min-height:0!important;height:100%!important;box-sizing:border-box;justify-content:center;gap:8px}
 .sl-markdown-content .mov-doc-grid :is(small,b){margin:0!important;line-height:1.35}
+
+
+/* Introducciones de los cinco retos: menos tarjetas repetidas, más jerarquía editorial. */
+.sl-markdown-content :is(.loc-insights,.over-kpis,.buy-hero-stats,.cnt-hero-grid,.mov-pillars){
+ display:flex!important;flex-wrap:wrap!important;gap:0!important;align-items:stretch!important;
+ margin-top:22px!important;padding-top:15px!important;border-top:1px solid #d3e5da;
+ background:transparent!important;border-radius:0!important;
+}
+.sl-markdown-content :is(.loc-insights,.over-kpis,.buy-hero-stats,.cnt-hero-grid,.mov-pillars)>div{
+ flex:1 1 170px;display:flex!important;flex-direction:column!important;justify-content:center!important;
+ gap:4px!important;min-height:70px!important;height:auto!important;padding:12px 18px!important;
+ margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
+}
+.sl-markdown-content :is(.loc-insights,.over-kpis,.buy-hero-stats,.cnt-hero-grid,.mov-pillars)>div+div{border-left:1px solid #d4e4da!important}
+.sl-markdown-content :is(.loc-insights,.over-kpis,.buy-hero-stats,.cnt-hero-grid,.mov-pillars)>div :is(strong,b){font-size:17px!important;color:#255f48!important}
+.sl-markdown-content :is(.loc-insights,.over-kpis,.buy-hero-stats,.cnt-hero-grid,.mov-pillars)>div :is(span,small){font-size:12px!important;color:#688375!important}
+@media(max-width:700px){.sl-markdown-content :is(.loc-insights,.over-kpis,.buy-hero-stats,.cnt-hero-grid,.mov-pillars)>div{flex:1 1 100%!important;border-left:0!important;border-bottom:1px solid #d9e9df!important}}
+/* El acceso al contenido es demostrativo; no utilizar para información privada. */
