@@ -10,31 +10,77 @@ const icons=['⌖','▦','↗','✓','⇄'];
  <div class="medalGroups">
  {keys.map((key,k)=><section class="medalGroup" data-group={key}><div class="medalGroupHeader"><div class="medalIcon">{icons[k]}</div><div><h3>{names[k]}</h3><span data-group-progress>0 de 5 pasos</span></div><a href={'/problemas/'+key+'/'}>{key==='movimientos'?'Ver reto':'Continuar'} →</a></div><div class="medalList">
  {Array.from({length:5},(_,i)=><div class="medal" data-medal={i}><span class="medalDisc"><span>★</span></span><strong>{'Paso '+(i+1)}</strong><small>Pendiente</small></div>)}
+ <div class="medal challengeMedal" data-challenge-medal><span class="medalDisc"><span>✦</span></span><strong>Reto completado</strong><small>5 de 5 pasos</small></div>
  </div></section>)}
  </div>
- <section class="evaluationBadge"><h2>Evaluación de conocimientos</h2><div class="evalMedal" id="examMedal"><span>★</span><p>Supera el test de 15 preguntas para desbloquear tu logro de conocimientos.</p></div><a href="/evaluacion/">Ir a la autoevaluación →</a></section>
+ <section class="milestoneSection">
+  <div class="medalIntro"><h2>Logros especiales</h2><p>Descubre, practica y demuestra lo aprendido. Cada actividad desbloquea una medalla distinta.</p></div>
+  <div class="specialGrid">
+   <a href="/autodiagnostico/" class="specialAchievement" data-special="diagnostic"><span class="medalDisc"><span>✚</span></span><strong>Primer diagnóstico</strong><small>Completar las 25 preguntas</small><em data-status>Pendiente</em></a>
+   <a href="/plantillas/" class="specialAchievement" data-special="downloads"><span class="medalDisc"><span>↓</span></span><strong>Manos a la obra</strong><small data-download-caption>Descargar 3 plantillas distintas · 0/3</small><em data-status>Pendiente</em></a>
+   <a href="/evaluacion/" class="specialAchievement" data-special="exam-done"><span class="medalDisc"><span>✎</span></span><strong>Conocimientos a prueba</strong><small>Realizar el test de 15 preguntas</small><em data-status>Pendiente</em></a>
+   <a href="/evaluacion/" class="specialAchievement" data-special="exam-passed"><span class="medalDisc"><span>★</span></span><strong>Experto en inventario</strong><small>Aprobar con al menos 12/15</small><em data-status>Pendiente</em></a>
+  </div>
+ </section>
+ <section class="platinumSection" id="platinumAchievement">
+  <div class="platinumTrophy" aria-hidden="true">🏆</div>
+  <div><span class="profileEyebrow">LA DISTINCIÓN DEFINITIVA</span><h2>Trofeo Platino · Maestro del Garden</h2><p>Desbloquea los 25 pasos, las cinco medallas de reto completo y los cuatro logros especiales.</p><strong id="platinumStatus">Bloqueado · 0 de 34 logros</strong></div>
+ </section>
  <button type="button" id="demoLogout">Salir de esta sesión</button><p class="profileDisclaimer">Los logros se guardan únicamente en este navegador. No hay sincronización entre dispositivos ni autenticación real.</p>
 </section>
 <script is:inline>
 (function(){
  function init(){
-  const root=document.getElementById('wg-profile');if(!root)return;
+  const root=document.getElementById('wg-profile');if(!root || root.dataset.initialized==='1')return;
+  root.dataset.initialized='1';
   let user='Visitante';try{user=sessionStorage.getItem('wikigarden:demo-user')||user}catch(e){}
   root.querySelector('#profileName').textContent=user;
-  let total=0,finished=0;
-  root.querySelectorAll('[data-group]').forEach(group=>{
-   let done=[false,false,false,false,false];
-   try{const saved=JSON.parse(localStorage.getItem('wikigarden:'+group.dataset.group+':steps:v3')||'null');if(Array.isArray(saved)&&saved.length===5)done=saved.map(Boolean)}catch(e){}
-   const count=done.filter(Boolean).length;total+=count;if(count===5)finished++;
-   group.querySelector('[data-group-progress]').textContent=count+' de 5 pasos';
-   group.querySelectorAll('[data-medal]').forEach((el,i)=>{
-    el.classList.toggle('unlocked',done[i]);el.querySelector('small').textContent=done[i]?'Desbloqueada':'Pendiente';
+  function readJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch(e){return fallback}}
+  function refresh(){
+   let stepCount=0,challengeCount=0;
+   root.querySelectorAll('[data-group]').forEach(group=>{
+    const saved=readJSON('wikigarden:'+group.dataset.group+':steps:v3',[]);
+    const done=Array.from({length:5},(_,i)=>Array.isArray(saved)&&saved[i]===true);
+    const count=done.filter(Boolean).length;
+    stepCount+=count;
+    if(count===5)challengeCount++;
+    group.querySelector('[data-group-progress]').textContent=count+' de 5 pasos';
+    group.querySelectorAll('[data-medal]').forEach((el,i)=>{
+     el.classList.toggle('unlocked',done[i]);
+     el.querySelector('small').textContent=done[i]?'Desbloqueada':'Pendiente';
+    });
+    const challenge=group.querySelector('[data-challenge-medal]');
+    challenge.classList.toggle('unlocked',count===5);
+    challenge.querySelector('small').textContent=count===5?'¡Reto superado!':count+' de 5 pasos';
    });
-  });
-  root.querySelector('#profileCount').textContent=String(total);
-  root.querySelector('#profileCompleted').textContent=String(finished);
-  root.querySelector('#profilePct').textContent=Math.round(total/25*100)+'%';
-  try{const exam=JSON.parse(localStorage.getItem('wikigarden:knowledge-exam:v1')||'null');if(exam?.passed)root.querySelector('#examMedal').classList.add('unlocked')}catch(e){}
+   const downloads=readJSON('wikigarden:downloaded-templates:v1',[]);
+   const validDownloads=Array.isArray(downloads)?[...new Set(downloads.filter(x=>typeof x==='string'&&x.endsWith('.csv')))].length:0;
+   const exam=readJSON('wikigarden:knowledge-exam:v1',null);
+   const flags={
+    diagnostic:!!localStorage.getItem('wikigarden:diagnostic-completed:v1'),
+    downloads:validDownloads>=3,
+    'exam-done':!!(exam&&(exam.completed===true||typeof exam.score==='number')),
+    'exam-passed':!!exam?.passed
+   };
+   root.querySelector('[data-download-caption]').textContent='Descargar 3 plantillas distintas · '+Math.min(3,validDownloads)+'/3';
+   root.querySelectorAll('[data-special]').forEach(el=>{
+    const yes=!!flags[el.dataset.special];
+    el.classList.toggle('unlocked',yes);
+    el.querySelector('[data-status]').textContent=yes?'Desbloqueada':'Pendiente';
+   });
+   const extraCount=Object.values(flags).filter(Boolean).length;
+   const earned=stepCount+challengeCount+extraCount;
+   const platinum=earned===34;
+   const trophy=root.querySelector('#platinumAchievement');
+   trophy.classList.toggle('unlocked',platinum);
+   trophy.querySelector('#platinumStatus').textContent=platinum?'¡Trofeo Platino desbloqueado!':earned+' de 34 logros para conseguir el platino';
+   root.querySelector('#profileCount').textContent=String(earned+(platinum?1:0));
+   root.querySelector('#profileCompleted').textContent=String(challengeCount);
+   root.querySelector('#profilePct').textContent=Math.round(earned/34*100)+'%';
+  }
+  refresh();
+  document.addEventListener('wikigarden:achievement-progress',refresh);
+  window.addEventListener('storage',refresh);
   root.querySelector('#demoLogout').addEventListener('click',()=>{try{sessionStorage.removeItem('wikigarden:demo-user')}catch(e){}location.assign('/acceso/')});
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
@@ -48,4 +94,29 @@ const icons=['⌖','▦','↗','✓','⇄'];
 .medalList{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.medal{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}.medalDisc{height:75px;width:75px;display:grid;place-items:center;background:radial-gradient(circle at 32% 25%,#dedede,#a5aaa8 65%,#838985);border:5px solid #e0e1e1;box-shadow:inset 0 0 0 3px #c4c8c5,0 7px 16px #172c1a14;border-radius:50%;filter:grayscale(1);color:#f0f1f0;font-size:32px;transition:all .3s}.medal.unlocked .medalDisc{background:radial-gradient(circle at 30% 25%,#f8ed8e,#dbab3b 63%,#aa791b);border-color:#f5d86a;box-shadow:inset 0 0 0 3px #fceca6,0 7px 20px #caac4233;filter:none;color:#fffce5}.medal strong{font-size:12px}.medal small{font-size:10px;color:#809388}.medal.unlocked small{color:#23835c;font-weight:800}
 .evaluationBadge{background:#f1f8f2;border-radius:18px;padding:24px;margin-top:25px}.evalMedal{display:flex;align-items:center;gap:20px;color:#88938a}.evalMedal span{filter:grayscale(1);width:75px;height:75px;border-radius:50%;background:#bbb;display:grid;place-items:center;font-size:32px}.evalMedal.unlocked span{background:#f2c04b;color:white;filter:none}.evaluationBadge>a{color:#277c60;font-weight:800}.profileApp #demoLogout{background:#fff;color:#657c6d;border:1px solid #d7e5da;border-radius:20px;padding:11px 18px;cursor:pointer;margin-top:22px}.profileDisclaimer{font-size:11px;color:#8aa091}
 @media(max-width:700px){.medalList{gap:5px}.medalDisc{height:46px;width:46px;font-size:20px;border-width:3px}.medal strong{font-size:10px}.medal small{font-size:9px}.profileScore>div{padding:12px}.profileScore strong{font-size:23px}}
+</style>
+<style is:global>
+/* Medallero ampliado: cinco pasos y una insignia adicional por cada reto. */
+.profileApp .medalList{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+.profileApp .challengeMedal{border-left:1px solid #dce7df;padding-left:12px}
+.profileApp .challengeMedal.unlocked .medalDisc{background:radial-gradient(circle at 30% 25%,#fff3a4,#e7a13e 65%,#ae651b);border-color:#f4c776}
+.profileApp .milestoneSection{margin-top:35px}
+.profileApp .specialGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.profileApp .specialAchievement{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;border:1px solid #dce8e1;border-radius:18px;background:white;padding:25px 12px;text-decoration:none!important;color:#2a5140!important;box-shadow:0 8px 25px #193a2708}
+.profileApp .specialAchievement .medalDisc{flex:none}
+.profileApp .specialAchievement strong{font-size:13px;font-weight:800}
+.profileApp .specialAchievement small{font-size:11px;line-height:1.45;color:#819185}
+.profileApp .specialAchievement em{font-size:11px;font-style:normal;color:#86988d}
+.profileApp .specialAchievement.unlocked .medalDisc{background:radial-gradient(circle at 30% 25%,#ffed95,#daa135 65%,#ab7428);border-color:#f6d47a;filter:none;color:#fffbe0}
+.profileApp .specialAchievement.unlocked em{font-weight:800;color:#2b835e}
+.profileApp .platinumSection{display:flex;align-items:center;gap:26px;background:linear-gradient(120deg,#f5f7f8,#e7ecf0);border:1px solid #cbd4da;padding:clamp(20px,3vw,38px);border-radius:22px;margin:26px 0;filter:grayscale(1);opacity:.8}
+.profileApp .platinumTrophy{font-size:clamp(48px,7vw,90px);filter:grayscale(1);line-height:1}
+.profileApp .platinumSection h2{font-size:clamp(23px,3vw,33px);margin:8px 0;color:#394958}
+.profileApp .platinumSection p{font-size:13px;line-height:1.6;color:#667881}
+.profileApp .platinumSection strong{font-size:12px;color:#566c7d}
+.profileApp .platinumSection.unlocked{filter:none;opacity:1;background:linear-gradient(130deg,#e9edf6,#fff,#d8e9ed);border-color:#98b5c9;box-shadow:0 15px 45px #8eacb333}
+.profileApp .platinumSection.unlocked .platinumTrophy{filter:none}
+@media(max-width:900px){.profileApp .specialGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.profileApp .medalDisc{width:60px;height:60px}}
+@media(max-width:700px){.profileApp .medalList{grid-template-columns:repeat(3,minmax(0,1fr))!important;row-gap:17px}.profileApp .challengeMedal{border-left:0;border-top:1px solid #dce7df;padding:12px 0 0}.profileApp .platinumSection{flex-direction:column;text-align:center}}
+@media(max-width:380px){.profileApp .specialGrid{grid-template-columns:1fr 1fr;gap:8px}.profileApp .specialAchievement{padding:17px 8px}}
 </style>
