@@ -1,0 +1,3 @@
+﻿Fecha,Proveedor,Pedido,Albaran,Referencia,Cantidad pedida,Cantidad albaran,Cantidad recibida,Diferencia albaran-recibido,Incidencia,Responsable,Estado
+,Viveros Ejemplo,PED-0831,ALB-0148,MAC30,30,30,26,=G2-H2,Cuatro unidades pendientes,Recepcion,Pendiente
+,Viveros Ejemplo,PED-0831,ALB-0148,SUS50,20,20,20,=G3-H3,Sin incidencia,Recepcion,Conciliado
