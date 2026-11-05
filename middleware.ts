@@ -33,7 +33,9 @@ async function verificar(token: string, supabaseUrl: string): Promise<JWTPayload
 
 export default async function middleware(request: Request) {
   // En la primera fase, se despliega sin control de acceso.
-  if (process.env.WIKI_REQUIRE_AUTH !== 'true') return next();
+  // La demostración debe ser accesible sin Supabase. No utilizar para información privada.
+  // Para activar autenticación real, configurar WIKI_DEMO_ACCESS=false junto a WIKI_REQUIRE_AUTH=true.
+  if (process.env.WIKI_DEMO_ACCESS !== 'false' || process.env.WIKI_REQUIRE_AUTH !== 'true') return next();
 
   const supabaseUrl = (process.env.PUBLIC_SUPABASE_URL ?? '').trim().replace(/[/]$/, '');
   // Con protección activada pero Supabase sin configurar, no exponer la wiki.
