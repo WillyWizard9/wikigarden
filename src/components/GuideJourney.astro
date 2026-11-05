@@ -26,10 +26,11 @@ const steps = stepSets[kind] || [
  </nav>
  <div class="journeyActions">
   <button type="button" data-prev>← Paso anterior</button>
-  <label class="journeyDone"><input type="checkbox" data-done /> <span>He completado este paso</span></label>
+  <label class="journeyDone"><input type="checkbox" data-done /> <span>✓ He completado este paso</span></label>
   <button type="button" data-next>Siguiente paso →</button>
  </div>
 </section>
+<div class="medalToast" role="status" aria-live="polite" data-medal-toast hidden><span class="medalToastIcon">★</span><div><strong>¡Logro desbloqueado!</strong><p data-medal-text>Una nueva medalla en tu perfil.</p><a href="/perfil/">Ver mi medallero →</a></div></div>
 <script is:inline>
 (function(){
   function initJourney(){
@@ -42,6 +43,10 @@ const steps = stepSets[kind] || [
     const previous=root.querySelector('[data-prev]');
     const next=root.querySelector('[data-next]');
     const checkbox=root.querySelector('[data-done]');
+    const actions=root.querySelector('.journeyActions');
+    const toast=document.querySelector('[data-medal-toast]');
+    const originalHeadings=panels.map(p=>[...p.querySelectorAll('h2')]);
+    originalHeadings.forEach((list,step)=>list.forEach((h,sub)=>{h.textContent=h.textContent.replace(/^\\s*\\d+\\.\\s*/,String(step+1)+'.'+String(sub+1)+' · ')}));
     if(tabs.length!==5 || !previous || !next || !checkbox)return;
     root.dataset.ready='1';
     const storageKey='wikigarden:'+kind+':steps:v3';
@@ -53,6 +58,7 @@ const steps = stepSets[kind] || [
     let active=0;
     function show(shouldScroll){
       panels.forEach((panel,i)=>{panel.hidden=i!==active;});
+      if(actions && panels[active])panels[active].insertAdjacentElement('afterend',actions);
       tabs.forEach((tab,i)=>{
         tab.classList.toggle('active',i===active);
         tab.classList.toggle('completed',completed[i]);
@@ -74,6 +80,11 @@ const steps = stepSets[kind] || [
     checkbox.addEventListener('change',()=>{
       completed[active]=checkbox.checked;
       try{localStorage.setItem(storageKey,JSON.stringify(completed));}catch(e){}
+      if(completed[active]&&toast){
+        toast.querySelector('[data-medal-text]').textContent='Paso '+(active+1)+' de '+kind+' completado. Ya puedes consultar tu medalla.';
+        toast.hidden=false;toast.classList.remove('medalPop');void toast.offsetWidth;toast.classList.add('medalPop');
+        window.setTimeout(()=>toast.hidden=true,5300);
+      }
       show(false);
     });
     show(false);
@@ -103,4 +114,19 @@ const steps = stepSets[kind] || [
 .journeyPanel[hidden]{display:none!important}.journeyPanel{margin:0 0 20px;min-width:0}.journeyPanel>:first-child{margin-top:0}
 @media(max-width:800px){.guideJourney .journeySteps{grid-template-columns:repeat(2,minmax(0,1fr))}.guideJourney .journeyStep{min-height:75px}.guideJourney .journeyTop{flex-direction:column}.guideJourney .journeyActions{flex-wrap:wrap}.guideJourney .journeyDone{order:-1;width:100%;justify-content:center}}
 @media(max-width:450px){.guideJourney .journeySteps{grid-template-columns:1fr 1fr}.guideJourney .journeyStep{padding:9px;font-size:11px}}
+</style>
+<style is:global>
+/* El control acompaña al contenido activo, no aparece antes de empezar a leer. */
+.journeyPanel + .journeyActions{margin:22px 0 35px!important;padding:20px;background:#f5faf6;border:1px solid #daebe0;border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.journeyPanel + .journeyActions button{background:white;border:1px solid #c8e1d0;border-radius:30px;color:#2c765c;padding:11px 15px;cursor:pointer;font:700 12px Outfit,system-ui,sans-serif;margin:0!important}
+.journeyPanel + .journeyActions button[data-next]{background:#2f856a;color:white}
+.journeyPanel + .journeyActions button:disabled{opacity:.4;cursor:not-allowed}
+.journeyPanel + .journeyActions .journeyDone{display:flex;align-items:center;gap:10px;cursor:pointer;background:#e2f2e6;border:1px solid #a8d7ba;padding:12px 16px;border-radius:30px;color:#216c4c;font:800 13px Outfit,system-ui,sans-serif;margin:0!important}
+.journeyPanel + .journeyActions .journeyDone input{width:19px;height:19px;accent-color:#287f60}
+.medalToast[hidden]{display:none!important}.medalToast{position:fixed;right:24px;bottom:24px;z-index:9999;display:flex;align-items:center;gap:16px;padding:18px 23px;background:#154e38;color:white;border-radius:20px;box-shadow:0 18px 55px #0e39287a;font:700 14px Outfit,system-ui,sans-serif;max-width:380px}
+.medalToastIcon{display:grid;place-items:center;width:58px;height:58px;flex-shrink:0;border-radius:50%;background:radial-gradient(circle at 25% 20%,#ffe78a,#dca52a);border:4px solid #fae37b;color:#fff8c3;font-size:28px}
+.medalToast p{font-size:12px;font-weight:400;color:#d9efe1;margin:5px 0}.medalToast a{color:#ffdf75!important;font-size:12px;text-decoration:underline}
+.medalPop{animation:medalArrival .55s cubic-bezier(.2,1.4,.4,1)}@keyframes medalArrival{from{opacity:0;transform:translateY(65px) scale(.7) rotate(-5deg)}to{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
+@media(max-width:700px){.journeyPanel + .journeyActions{flex-direction:column}.journeyPanel + .journeyActions .journeyDone{order:-1}.medalToast{left:14px;right:14px;bottom:14px}}
+@media(prefers-reduced-motion:reduce){.medalPop{animation:none}}
 </style>
