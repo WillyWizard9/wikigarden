@@ -8,7 +8,7 @@ const aliatLogo="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACEBAMAAACja
  <div class="loginPartners"><span>UNA INICIATIVA DE</span><div><div class="loginPartner"><img src={aliatLogo} alt="ALIAT" /><b>ALIAT</b></div><div class="loginPartner"><img src="/cymara-brand.svg" alt="Cymara" /></div><div class="loginPartner"><img src="/vithal-garden-clean.svg" alt="Vithal Garden" /></div></div></div></div>
 </section>
 <script is:inline>
-(function(){const form=document.getElementById('wg-login');if(!form)return;form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const user=String(new FormData(form).get('username')||'Visitante').trim()||'Visitante';try{sessionStorage.setItem('wikigarden:demo-user',user)}catch(e){}window.location.assign('/')});})();
+(function(){const form=document.getElementById('wg-login');if(!form)return;form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const user=String(new FormData(form).get('username')||'Visitante').trim()||'Visitante';try{sessionStorage.setItem('wikigarden:demo-user',user)}catch(e){}const requested=new URLSearchParams(location.search).get('next')||'/';window.location.assign(requested.startsWith('/')&&!requested.startsWith('//')&&!requested.startsWith('/acceso')?requested:'/')});})();
 </script>
 <style is:global>
 body:has(.loginShell) header.header,body:has(.loginShell) .right-sidebar,body:has(.loginShell) .sidebar,body:has(.loginShell) .content-panel>h1,body:has(.loginShell) .pagination-links,body:has(.loginShell) footer{display:none!important}
