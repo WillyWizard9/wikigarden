@@ -27,8 +27,9 @@ async function readProfile(user){
  if(error)throw error;
  const state=data?.state&&typeof data.state==='object'?data.state:{};
  apply(state);
- const {data:member}=await supabase.from('wiki_members').select('display_name').eq('user_id',user.id).maybeSingle();
- return member?.display_name||user.email||'Usuario';
+ const {data:member,error:memberError}=await supabase.from('wiki_members').select('display_name').eq('user_id',user.id).maybeSingle();
+ if(memberError||!member)throw new Error('La cuenta no pertenece a ningún garden autorizado.');
+ return member.display_name||user.email||'Usuario';
 }
 let saving=Promise.resolve();
 function sync(){
@@ -51,7 +52,7 @@ async function login(email,password){
  const {data,error}=await supabase.auth.signInWithPassword({email,password});
  if(error)throw error;
  if(!data.user||!data.session)throw new Error('No se pudo iniciar sesión.');
- try{await activate(data.user)}catch(e){await supabase.auth.signOut();throw e}
+ try{await activate(data.user)}catch(e){await supabase.auth.signOut();await fetch('/api/wiki-session',{method:'DELETE'}).catch(()=>{});throw e}
 }
 async function logout(){
  await supabase.auth.signOut();
