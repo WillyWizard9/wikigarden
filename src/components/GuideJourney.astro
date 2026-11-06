@@ -88,6 +88,7 @@ const steps = stepSets[kind] || [
         window.setTimeout(()=>toast.hidden=true,5300);
       }
       show(false);
+      document.dispatchEvent(new CustomEvent('wikigarden:achievement-progress'));
     });
     show(false);
   }
