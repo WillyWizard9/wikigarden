@@ -42,7 +42,25 @@ export default async function middleware(request: Request) {
   if (!supabaseUrl) return new Response('Autenticación pendiente de configurar', { status: 503 });
 
   const token = leerCookie(request, 'wiki_sesion');
-  if (token && (await verificar(token, supabaseUrl))) return next();
+  if (token) {
+    const payload = await verificar(token, supabaseUrl);
+    if (payload?.sub) {
+      // Supabase Auth identifica al usuario; la membresía determina si está invitado.
+      try {
+        const response = await fetch(
+          supabaseUrl + '/rest/v1/wiki_members?select=user_id&user_id=eq.' + encodeURIComponent(payload.sub),
+          { headers: {
+            apikey: 'sb_publishable_OtrtVuzuiJJefDs0oM6wuQ_LmexlzFk',
+            Authorization: 'Bearer ' + token
+          }, cache: 'no-store' }
+        );
+        if (response.ok) {
+          const rows = await response.json();
+          if (Array.isArray(rows) && rows.length === 1) return next();
+        }
+      } catch { /* Si no podemos comprobar la membresía, denegamos acceso. */ }
+    }
+  }
 
   const url = new URL(request.url);
   const acceso = new URL('/acceso/', url.origin);
