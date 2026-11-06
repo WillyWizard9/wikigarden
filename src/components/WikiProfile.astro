@@ -231,3 +231,48 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
  .profileApp .medalDisc .medalGlyph{font-size:25px!important}
 }
 </style>
+
+<style is:global>
+/* Resumen del perfil: tarjetas proporcionadas, misma altura y textos alineados. */
+.sl-markdown-content .profileApp{max-width:1180px!important;width:100%!important;margin-inline:auto!important}
+.sl-markdown-content .profileApp .profileScore{
+ display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ align-items:stretch!important;
+ gap:14px!important;
+ margin:18px 0 32px!important;
+}
+.sl-markdown-content .profileApp .profileScore>div{
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:flex-start!important;
+ justify-content:center!important;
+ gap:7px!important;
+ min-width:0!important;
+ min-height:112px!important;
+ height:112px!important;
+ padding:18px 22px!important;
+ margin:0!important;
+ box-sizing:border-box!important;
+ border-radius:16px!important;
+}
+.sl-markdown-content .profileApp .profileScore strong{
+ display:block!important;
+ font-size:clamp(28px,3vw,38px)!important;
+ font-weight:800!important;
+ line-height:1.05!important;
+ margin:0!important;
+}
+.sl-markdown-content .profileApp .profileScore span{
+ display:block!important;
+ font-size:13px!important;
+ line-height:1.4!important;
+ margin:0!important;
+}
+@media(max-width:640px){
+ .sl-markdown-content .profileApp .profileScore{gap:8px!important}
+ .sl-markdown-content .profileApp .profileScore>div{min-height:96px!important;height:96px!important;padding:12px!important}
+ .sl-markdown-content .profileApp .profileScore strong{font-size:25px!important}
+ .sl-markdown-content .profileApp .profileScore span{font-size:11px!important}
+}
+</style>
