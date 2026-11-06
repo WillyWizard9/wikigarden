@@ -18,7 +18,7 @@ const questions=[{group:"Localización",question:"¿Qué permite encontrar un pr
 <section class="knowledgeExam" id="knowledgeExam">
  <div class="examHeader"><span>WIKIGARDEN · EVALUACIÓN DE CONOCIMIENTOS</span><h2>¿Cuánto sabes sobre gestión de inventarios?</h2><p>15 preguntas prácticas, tres por reto. Pon a prueba lo aprendido y consigue una medalla de conocimientos si aciertas al menos 12.</p><div class="examProgress"><span id="examStep">Pregunta 1 de 15</span><strong id="examPercent">0%</strong></div><div class="examTrack"><div id="examFill"></div></div></div>
  <div class="examQuestions">
- {questions.map((q,i)=><fieldset class="examQuestion" data-exam-question={i} hidden={i!==0}><legend><span class="examGroup">{q.group.toUpperCase()} · {i+1}/15</span><span class="examPrompt">{q.question}</span></legend><div class="examOptions">{q.options.map((option,j)=><label><input type="radio" name={'exam-'+i} value={j} /><span>{String.fromCharCode(65+j)}. {option}</span></label>)}</div></fieldset>)}
+ {questions.map((q,i)=><fieldset class="examQuestion" data-exam-question={i} hidden={i!==0}><legend class="examLegendA11y">{q.question}</legend><div class="examQuestionHeader"><span class="examGroup">{q.group.toUpperCase()} · {i+1}/15</span><h3 class="examPrompt">{q.question}</h3></div><div class="examOptions">{q.options.map((option,j)=><label><input type="radio" name={'exam-'+i} value={j} /><span>{String.fromCharCode(65+j)}. {option}</span></label>)}</div></fieldset>)}
  </div>
  <p id="examAlert" class="examAlert" role="alert" aria-live="polite"></p>
  <div class="examNav" id="examNav"><button type="button" id="examPrev" disabled>← Anterior</button><button type="button" id="examNext">Siguiente →</button></div>
@@ -50,90 +50,67 @@ const questions=[{group:"Localización",question:"¿Qué permite encontrar un pr
 </script>
 <style is:global>
 .knowledgeExam{font-family:Outfit,system-ui,sans-serif;color:#244a39}.examHeader{padding:27px;background:#eff8f0;border-radius:19px;border:1px solid #d6e9dc}.examHeader>span,.examGroup{font:800 11px Outfit,system-ui,sans-serif;color:#38836b;letter-spacing:.1em}.examHeader h2{font-size:clamp(24px,3vw,34px);margin:10px 0}.examHeader p{color:#637b6f;font-size:14px}.examProgress{display:flex;justify-content:space-between;font-size:12px;font-weight:800;margin-top:18px}.examTrack{height:9px;border-radius:20px;background:#daeade;margin-top:10px;overflow:hidden}.examTrack>div{height:100%;width:0;background:#3e9b75;transition:width .3s}
-.examQuestion{margin:25px 0 10px!important;padding:24px!important;background:#fff;border:1px solid #e0eae4;border-radius:18px;min-width:0}.examQuestion[hidden]{display:none!important}.examQuestion legend{display:flex;flex-direction:column;gap:12px;padding:0;width:100%}.examPrompt{font-size:clamp(19px,2.5vw,25px);font-weight:800;line-height:1.3;color:#214c39}.examOptions{display:grid;gap:10px;margin-top:20px}.examOptions label{display:block;cursor:pointer}.examOptions input{position:absolute;opacity:0}.examOptions label span{display:block;background:#f7faf8;border:1px solid #ddebe1;padding:15px;border-radius:12px;font-weight:600;font-size:14px}.examOptions input:checked+span{background:#e1f4e6;border-color:#37966f;color:#216848}.examOptions input:focus-visible+span{outline:2px solid #327b5e}.examNav{display:flex;justify-content:space-between;margin:16px 0 25px}.examNav button,.examResultLinks button,.examResultLinks a{padding:12px 19px;border-radius:25px;border:1px solid #c6e0ce;background:#fff;color:#287c5d;font:800 13px Outfit,system-ui,sans-serif;cursor:pointer}.examNav button:last-child{background:#358766;color:white}.examNav button:disabled{opacity:.35}.examAlert{font-size:12px;color:#9b4b26}.examResults{background:#f2f8f2;padding:28px;border:1px solid #d5e9da;border-radius:18px;margin-top:20px}.examResults[hidden]{display:none!important}.examResultMedal{display:grid;place-items:center;width:100px;height:100px;border-radius:50%;background:#c9cbca;color:white;filter:grayscale(1);font-size:45px}.examResultMedal.unlocked{background:radial-gradient(circle at 25% 25%,#ffec80,#dba62a);border:5px solid #f4dc7a;filter:none}.examResults h2{margin:16px 0}.examResults p{font-size:14px;color:#567268;line-height:1.6}.examResultLinks{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.examResultLinks a{text-decoration:none}
+.examQuestion{margin:25px 0 10px!important;padding:24px!important;background:#fff;border:1px solid #e0eae4;border-radius:18px;min-width:0}.examQuestion[hidden]{display:none!important}.examQuestion .examLegendA11y{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.examPrompt{font-size:clamp(19px,2.5vw,25px);font-weight:800;line-height:1.3;color:#214c39}.examOptions{display:grid;gap:10px;margin-top:20px}.examOptions label{display:block;cursor:pointer}.examOptions input{position:absolute;opacity:0}.examOptions label span{display:block;background:#f7faf8;border:1px solid #ddebe1;padding:15px;border-radius:12px;font-weight:600;font-size:14px}.examOptions input:checked+span{background:#e1f4e6;border-color:#37966f;color:#216848}.examOptions input:focus-visible+span{outline:2px solid #327b5e}.examNav{display:flex;justify-content:space-between;margin:16px 0 25px}.examNav button,.examResultLinks button,.examResultLinks a{padding:12px 19px;border-radius:25px;border:1px solid #c6e0ce;background:#fff;color:#287c5d;font:800 13px Outfit,system-ui,sans-serif;cursor:pointer}.examNav button:last-child{background:#358766;color:white}.examNav button:disabled{opacity:.35}.examAlert{font-size:12px;color:#9b4b26}.examResults{background:#f2f8f2;padding:28px;border:1px solid #d5e9da;border-radius:18px;margin-top:20px}.examResults[hidden]{display:none!important}.examResultMedal{display:grid;place-items:center;width:100px;height:100px;border-radius:50%;background:#c9cbca;color:white;filter:grayscale(1);font-size:45px}.examResultMedal.unlocked{background:radial-gradient(circle at 25% 25%,#ffec80,#dba62a);border:5px solid #f4dc7a;filter:none}.examResults h2{margin:16px 0}.examResults p{font-size:14px;color:#567268;line-height:1.6}.examResultLinks{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.examResultLinks a{text-decoration:none}
 </style>
 
 <style is:global>
-/* Evaluación: anchura de lectura controlada y respuestas compactas. */
+/* La pregunta ya no está dentro de legend: estructura estable en todos los navegadores. */
 .sl-markdown-content .knowledgeExam{
- width:min(100%,980px)!important;
- max-width:980px!important;
- margin:10px auto 40px!important;
- font-size:14px!important;
+ width:min(100%,980px)!important; max-width:980px!important;
+ margin:10px auto 40px!important; font-size:14px!important;
 }
-.sl-markdown-content .knowledgeExam .examHeader{
- padding:22px 26px!important;
- margin:0 0 22px!important;
+.sl-markdown-content .knowledgeExam .examHeader{padding:22px 26px!important;margin:0 0 24px!important}
+.sl-markdown-content .knowledgeExam .examHeader h2{font-size:clamp(22px,2.4vw,30px)!important;line-height:1.2!important;margin:8px 0 10px!important}
+.sl-markdown-content .knowledgeExam .examHeader p{margin:0!important;font-size:14px!important;line-height:1.55!important}
+.sl-markdown-content .knowledgeExam fieldset.examQuestion{
+ position:relative!important;display:block!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ box-sizing:border-box!important; margin:0 0 14px!important;
+ padding:23px 25px 25px!important;background:#fff!important;
+ border:1px solid #dfe9e3!important;border-radius:18px!important;
 }
-.sl-markdown-content .knowledgeExam .examHeader h2{
- font-size:clamp(22px,2.4vw,30px)!important;
- line-height:1.2!important;
- margin:8px 0 10px!important;
+.sl-markdown-content .knowledgeExam fieldset.examQuestion[hidden]{display:none!important}
+.sl-markdown-content .knowledgeExam .examLegendA11y{
+ position:absolute!important;width:1px!important;height:1px!important;
+ padding:0!important;margin:-1px!important;overflow:hidden!important;
+ clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;
+ white-space:nowrap!important;border:0!important;
 }
-.sl-markdown-content .knowledgeExam .examHeader p{
- margin:0!important;
- font-size:14px!important;
- line-height:1.55!important;
-}
-.sl-markdown-content .knowledgeExam .examQuestion{
- min-width:0!important;
- max-width:100%!important;
- box-sizing:border-box!important;
- margin:0 0 12px!important;
- padding:20px 24px 22px!important;
- border-radius:16px!important;
-}
-.sl-markdown-content .knowledgeExam .examQuestion legend{
- display:block!important;
- width:100%!important;
- max-width:100%!important;
- padding:0 5px!important;
- margin:0!important;
- box-sizing:border-box!important;
+.sl-markdown-content .knowledgeExam .examQuestionHeader{
+ display:flex!important;flex-direction:column!important;
+ gap:10px!important;margin:0 0 21px!important;padding:0!important;
 }
 .sl-markdown-content .knowledgeExam .examGroup{
- display:block!important;
- margin:0 0 8px!important;
- font-size:11px!important;
- line-height:1.4!important;
+ display:block!important;font-size:11px!important;font-weight:800!important;
+ letter-spacing:.09em!important;line-height:1.4!important;
+ color:#3c8b70!important;margin:0!important;
 }
-.sl-markdown-content .knowledgeExam .examPrompt{
- display:block!important;
- font-size:clamp(19px,2.1vw,25px)!important;
- line-height:1.28!important;
- letter-spacing:-.025em!important;
- font-weight:750!important;
- max-width:850px!important;
- margin:0!important;
+.sl-markdown-content .knowledgeExam h3.examPrompt{
+ display:block!important;font-size:clamp(20px,2.4vw,29px)!important;
+ font-weight:800!important;line-height:1.2!important;
+ letter-spacing:-.035em!important;color:#214c39!important;
+ max-width:850px!important;margin:0!important;padding:0!important;
 }
 .sl-markdown-content .knowledgeExam .examOptions{
- display:grid!important;
- gap:9px!important;
- margin:16px 0 0!important;
+ display:grid!important;gap:11px!important;margin:0!important;
 }
 .sl-markdown-content .knowledgeExam .examOptions label{
- display:block!important;
- margin:0!important;
- min-height:0!important;
- padding:0!important;
+ display:block!important;margin:0!important;padding:0!important;cursor:pointer;
 }
 .sl-markdown-content .knowledgeExam .examOptions label span{
- display:flex!important;
- align-items:center!important;
- min-height:52px!important;
- height:auto!important;
- padding:12px 16px!important;
- margin:0!important;
- border-radius:11px!important;
- font-size:clamp(13px,1.3vw,15px)!important;
- line-height:1.4!important;
- font-weight:600!important;
+ display:flex!important;align-items:center!important;min-height:52px!important;
+ height:auto!important;margin:0!important;padding:13px 17px!important;
+ background:#f7faf8!important;border:1px solid #ddebe1!important;
+ border-radius:12px!important;font-size:14px!important;
+ font-weight:600!important;line-height:1.45!important;
 }
-.sl-markdown-content .knowledgeExam .examNav{margin:12px 0 25px!important}
+.sl-markdown-content .knowledgeExam .examOptions input:checked+span{background:#e1f4e6!important;border-color:#37966f!important;color:#216848!important}
+.sl-markdown-content .knowledgeExam .examOptions input:focus-visible+span{outline:2px solid #327b5e!important;outline-offset:2px}
+.sl-markdown-content .knowledgeExam .examNav{margin:14px 0 25px!important}
 @media(max-width:650px){
  .sl-markdown-content .knowledgeExam .examHeader{padding:17px!important}
- .sl-markdown-content .knowledgeExam .examQuestion{padding:16px!important}
- .sl-markdown-content .knowledgeExam .examPrompt{font-size:19px!important}
- .sl-markdown-content .knowledgeExam .examOptions label span{padding:12px!important;min-height:48px!important;font-size:13px!important}
+ .sl-markdown-content .knowledgeExam fieldset.examQuestion{padding:17px!important}
+ .sl-markdown-content .knowledgeExam h3.examPrompt{font-size:20px!important}
+ .sl-markdown-content .knowledgeExam .examOptions label span{min-height:48px!important;padding:12px!important;font-size:13px!important}
 }
 </style>
