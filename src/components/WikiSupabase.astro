@@ -1,0 +1,79 @@
+---
+---
+<script>
+import { createClient } from '@supabase/supabase-js';
+
+// Public browser key, not the Supabase secret/service_role key.
+const endpoint='https://mozmpxxlgrzbxukitpms.supabase.co';
+const publishable='sb_publishable_OtrtVuzuiJJefDs0oM6wuQ_LmexlzFk';
+const live=import.meta.env.PUBLIC_WIKI_AUTH_ENABLED==='true';
+const keys=['localizacion','sobrestock','compras','conteos','movimientos'].map(x=>'wikigarden:'+x+':steps:v3').concat(['wikigarden:downloaded-templates:v1','wikigarden:knowledge-exam:v1','wikigarden:diagnostic-completed:v1','wikigarden:platinum-celebrated:v1']);
+const supabase=createClient(endpoint,publishable,{auth:{autoRefreshToken:true,persistSession:true,detectSessionInUrl:true}});
+const progressKeys=keys.filter(k=>!k.includes('platinum-celebrated'));
+let currentUser=null;
+let readyResolve;
+const ready=new Promise(resolve=>readyResolve=resolve);
+const api={client:supabase,enabled:live,ready,get user(){return currentUser},login,logout};
+window.wikiAuth=api;
+function clearProgress(){for(const k of keys)localStorage.removeItem(k)}
+function collect(){const result={};for(const k of progressKeys){const value=localStorage.getItem(k);if(value!==null)result[k]=value}return result}
+function apply(state){clearProgress();for(const k of progressKeys){if(typeof state?.[k]==='string')localStorage.setItem(k,state[k])}document.dispatchEvent(new CustomEvent('wikigarden:achievement-progress'))}
+async function sessionCookie(token){
+ const res=await fetch('/api/wiki-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})});
+ if(!res.ok)throw new Error('No se pudo establecer la sesión segura.');
+}
+async function readProfile(user){
+ const {data,error}=await supabase.from('wiki_progress').select('state').eq('user_id',user.id).maybeSingle();
+ if(error)throw error;
+ const state=data?.state&&typeof data.state==='object'?data.state:{};
+ apply(state);
+ const {data:member}=await supabase.from('wiki_members').select('display_name').eq('user_id',user.id).maybeSingle();
+ return member?.display_name||user.email||'Usuario';
+}
+let saving=Promise.resolve();
+function sync(){
+ if(!live||!currentUser)return;
+ const uid=currentUser.id,state=collect();
+ saving=saving.catch(()=>{}).then(async()=>{
+  if(currentUser?.id!==uid)return;
+  const {error}=await supabase.from('wiki_progress').upsert({user_id:uid,state,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+  if(error)console.error('WikiGarden: no se pudo guardar el progreso',error.message);
+ });
+}
+async function activate(user){
+ currentUser=user;
+ await sessionCookie((await supabase.auth.getSession()).data.session?.access_token);
+ const display=await readProfile(user);
+ sessionStorage.setItem('wikigarden:demo-user',display);
+ document.dispatchEvent(new CustomEvent('wikigarden:auth-ready',{detail:{user,display}}));
+}
+async function login(email,password){
+ const {data,error}=await supabase.auth.signInWithPassword({email,password});
+ if(error)throw error;
+ if(!data.user||!data.session)throw new Error('No se pudo iniciar sesión.');
+ try{await activate(data.user)}catch(e){await supabase.auth.signOut();throw e}
+}
+async function logout(){
+ await supabase.auth.signOut();
+ currentUser=null;clearProgress();sessionStorage.removeItem('wikigarden:demo-user');
+ await fetch('/api/wiki-session',{method:'DELETE'}).catch(()=>{});
+ location.assign('/acceso/');
+}
+document.addEventListener('wikigarden:achievement-progress',sync);
+if(live){
+ supabase.auth.onAuthStateChange((event,session)=>{
+  if(event==='TOKEN_REFRESHED'&&session)sessionCookie(session.access_token).catch(console.error);
+  if(event==='SIGNED_OUT'){currentUser=null;sessionStorage.removeItem('wikigarden:demo-user');clearProgress()}
+ });
+ (async()=>{
+  try{
+   const {data,error}=await supabase.auth.getUser();
+   if(error||!data.user){
+    currentUser=null;sessionStorage.removeItem('wikigarden:demo-user');clearProgress();
+    await fetch('/api/wiki-session',{method:'DELETE'}).catch(()=>{});
+   }else await activate(data.user);
+  }catch(error){console.error('WikiGarden: error comprobando sesión',error);currentUser=null}
+  finally{readyResolve();document.dispatchEvent(new Event('wikigarden:auth-initialized'))}
+ })();
+}else{readyResolve()}
+</script>
