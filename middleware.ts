@@ -32,6 +32,15 @@ async function verificar(token: string, supabaseUrl: string): Promise<JWTPayload
 }
 
 export default async function middleware(request: Request) {
+  // Los archivos públicos no deben exigir sesión: las imágenes del login
+  // tienen que cargarse antes de que el usuario se autentique.
+  const pathname = new URL(request.url).pathname;
+  if (
+    pathname.startsWith('/_astro/') ||
+    pathname.startsWith('/api/') ||
+    pathname.startsWith('/acceso/') ||
+    /\.(?:svg|png|jpe?g|webp|gif|ico|css|js|mjs|woff2?|ttf|otf|csv|pdf|txt|xml|json)$/i.test(pathname)
+  ) return next();
   // En la primera fase, se despliega sin control de acceso.
   // La demostración debe ser accesible sin Supabase. No utilizar para información privada.
   // Para activar autenticación real, configurar WIKI_DEMO_ACCESS=false junto a WIKI_REQUIRE_AUTH=true.
