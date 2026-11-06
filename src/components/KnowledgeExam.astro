@@ -36,6 +36,7 @@ const questions=[{group:"Localización",question:"¿Qué permite encontrar un pr
   next.addEventListener('click',()=>{if(!items[step].querySelector('input:checked')){alert.textContent='Selecciona una respuesta para continuar.';return;}if(step<14){step++;draw();return;}let correct=0;const review=[];
    items.forEach((el,i)=>{const v=Number(el.querySelector('input:checked').value);if(v===answers[i].answer)correct++;else review.push(answers[i]);});
    const passed=correct>=12;try{const old=JSON.parse(localStorage.getItem('wikigarden:knowledge-exam:v1')||'null');localStorage.setItem('wikigarden:knowledge-exam:v1',JSON.stringify({score:Math.max(correct,old?.score||0),passed:passed||old?.passed||false,completed:true,date:new Date().toISOString()}));}catch(e){}
+   document.dispatchEvent(new CustomEvent('wikigarden:achievement-progress'));
    items.forEach(el=>el.hidden=true);nav.hidden=true;result.hidden=false;
    result.querySelector('#examResultMedal').classList.toggle('unlocked',passed);
    result.querySelector('#examResultTitle').textContent=passed?'¡Enhorabuena! Medalla desbloqueada.':'Buen intento. Puedes seguir mejorando.';
