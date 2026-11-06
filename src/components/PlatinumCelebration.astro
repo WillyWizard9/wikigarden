@@ -66,10 +66,13 @@ const sparks=Array.from({length:36},(_,i)=>({
   closer.addEventListener('click',close);
   dialog.addEventListener('close',()=>document.documentElement.classList.remove('platinumOpen'));
   dialog.addEventListener('click',e=>{if(e.target===dialog)close()});
-  document.addEventListener('wikigarden:achievement-progress',()=>open(false));
+  // Abrir únicamente como consecuencia de completar el último logro, desde
+  // cualquier guía, diagnóstico, descarga o evaluación. No exigir abrir el perfil.
+  document.addEventListener('wikigarden:achievement-progress',()=>{
+   requestAnimationFrame(()=>open(false));
+  });
+  // El trofeo se puede volver a contemplar voluntariamente desde el perfil.
   document.addEventListener('wikigarden:replay-platinum',()=>open(true));
-  window.addEventListener('storage',()=>open(false));
-  open(false);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
  document.addEventListener('astro:page-load',init);
