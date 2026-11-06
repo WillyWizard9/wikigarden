@@ -7,6 +7,16 @@ import { createClient } from '@supabase/supabase-js';
 const endpoint='https://mozmpxxlgrzbxukitpms.supabase.co';
 const publishable='sb_publishable_OtrtVuzuiJJefDs0oM6wuQ_LmexlzFk';
 const live=import.meta.env.PUBLIC_WIKI_AUTH_ENABLED==='true';
+// Los enlaces de Supabase pueden volver a la portada con un fragmento de sesión.
+// Redirigimos a la pantalla de contraseña sin perder el fragmento.
+const fragmentType=new URLSearchParams(location.hash.slice(1)).get('type');
+if(location.pathname!=='/acceso/' && (fragmentType==='recovery'||fragmentType==='invite')){
+ location.replace('/acceso/?action='+encodeURIComponent(fragmentType)+location.hash);
+}
+const passwordFlow=location.pathname==='/acceso/' && (
+ ['recovery','invite'].includes(new URLSearchParams(location.search).get('action')) ||
+ ['recovery','invite'].includes(fragmentType)
+);
 const keys=['localizacion','sobrestock','compras','conteos','movimientos'].map(x=>'wikigarden:'+x+':steps:v3').concat(['wikigarden:downloaded-templates:v1','wikigarden:knowledge-exam:v1','wikigarden:diagnostic-completed:v1','wikigarden:platinum-celebrated:v1']);
 const supabase=createClient(endpoint,publishable,{auth:{autoRefreshToken:true,persistSession:true,detectSessionInUrl:true}});
 const progressKeys=keys.filter(k=>!k.includes('platinum-celebrated'));
@@ -74,6 +84,16 @@ if(live){
     await fetch('/api/wiki-session',{method:'DELETE'}).catch(()=>{});
    }else await activate(data.user);
   }catch(error){console.error('WikiGarden: error comprobando sesión',error);currentUser=null}
+  finally{readyResolve();document.dispatchEvent(new Event('wikigarden:auth-initialized'))}
+ })();
+}else if(passwordFlow){
+ // Permitir establecer contraseña aun antes de activar el acceso real.
+ // Nunca se concede acceso a las páginas protegidas por esta vía.
+ (async()=>{
+  try{
+   const {data,error}=await supabase.auth.getUser();
+   if(!error&&data?.user)currentUser=data.user;
+  }catch(error){console.error('WikiGarden: enlace de contraseña no válido',error)}
   finally{readyResolve();document.dispatchEvent(new Event('wikigarden:auth-initialized'))}
  })();
 }else{readyResolve()}
