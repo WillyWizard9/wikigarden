@@ -1,0 +1,116 @@
+---
+const sparks=Array.from({length:36},(_,i)=>({
+ left:(i*37+11)%100,
+ delay:(i%9)*-0.17,
+ duration:3.0+(i%7)*0.3,
+ hue:[44,47,162,194,219][i%5],
+ size:5+(i%4)*3
+}));
+---
+<dialog class="wgPlatinum" data-wg-platinum aria-labelledby="platinumTitle" aria-describedby="platinumDescription">
+  <div class="platinumCanvas" aria-hidden="true">
+    <div class="platinumHalo"></div>
+    {sparks.map(s=><span class="platinumSpark" style={`--x:${s.left}%;--delay:${s.delay}s;--duration:${s.duration}s;--hue:${s.hue};--sz:${s.size}px`}></span>)}
+  </div>
+  <div class="platinumContent">
+    <span class="platinumOverline">WIKIGARDEN · DISTINCIÓN MÁXIMA</span>
+    <div class="platinumTrophyArt" aria-hidden="true">
+      <div class="platinumTrophyRing"></div>
+      <span>🏆</span>
+      <div class="platinumTrophyStar">✦</div>
+    </div>
+    <div class="platinumRibbon"><span>✦</span> TROFEO PLATINO DESBLOQUEADO <span>✦</span></div>
+    <h2 id="platinumTitle">¡Eres Maestro del Garden!</h2>
+    <p id="platinumDescription">Has conquistado los cinco retos, sus 25 etapas y todos los logros especiales. Tu dedicación al inventario merece un reconocimiento extraordinario.</p>
+    <div class="platinumTotals"><span><strong>25</strong> etapas</span><i></i><span><strong>5</strong> retos</span><i></i><span><strong>4</strong> logros especiales</span></div>
+    <div class="platinumButtons">
+      <a href="/perfil/" class="platinumPrimary">Ver mi trofeo en el perfil <span aria-hidden="true">→</span></a>
+      <button type="button" class="platinumClose" data-close-platinum>Cerrar celebración</button>
+    </div>
+  </div>
+</dialog>
+<script is:inline>
+(function(){
+ const progressKeys=['localizacion','sobrestock','compras','conteos','movimientos'];
+ const marker='wikigarden:platinum-celebrated:v1';
+ function read(key){try{return JSON.parse(localStorage.getItem(key)||'null')}catch(e){return null}}
+ function earned(){
+  for(const kind of progressKeys){
+   const data=read('wikigarden:'+kind+':steps:v3');
+   if(!Array.isArray(data)||data.length!==5||!data.every(v=>v===true))return false;
+  }
+  const templates=read('wikigarden:downloaded-templates:v1');
+  const distinct=Array.isArray(templates)?new Set(templates.filter(x=>typeof x==='string'&&x.endsWith('.csv'))).size:0;
+  const exam=read('wikigarden:knowledge-exam:v1');
+  let diagnosed=false;try{diagnosed=!!localStorage.getItem('wikigarden:diagnostic-completed:v1')}catch(e){}
+  return diagnosed&&distinct>=3&&!!exam?.passed&&!!(exam?.completed||typeof exam?.score==='number');
+ }
+ function init(){
+  const dialog=document.querySelector('[data-wg-platinum]');
+  if(!dialog||dialog.dataset.ready==='1')return;
+  dialog.dataset.ready='1';
+  const closer=dialog.querySelector('[data-close-platinum]');
+  function open(force=false){
+   if(!earned())return;
+   if(!force){
+    try{if(localStorage.getItem(marker))return;localStorage.setItem(marker,new Date().toISOString())}catch(e){}
+   }
+   if(dialog.open)return;
+   try{dialog.showModal()}catch(e){dialog.setAttribute('open','')}
+   document.documentElement.classList.add('platinumOpen');
+  }
+  function close(){
+   if(dialog.open){try{dialog.close()}catch(e){dialog.removeAttribute('open')}}
+   document.documentElement.classList.remove('platinumOpen');
+  }
+  closer.addEventListener('click',close);
+  dialog.addEventListener('close',()=>document.documentElement.classList.remove('platinumOpen'));
+  dialog.addEventListener('click',e=>{if(e.target===dialog)close()});
+  document.addEventListener('wikigarden:achievement-progress',()=>open(false));
+  document.addEventListener('wikigarden:replay-platinum',()=>open(true));
+  window.addEventListener('storage',()=>open(false));
+  open(false);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+ document.addEventListener('astro:page-load',init);
+})();
+</script>
+<style is:global>
+html.platinumOpen{overflow:hidden}
+.wgPlatinum{
+ position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;
+ max-width:none!important;max-height:none!important;box-sizing:border-box!important;
+ margin:0!important;border:0!important;padding:0!important;border-radius:0!important;
+ overflow:auto!important;overscroll-behavior:contain;
+ background:radial-gradient(ellipse at 50% 33%,#285e66 0%,#173c42 42%,#091e2b 100%)!important;
+ color:white!important;text-align:center!important;z-index:99999!important;font-family:Outfit,system-ui,sans-serif!important;
+}
+.wgPlatinum::backdrop{background:#061a23ef}
+.wgPlatinum:not([open]){display:none!important}
+.wgPlatinum .platinumCanvas{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.wgPlatinum .platinumHalo{position:absolute;left:50%;top:37%;width:min(86vw,760px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#c5e5f348 0%,#a6d6de1f 31%,transparent 67%);animation:wgHalo 4s ease-in-out infinite alternate}
+.wgPlatinum .platinumSpark{position:absolute;top:-8%;left:var(--x);height:var(--sz);width:var(--sz);border-radius:2px;background:hsl(var(--hue) 75% 77%);box-shadow:0 0 13px #d5edf6aa;opacity:0;animation:wgSpark var(--duration) linear var(--delay) infinite}
+.wgPlatinum .platinumContent{position:relative;z-index:1;width:min(100%,790px);min-height:100%;margin:auto;padding:clamp(38px,8vh,74px) 22px 40px!important;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.wgPlatinum .platinumOverline{letter-spacing:.24em;font-size:clamp(10px,1.3vw,13px);font-weight:800;color:#c4e7e8;animation:wgReveal .65s ease both}
+.wgPlatinum .platinumTrophyArt{position:relative;display:grid;place-items:center;width:clamp(185px,28vw,280px);height:clamp(185px,28vw,280px);margin:12px 0 12px;animation:wgTrophy 1.15s cubic-bezier(.14,1.5,.38,1) both}
+.wgPlatinum .platinumTrophyRing{position:absolute;inset:5%;border:3px solid #d4e9f6bb;border-radius:50%;background:radial-gradient(circle at 32% 25%,#f8ffff80,#dae5ed24 45%,#6da5be28);box-shadow:0 0 0 12px #c9e6f00c,0 0 70px #d8f3ff68,inset 0 0 45px #ecf9ff43}
+.wgPlatinum .platinumTrophyArt>span{font-size:clamp(100px,15vw,150px);line-height:1;filter:drop-shadow(0 17px 15px #001d2799)}
+.wgPlatinum .platinumTrophyStar{position:absolute;right:1%;top:5%;font-size:62px;color:#fbf0b7;filter:drop-shadow(0 0 17px #fff2ae);animation:wgTwinkle 2s ease-in-out infinite alternate}
+.wgPlatinum .platinumRibbon{display:flex;gap:12px;align-items:center;justify-content:center;font-size:clamp(10px,1.5vw,13px);font-weight:800;letter-spacing:.15em;color:#d2e7f1;margin-top:4px;animation:wgReveal .85s .2s ease both}
+.wgPlatinum .platinumRibbon span{color:#efd67e}
+.wgPlatinum h2{font-family:Outfit,system-ui,sans-serif!important;font-weight:800!important;color:#fff!important;font-size:clamp(33px,6vw,64px)!important;letter-spacing:-.055em!important;line-height:1.07!important;margin:19px 0 14px!important;animation:wgReveal .8s .3s ease both}
+.wgPlatinum p{color:#d1e5e9!important;font-size:clamp(14px,2vw,17px)!important;line-height:1.65!important;margin:0!important;max-width:610px!important;animation:wgReveal .8s .4s ease both}
+.wgPlatinum .platinumTotals{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;margin:24px 0 25px;color:#cfebee;font-size:13px;animation:wgReveal .8s .5s ease both}
+.wgPlatinum .platinumTotals span{display:flex;gap:6px;align-items:baseline}.wgPlatinum .platinumTotals strong{color:#fff;font-size:23px}.wgPlatinum .platinumTotals i{height:18px;width:1px;background:#b8d4db50}
+.wgPlatinum .platinumButtons{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;animation:wgReveal .8s .6s ease both}
+.wgPlatinum .platinumButtons>*{font:800 13px Outfit,system-ui,sans-serif!important;box-sizing:border-box;border-radius:26px!important;padding:14px 22px!important;cursor:pointer;text-decoration:none!important}
+.wgPlatinum .platinumPrimary{background:linear-gradient(140deg,#effaff,#bbd6e4)!important;color:#123b49!important;border:1px solid #e6f9ff!important}
+.wgPlatinum .platinumClose{background:transparent!important;border:1px solid #b4d2da9c!important;color:#eef8fb!important}
+@keyframes wgTrophy{0%{opacity:0;transform:translateY(100px) scale(.35) rotate(-16deg)}65%{opacity:1}100%{transform:translateY(0) scale(1) rotate(0)}}
+@keyframes wgReveal{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes wgSpark{0%{opacity:0;transform:translateY(0) rotate(0)}15%{opacity:1}85%{opacity:.8}100%{opacity:0;transform:translateY(115vh) rotate(580deg)}}
+@keyframes wgTwinkle{from{transform:scale(.8) rotate(-10deg);opacity:.6}to{transform:scale(1.15) rotate(12deg);opacity:1}}
+@keyframes wgHalo{to{opacity:.6;transform:translate(-50%,-50%) scale(1.12)}}
+@media(max-width:520px){.wgPlatinum .platinumTotals{gap:9px}.wgPlatinum .platinumTotals strong{font-size:18px}.wgPlatinum .platinumButtons{flex-direction:column;width:min(100%,340px)}.wgPlatinum .platinumButtons>*{width:100%}.wgPlatinum .platinumTrophyArt{height:180px;width:180px}.wgPlatinum .platinumTrophyArt>span{font-size:100px}}
+@media(prefers-reduced-motion:reduce){.wgPlatinum *, .wgPlatinum *::before,.wgPlatinum *::after{animation:none!important;transition:none!important}}
+</style>
