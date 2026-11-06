@@ -95,6 +95,8 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
    root.querySelector('#profilePct').textContent=Math.round(earned/34*100)+'%';
   }
   refresh();
+  document.addEventListener('wikigarden:auth-ready',event=>{root.querySelector('#profileName').textContent=event.detail?.display||'Usuario';refresh()});
+  if(window.wikiAuth?.enabled){window.wikiAuth.ready.then(()=>{root.querySelector('#profileName').textContent=sessionStorage.getItem('wikigarden:demo-user')||'Usuario';refresh()})}
   document.addEventListener('wikigarden:achievement-progress',refresh);
   window.addEventListener('storage',refresh);
   root.querySelector('#replayPlatinum').addEventListener('click',()=>document.dispatchEvent(new CustomEvent('wikigarden:replay-platinum')));
