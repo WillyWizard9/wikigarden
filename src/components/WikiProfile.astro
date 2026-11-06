@@ -39,8 +39,7 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
  </section>
  <section class="platinumSection" id="platinumAchievement">
   <div class="platinumTrophy" aria-hidden="true">🏆</div>
-  <div><span class="profileEyebrow">LA DISTINCIÓN DEFINITIVA</span><h2>Trofeo Platino · Maestro del Garden</h2><p>Desbloquea los 25 pasos, las cinco medallas de reto completo y los cuatro logros especiales.</p><strong id="platinumStatus">Bloqueado · 0 de 34 logros</strong>
-    <button type="button" id="replayPlatinum" hidden>Revivir la celebración ✨</button></div>
+  <div><span class="profileEyebrow">LA DISTINCIÓN DEFINITIVA</span><h2>Trofeo Platino · Maestro del Garden</h2><p>Desbloquea los 25 pasos, las cinco medallas de reto completo y los cuatro logros especiales.</p><div class="platinumControls"><strong id="platinumStatus">Bloqueado · 0 de 34 logros</strong><button type="button" id="replayPlatinum" hidden>Revivir la celebración ✨</button></div></div>
  </section>
  <button type="button" id="demoLogout">Salir de esta sesión</button><p class="profileDisclaimer">Los logros se guardan únicamente en este navegador. No hay sincronización entre dispositivos ni autenticación real.</p>
 </section>
@@ -282,4 +281,10 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
 <style is:global>
 .profileApp #replayPlatinum:not([hidden]){display:inline-flex!important;align-items:center;justify-content:center;margin:14px 0 0!important;padding:11px 18px!important;border-radius:25px!important;border:1px solid #87a9bc!important;background:#e8f4fb!important;color:#234a65!important;font:800 12px Outfit,system-ui,sans-serif!important;cursor:pointer}
 .profileApp #replayPlatinum[hidden]{display:none!important}
+</style>
+<style is:global>
+.profileApp .platinumControls{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:20px!important;margin-top:18px!important}
+.profileApp .platinumControls #platinumStatus{display:block!important;margin:0!important;line-height:1.5!important}
+.profileApp .platinumControls #replayPlatinum:not([hidden]){margin:0!important;align-self:flex-start!important}
+@media(max-width:700px){.profileApp .platinumControls{align-items:center!important}.profileApp .platinumControls #replayPlatinum:not([hidden]){align-self:center!important}}
 </style>
