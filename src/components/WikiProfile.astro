@@ -39,7 +39,8 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
  </section>
  <section class="platinumSection" id="platinumAchievement">
   <div class="platinumTrophy" aria-hidden="true">🏆</div>
-  <div><span class="profileEyebrow">LA DISTINCIÓN DEFINITIVA</span><h2>Trofeo Platino · Maestro del Garden</h2><p>Desbloquea los 25 pasos, las cinco medallas de reto completo y los cuatro logros especiales.</p><strong id="platinumStatus">Bloqueado · 0 de 34 logros</strong></div>
+  <div><span class="profileEyebrow">LA DISTINCIÓN DEFINITIVA</span><h2>Trofeo Platino · Maestro del Garden</h2><p>Desbloquea los 25 pasos, las cinco medallas de reto completo y los cuatro logros especiales.</p><strong id="platinumStatus">Bloqueado · 0 de 34 logros</strong>
+    <button type="button" id="replayPlatinum" hidden>Revivir la celebración ✨</button></div>
  </section>
  <button type="button" id="demoLogout">Salir de esta sesión</button><p class="profileDisclaimer">Los logros se guardan únicamente en este navegador. No hay sincronización entre dispositivos ni autenticación real.</p>
 </section>
@@ -89,6 +90,7 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
    const trophy=root.querySelector('#platinumAchievement');
    trophy.classList.toggle('unlocked',platinum);
    trophy.querySelector('#platinumStatus').textContent=platinum?'¡Trofeo Platino desbloqueado!':earned+' de 34 logros para conseguir el platino';
+   root.querySelector('#replayPlatinum').hidden=!platinum;
    root.querySelector('#profileCount').textContent=String(earned+(platinum?1:0));
    root.querySelector('#profileCompleted').textContent=String(challengeCount);
    root.querySelector('#profilePct').textContent=Math.round(earned/34*100)+'%';
@@ -96,6 +98,7 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
   refresh();
   document.addEventListener('wikigarden:achievement-progress',refresh);
   window.addEventListener('storage',refresh);
+  root.querySelector('#replayPlatinum').addEventListener('click',()=>document.dispatchEvent(new CustomEvent('wikigarden:replay-platinum')));
   root.querySelector('#demoLogout').addEventListener('click',()=>{try{sessionStorage.removeItem('wikigarden:demo-user')}catch(e){}location.assign('/acceso/')});
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
@@ -275,4 +278,8 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
  .sl-markdown-content .profileApp .profileScore strong{font-size:25px!important}
  .sl-markdown-content .profileApp .profileScore span{font-size:11px!important}
 }
+</style>
+<style is:global>
+.profileApp #replayPlatinum:not([hidden]){display:inline-flex!important;align-items:center;justify-content:center;margin:14px 0 0!important;padding:11px 18px!important;border-radius:25px!important;border:1px solid #87a9bc!important;background:#e8f4fb!important;color:#234a65!important;font:800 12px Outfit,system-ui,sans-serif!important;cursor:pointer}
+.profileApp #replayPlatinum[hidden]{display:none!important}
 </style>
