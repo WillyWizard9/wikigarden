@@ -8,7 +8,40 @@ const aliatLogo="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACEBAMAAACja
  <div class="loginPartners"><span>UNA INICIATIVA DE</span><div><div class="loginPartner"><img src={aliatLogo} alt="ALIAT" /><b>ALIAT</b></div><div class="loginPartner"><img src="/cymara-brand.svg" alt="Cymara" /></div><div class="loginPartner"><img src="/vithal-garden-clean.svg" alt="Vithal Garden" /></div></div></div></div>
 </section>
 <script is:inline>
-(function(){const form=document.getElementById('wg-login');if(!form)return;form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const user=String(new FormData(form).get('username')||'Visitante').trim()||'Visitante';try{sessionStorage.setItem('wikigarden:demo-user',user)}catch(e){}const requested=new URLSearchParams(location.search).get('next')||'/';window.location.assign(requested.startsWith('/')&&!requested.startsWith('//')&&!requested.startsWith('/acceso')?requested:'/')});})();
+(function(){
+ const form=document.getElementById('wg-login');if(!form)return;
+ const username=form.querySelector('[name="username"]'),password=form.querySelector('[name="password"]'),button=form.querySelector('[type="submit"]'),helper=form.querySelector('small');
+ const message=document.createElement('p');message.setAttribute('role','alert');message.style.cssText='color:#a53d35;font-size:13px;margin:0';form.appendChild(message);
+ async function mode(){
+  const auth=window.wikiAuth;
+  if(!auth)return;
+  await auth.ready;
+  if(!auth.enabled)return;
+  username.type='email';username.autocomplete='email';username.placeholder='tu@garden.es';username.closest('label').firstChild.textContent='Correo electrónico';
+  helper.textContent='Acceso exclusivo para usuarios invitados. Introduce el email y la contraseña de tu cuenta de WikiGarden.';
+  if(auth.user){const next=new URLSearchParams(location.search).get('next')||'/';location.replace(next.startsWith('/')&&!next.startsWith('//')&&!next.startsWith('/acceso')?next:'/')}
+ }
+ document.addEventListener('wikigarden:auth-initialized',mode);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mode,{once:true});else mode();
+ form.addEventListener('submit',async e=>{
+  e.preventDefault();if(!form.reportValidity())return;
+  message.textContent='';
+  const requested=new URLSearchParams(location.search).get('next')||'/';
+  const target=requested.startsWith('/')&&!requested.startsWith('//')&&!requested.startsWith('/acceso')?requested:'/';
+  const auth=window.wikiAuth;
+  if(auth){await auth.ready}
+  if(auth?.enabled){
+   button.disabled=true;button.textContent='Comprobando acceso…';
+   try{await auth.login(username.value.trim(),password.value);location.assign(target)}
+   catch(error){message.textContent='No hemos podido iniciar sesión. Comprueba tus credenciales o contacta con el administrador.';console.error('WikiGarden: fallo de acceso',error)}
+   finally{button.disabled=false;button.textContent='Entrar a WikiGarden →'}
+  }else{
+   const user=username.value.trim()||'Visitante';
+   try{sessionStorage.setItem('wikigarden:demo-user',user)}catch(e){}
+   location.assign(target);
+  }
+ });
+})();
 </script>
 <style is:global>
 body:has(.loginShell) header.header,body:has(.loginShell) .right-sidebar,body:has(.loginShell) .sidebar,body:has(.loginShell) .content-panel>h1,body:has(.loginShell) .pagination-links,body:has(.loginShell) footer{display:none!important}
