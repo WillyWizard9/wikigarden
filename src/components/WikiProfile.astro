@@ -98,7 +98,7 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
   document.addEventListener('wikigarden:achievement-progress',refresh);
   window.addEventListener('storage',refresh);
   root.querySelector('#replayPlatinum').addEventListener('click',()=>document.dispatchEvent(new CustomEvent('wikigarden:replay-platinum')));
-  root.querySelector('#demoLogout').addEventListener('click',()=>{try{sessionStorage.removeItem('wikigarden:demo-user')}catch(e){}location.assign('/acceso/')});
+  root.querySelector('#demoLogout').addEventListener('click',async()=>{if(window.wikiAuth?.enabled){await window.wikiAuth.logout();return;}try{sessionStorage.removeItem('wikigarden:demo-user')}catch(e){}location.assign('/acceso/')});
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
  document.addEventListener('astro:page-load',init);
