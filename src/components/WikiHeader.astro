@@ -2,6 +2,7 @@
 import DefaultHeader from '@astrojs/starlight/components/Header.astro';
 import PlatinumCelebration from './PlatinumCelebration.astro';
 import FloatingContact from './FloatingContact.astro';
+import WikiSupabase from './WikiSupabase.astro';
 ---
 <div class="wg-header">
   <DefaultHeader />
@@ -22,6 +23,7 @@ import FloatingContact from './FloatingContact.astro';
     </nav>
   </details>
 </div>
+<WikiSupabase />
 <PlatinumCelebration />
 <FloatingContact />
 <style>
@@ -43,14 +45,24 @@ import FloatingContact from './FloatingContact.astro';
 </style>
 <script is:inline>
 (function(){
-  function guard(){
+  async function guard(){
     const path=location.pathname;
     if(path.startsWith('/acceso/'))return;
+    if(window.wikiAuth){
+      await window.wikiAuth.ready;
+      if(window.wikiAuth.enabled){
+        if(!window.wikiAuth.user){location.replace('/acceso/?next='+encodeURIComponent(path+location.search));return;}
+        document.querySelectorAll('.wg-profile-link').forEach(el=>{el.title='Usuario: '+(window.wikiAuth.user.email||'')});
+        return;
+      }
+    }
     let user='';try{user=sessionStorage.getItem('wikigarden:demo-user')||''}catch(e){}
     if(!user){location.replace('/acceso/?next='+encodeURIComponent(path+location.search));return;}
     document.querySelectorAll('.wg-profile-link').forEach(el=>{el.title='Sesión de demostración: '+user;});
   }
-  guard();document.addEventListener('astro:page-load',guard);
+  document.addEventListener('wikigarden:auth-initialized',guard);
+  document.addEventListener('astro:page-load',guard);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',guard,{once:true});else guard();
 })();
 </script>
 <style is:global>
