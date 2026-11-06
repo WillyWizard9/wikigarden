@@ -47,6 +47,15 @@ import WikiSupabase from './WikiSupabase.astro';
 (function(){
   async function guard(){
     const path=location.pathname;
+    // Los enlaces de recuperación/invitación pueden volver a /, no al formulario.
+    // Hay que capturarlos ANTES de comprobar la sesión demo o redirigir al inicio.
+    const type=new URLSearchParams(location.hash.slice(1)).get('type');
+    if(type==='recovery'||type==='invite'){
+      if(!path.startsWith('/acceso/')){
+        location.replace('/acceso/?action='+encodeURIComponent(type)+location.hash);
+        return;
+      }
+    }
     if(path.startsWith('/acceso/'))return;
     if(window.wikiAuth){
       await window.wikiAuth.ready;
