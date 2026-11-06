@@ -18,7 +18,7 @@ export default async function handler(req,res){
  if(!token||token.length>8000)return res.status(401).json({ok:false,error:'Inicia sesión.'});
  const publicClient=createClient(PROJECT,PUBLIC_KEY,{auth:{persistSession:false,autoRefreshToken:false}});
  const {data:identity,error:identityError}=await publicClient.auth.getUser(token);
- if(identityError||identity?.user?.id!==ADMIN_ID)return res.status(403).json({ok:false,error:'Solo el administrador de WikiGarden puede invitar usuarios.'});
+ if(identityError||identity?.user?.id!==ADMIN_ID)return res.status(403).json({ok:false,error:'Solo el administrador de WikiGarden puede gestionar usuarios.'});
  const secret=process.env.SUPABASE_SECRET_KEY;
  if(!secret)return res.status(503).json({ok:false,error:'Falta configurar SUPABASE_SECRET_KEY en Vercel.'});
  const db=createClient(PROJECT,secret,{auth:{persistSession:false,autoRefreshToken:false}});
@@ -30,6 +30,10 @@ export default async function handler(req,res){
  const payload=req.body&&typeof req.body==='object'?req.body:{};
  const email=clean(payload.email,180).toLowerCase();
  const displayName=clean(payload.name,120);
+ const accountMode=payload.accountMode==='direct'?'direct':'invite';
+ const password=typeof payload.password==='string'?payload.password:'';
+ if(accountMode==='direct'&&(password.length<8||password.length>128))
+  return res.status(400).json({ok:false,error:'La contraseña inicial debe tener entre 8 y 128 caracteres.'});
  const gardenId=clean(payload.gardenId,50);
  const newGarden=clean(payload.newGarden,120);
  if(!emailOK(email)||!displayName||(!gardenId&&!newGarden)||(gardenId&&newGarden))
@@ -55,20 +59,22 @@ export default async function handler(req,res){
    if(data.users.length<1000)break;
   }
   if(existing)return res.status(409).json({ok:false,error:'Ese correo ya tiene cuenta. No se ha modificado su garden.'});
-  const {data:invitation,error:inviteError}=await db.auth.admin.inviteUserByEmail(email,{
-   redirectTo:'https://wikigarden.cymara.es/acceso/?action=invite',
-   data:{display_name:displayName}
-  });
-  if(inviteError)throw inviteError;
-  if(!invitation?.user?.id)throw new Error('Supabase no devolvió el usuario invitado.');
+  const {data:created,error:createError}=accountMode==='direct'
+   ? await db.auth.admin.createUser({email,password,email_confirm:true,user_metadata:{display_name:displayName}})
+   : await db.auth.admin.inviteUserByEmail(email,{
+      redirectTo:'https://wikigarden.cymara.es/acceso/?action=invite',
+      data:{display_name:displayName}
+     });
+  if(createError)throw createError;
+  if(!created?.user?.id)throw new Error('Supabase no devolvió el usuario creado.');
   const {error:memberError}=await db.from('wiki_members').insert({
-   user_id:invitation.user.id,garden_id:garden.id,display_name:displayName
+   user_id:created.user.id,garden_id:garden.id,display_name:displayName
   });
   if(memberError){
-   console.error('WikiGarden invitación creada pero membresía pendiente',invitation.user.id,memberError.message);
-   return res.status(500).json({ok:false,error:'La invitación salió, pero no se pudo vincular el garden. No vuelvas a invitar: revisa la membresía en Supabase.'});
+   console.error('WikiGarden: usuario creado pero sin membresía',created.user.id,memberError.message);
+   return res.status(500).json({ok:false,error:'La cuenta se creó pero no quedó vinculada al garden. No intentes repetir el alta; revisa la membresía en Supabase.'});
   }
-  return res.status(200).json({ok:true,email,garden:garden.name});
+  return res.status(200).json({ok:true,email,garden:garden.name,accountMode});
  }catch(error){
   console.error('WikiGarden: error de invitación',error?.message);
   return res.status(502).json({ok:false,error:'No se pudo completar la invitación. Comprueba el correo y el registro de Supabase.'});
