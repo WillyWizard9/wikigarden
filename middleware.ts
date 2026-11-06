@@ -4,7 +4,7 @@ import { next } from '@vercel/functions';
 import { createRemoteJWKSet, jwtVerify, type JWTPayload } from 'jose';
 
 export const config = {
-  matcher: ['/((?!acceso|_astro/|favicon\\.svg).*)'],
+  matcher: ['/((?!acceso|api/|_astro/|favicon\\.svg).*)'],
 };
 
 function leerCookie(request: Request, nombre: string): string | null {
@@ -35,9 +35,9 @@ export default async function middleware(request: Request) {
   // En la primera fase, se despliega sin control de acceso.
   // La demostración debe ser accesible sin Supabase. No utilizar para información privada.
   // Para activar autenticación real, configurar WIKI_DEMO_ACCESS=false junto a WIKI_REQUIRE_AUTH=true.
-  if (process.env.WIKI_DEMO_ACCESS !== 'false' || process.env.WIKI_REQUIRE_AUTH !== 'true') return next();
+  if (process.env.PUBLIC_WIKI_AUTH_ENABLED !== 'true' || process.env.WIKI_REQUIRE_AUTH !== 'true') return next();
 
-  const supabaseUrl = (process.env.PUBLIC_SUPABASE_URL ?? '').trim().replace(/[/]$/, '');
+  const supabaseUrl = 'https://mozmpxxlgrzbxukitpms.supabase.co';
   // Con protección activada pero Supabase sin configurar, no exponer la wiki.
   if (!supabaseUrl) return new Response('Autenticación pendiente de configurar', { status: 503 });
 
