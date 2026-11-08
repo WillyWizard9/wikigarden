@@ -10,7 +10,7 @@ import WikiSupabase from '../components/WikiSupabase.astro';
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-:root{font-family:Outfit,system-ui,sans-serif;color:#214438;background:#f2f7f3}*{box-sizing:border-box}body{margin:0}main{max-width:720px;margin:6vh auto;padding:20px}.card{background:#fff;border:1px solid #dce9df;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 16px 50px #133b2010}header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:30px}a{color:#22785e;text-decoration:none;font-weight:700}h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.04em;margin:5px 0 8px}p{line-height:1.5;color:#5b7567}.eyebrow{font-size:11px;letter-spacing:.13em;font-weight:800;color:#37866b}.form{display:grid;gap:18px;margin-top:25px}label{font-weight:650;display:grid;gap:8px;font-size:14px}input,select{font:inherit;border-radius:10px;border:1px solid #cbddd0;padding:13px;background:#fff;color:#234737;width:100%}input:focus,select:focus{outline:2px solid #67b39c}button{border:0;background:#26785e;color:white;padding:14px 24px;border-radius:12px;font:700 15px Outfit;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.hint{font-size:12px;color:#6d8376}#status{font-size:14px;min-height:22px}#status[data-error]{color:#ae3939}#status[data-success]{color:#20744a}fieldset{border:0;padding:0;margin:0;display:grid;gap:9px}legend{font-weight:700;font-size:14px;margin-bottom:8px} .radio{display:flex;align-items:center;gap:8px;font-size:13px}.radio input{width:auto}.hidden{display:none!important}
+:root{font-family:Outfit,system-ui,sans-serif;color:#214438;background:#f2f7f3}*{box-sizing:border-box}body{margin:0}main{max-width:720px;margin:6vh auto;padding:20px}.card{background:#fff;border:1px solid #dce9df;border-radius:22px;padding:clamp(22px,5vw,42px);box-shadow:0 16px 50px #133b2010}header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:30px}a{color:#22785e;text-decoration:none;font-weight:700}h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.04em;margin:5px 0 8px}p{line-height:1.5;color:#5b7567}.eyebrow{font-size:11px;letter-spacing:.13em;font-weight:800;color:#37866b}.form{display:grid;gap:18px;margin-top:25px}label{font-weight:650;display:grid;gap:8px;font-size:14px}input,select{font:inherit;border-radius:10px;border:1px solid #cbddd0;padding:13px;background:#fff;color:#234737;width:100%}input:focus,select:focus{outline:2px solid #67b39c}button{border:0;background:#26785e;color:white;padding:14px 24px;border-radius:12px;font:700 15px Outfit;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.hint{font-size:12px;color:#6d8376}#status{font-size:14px;min-height:22px}#status[data-error]{color:#ae3939}#status[data-success]{color:#20744a}fieldset{border:0;padding:0;margin:0;display:grid;gap:9px}legend{font-weight:700;font-size:14px;margin-bottom:8px} .radio{display:flex;align-items:center;gap:8px;font-size:13px}.radio input{width:auto}.passwordField{position:relative;display:block}.passwordField input{padding-right:104px}.passwordToggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:#e7f2ec;color:#245e4b;padding:8px 12px;font-size:12px;border-radius:8px}.passwordToggle:hover{background:#d5e8dd}.passwordToggle:focus-visible{outline:2px solid #26785e;outline-offset:2px}.hidden{display:none!important}
 </style>
 </head>
 <body><main><header><a href="/">← WikiGarden</a><span class="eyebrow">ADMINISTRACIÓN</span></header><section class="card">
@@ -31,7 +31,7 @@ import WikiSupabase from '../components/WikiSupabase.astro';
 <input id="newGarden" name="newGarden" class="hidden" placeholder="Nombre del nuevo garden" maxlength="120" disabled/>
 </fieldset>
 <label id="passwordLabel" class="hidden">Contraseña inicial
-<input type="password" id="initialPassword" name="password" autocomplete="new-password" minlength="8" maxlength="128" placeholder="Mínimo 8 caracteres" disabled/>
+<span class="passwordField"><input type="password" id="initialPassword" name="password" autocomplete="new-password" minlength="8" maxlength="128" placeholder="Mínimo 8 caracteres" disabled/><button type="button" id="toggleInitialPassword" class="passwordToggle" aria-label="Mostrar contraseña" aria-pressed="false" title="Mostrar contraseña">Mostrar</button></span>
 <span class="hint">No se enviará ningún correo. Comunica las credenciales por un canal privado y pide cambiar la contraseña en el primer acceso.</span></label>
 <button type="submit" id="submitAccount">Enviar invitación →</button><span class="hint">Solo el administrador puede acceder a esta función. La contraseña y el correo se gestionan en Supabase.</span>
 </form></section></main><WikiSupabase/>
@@ -42,6 +42,15 @@ const garden=document.querySelector('#garden');
 const newGarden=document.querySelector('#newGarden');
 const passwordLabel=document.querySelector('#passwordLabel');
 const initialPassword=document.querySelector('#initialPassword');
+const toggleInitialPassword=document.querySelector('#toggleInitialPassword');
+toggleInitialPassword.addEventListener('click',()=>{
+ const visible=initialPassword.type==='password';
+ initialPassword.type=visible?'text':'password';
+ toggleInitialPassword.textContent=visible?'Ocultar':'Mostrar';
+ toggleInitialPassword.setAttribute('aria-label',visible?'Ocultar contraseña':'Mostrar contraseña');
+ toggleInitialPassword.setAttribute('aria-pressed',String(visible));
+ toggleInitialPassword.title=visible?'Ocultar contraseña':'Mostrar contraseña';
+});
 const submitAccount=document.querySelector('#submitAccount');
 const modeInputs=form.querySelectorAll('[name=mode]');
 const showStatus=(message,error=false,success=false)=>{status.textContent=message;status.toggleAttribute('data-error',error);status.toggleAttribute('data-success',success)};
@@ -89,7 +98,7 @@ form.addEventListener('submit',async event=>{
   const result=await response.json();
   if(!response.ok)throw Error(result.error||'No se pudo enviar la invitación.');
   showStatus((result.accountMode==='direct'?'Cuenta creada sin enviar email: ':'Invitación enviada a ')+result.email+' · Garden: '+result.garden+'.',false,true);
-  form.reset();updateMode();updateAccountMode();
+  form.reset();initialPassword.type='password';toggleInitialPassword.textContent='Mostrar';toggleInitialPassword.setAttribute('aria-label','Mostrar contraseña');toggleInitialPassword.setAttribute('aria-pressed','false');toggleInitialPassword.title='Mostrar contraseña';updateMode();updateAccountMode();
   const list=await fetch('/api/wiki-admin',{headers:{Authorization:'Bearer '+session.session.access_token}}).then(r=>r.json());
   if(list.ok)garden.replaceChildren(new Option('Seleccionar garden',''),...list.gardens.map(g=>new Option(g.name,g.id)));
  }catch(error){showStatus(error.message||'Error al enviar.',true)}
