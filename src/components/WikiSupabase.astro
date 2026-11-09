@@ -91,6 +91,11 @@ if(live){
     // la contraseña, pero NO debe conceder acceso a la wiki en ese momento.
     currentUser=data.user;
     await fetch('/api/wiki-session',{method:'DELETE'}).catch(()=>{});
+   }else if(passwordFlow){
+    // A valid invitation establishes a temporary Supabase session solely to
+    // let the invitee choose a password. Never grant WikiGarden access yet.
+    currentUser=data.user;
+    await fetch('/api/wiki-session',{method:'DELETE'}).catch(()=>{});
    }else await activate(data.user);
   }catch(error){console.error('WikiGarden: error comprobando sesión',error);currentUser=null}
   finally{readyResolve();document.dispatchEvent(new Event('wikigarden:auth-initialized'))}
