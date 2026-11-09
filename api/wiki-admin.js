@@ -76,7 +76,11 @@ export default async function handler(req,res){
    }
    if(generated.error||!generated.data?.properties?.action_link)
     throw new Error(generated.error?.message||'No se pudo generar el enlace.');
-   const link=generated.data.properties.action_link;
+   // Forzar la URL de retorno para que Supabase siempre muestre el formulario
+   // de contraseña, en vez de volver a la portada con una sesión iniciada.
+   const actionLink=new URL(generated.data.properties.action_link);
+   actionLink.searchParams.set('redirect_to','https://wikigarden.cymara.es/acceso/?action='+linkType);
+   const link=actionLink.toString();
    const text=['Hola,','', 'Tienes pendiente activar tu cuenta de WikiGarden.',
     'Aquí tienes un nuevo enlace para establecer tu contraseña:',
     link,'','El enlace es personal, se utiliza una sola vez y caduca según el plazo configurado en Supabase.',
