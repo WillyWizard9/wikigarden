@@ -1,10 +1,29 @@
 import {createClient} from '@supabase/supabase-js';
+import {sendGoogleSMTP} from '../lib/wiki-smtp.js';
 
 const PROJECT='https://mozmpxxlgrzbxukitpms.supabase.co';
 const PUBLIC_KEY='sb_publishable_OtrtVuzuiJJefDs0oM6wuQ_LmexlzFk';
 const ADMIN_ID='d60df3d9-0ce5-4136-ac23-f8e7003535e6';
 const emailOK=value=>typeof value==='string'&&value.length<=180&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 const clean=(v,max)=>typeof v==='string'?v.trim().slice(0,max):'';
+
+async function listWikiUsers(db){
+ const {data:members,error:memberError}=await db.from('wiki_members').select('user_id,garden_id,display_name');
+ if(memberError)throw memberError;
+ const memberMap=new Map((members||[]).map(m=>[m.user_id,m]));
+ const users=[];
+ for(let page=1;page<=10;page++){
+  const {data,error}=await db.auth.admin.listUsers({page,perPage:1000});
+  if(error)throw error;
+  for(const user of data.users){
+   const member=memberMap.get(user.id);
+   if(member)users.push({id:user.id,email:user.email||'',name:member.display_name,gardenId:member.garden_id,
+    invitedAt:user.invited_at||null,confirmedAt:user.email_confirmed_at||user.confirmed_at||null});
+  }
+  if(data.users.length<1000)break;
+ }
+ return users;
+}
 
 export default async function handler(req,res){
  res.setHeader('Cache-Control','no-store');
@@ -23,9 +42,52 @@ export default async function handler(req,res){
  if(!secret)return res.status(503).json({ok:false,error:'Falta configurar SUPABASE_SECRET_KEY en Vercel.'});
  const db=createClient(PROJECT,secret,{auth:{persistSession:false,autoRefreshToken:false}});
  if(req.method==='GET'){
-  const {data,error}=await db.from('wiki_gardens').select('id,name').order('name');
-  if(error)return res.status(500).json({ok:false,error:'No se pudieron cargar los gardens.'});
-  return res.status(200).json({ok:true,gardens:data});
+  try{
+   const {data:gardens,error}=await db.from('wiki_gardens').select('id,name').order('name');
+   if(error)throw error;
+   const users=await listWikiUsers(db);
+   const lookup=new Map(gardens.map(g=>[g.id,g.name]));
+   const pending=users.filter(u=>u.invitedAt&&!u.confirmedAt).map(u=>({
+    id:u.id,name:u.name,email:u.email,garden:lookup.get(u.gardenId)||'Sin garden',invitedAt:u.invitedAt
+   }));
+   return res.status(200).json({ok:true,gardens,pending});
+  }catch(error){console.error('WikiGarden: listar invitaciones',error?.message);return res.status(500).json({ok:false,error:'No se pudieron cargar las invitaciones pendientes.'});}
+ }
+ if(req.body?.action==='resend'){
+  const userId=clean(req.body.userId,50);
+  if(!/^[0-9a-f-]{36}$/i.test(userId))return res.status(400).json({ok:false,error:'Usuario no válido.'});
+  try{
+   const {data:member,error:memberError}=await db.from('wiki_members').select('user_id').eq('user_id',userId).maybeSingle();
+   if(memberError||!member)return res.status(404).json({ok:false,error:'El usuario no pertenece a WikiGarden.'});
+   const {data,error}=await db.auth.admin.getUserById(userId);
+   if(error||!data?.user||!data.user.invited_at||data.user.email_confirmed_at||data.user.confirmed_at)
+    return res.status(409).json({ok:false,error:'La cuenta ya está activa o no tiene una invitación pendiente.'});
+   const email=data.user.email;
+   if(!emailOK(email))return res.status(422).json({ok:false,error:'Email no válido.'});
+   const smtpUser=process.env.WIKI_SMTP_USER,smtpPassword=process.env.WIKI_SMTP_APP_PASSWORD;
+   if(!smtpUser||!smtpPassword)return res.status(503).json({ok:false,error:'Falta configurar el SMTP de WikiGarden.'});
+   // Supabase no permite reenviar inviteUserByEmail a todas las cuentas ya existentes.
+   // Se genera un enlace nuevo, sin borrar ni volver a crear el usuario.
+   let generated=await db.auth.admin.generateLink({type:'invite',email,options:{redirectTo:'https://wikigarden.cymara.es/acceso/?action=invite'}});
+   let linkType='invite';
+   if(generated.error){
+    generated=await db.auth.admin.generateLink({type:'recovery',email,options:{redirectTo:'https://wikigarden.cymara.es/acceso/?action=recovery'}});
+    linkType='recovery';
+   }
+   if(generated.error||!generated.data?.properties?.action_link)
+    throw new Error(generated.error?.message||'No se pudo generar el enlace.');
+   const link=generated.data.properties.action_link;
+   const text=['Hola,','', 'Tienes pendiente activar tu cuenta de WikiGarden.',
+    'Aquí tienes un nuevo enlace para establecer tu contraseña:',
+    link,'','El enlace es personal, se utiliza una sola vez y caduca según el plazo configurado en Supabase.',
+    'Si no esperabas este correo, puedes ignorarlo.','','WikiGarden · ALIAT'].join('\\n');
+   await sendGoogleSMTP({username:smtpUser,password:smtpPassword,from:smtpUser,to:email,replyTo:smtpUser,
+    subject:'WikiGarden | Nuevo enlace para activar tu cuenta',text});
+   return res.status(200).json({ok:true,email,linkType});
+  }catch(error){
+   console.error('WikiGarden: no se pudo reenviar el enlace',error?.message);
+   return res.status(502).json({ok:false,error:'No se pudo reenviar el enlace. Consulta los registros de Vercel antes de volver a intentarlo.'});
+  }
  }
  const payload=req.body&&typeof req.body==='object'?req.body:{};
  const email=clean(payload.email,180).toLowerCase();
