@@ -108,9 +108,11 @@ const aliatLogo="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACEBAMAAACja
    await auth.client.auth.signOut();
    await fetch('/api/wiki-session',{method:'DELETE'}).catch(()=>{});
    status.style.color='#207856';
-   status.textContent='Contraseña guardada correctamente. Ya puedes iniciar sesión cuando se active el acceso real.';
-   btn.hidden=true;
    setPassword.reset();
+   // La invitación termina sin sesión activa: el usuario entra con su contraseña nueva.
+   show(login);
+   message.style.color='#207856';
+   message.textContent='Contraseña establecida correctamente. Inicia sesión con tu email y tu contraseña nueva.';
   }catch(err){status.textContent=err?.message==='Enlace caducado o no válido.'?'El enlace ha caducado. Solicita uno nuevo desde «¿No recuerdas tu contraseña?».':'No se pudo guardar la contraseña. Comprueba que cumple los requisitos o solicita un nuevo enlace.';btn.disabled=false;btn.textContent='Guardar contraseña →'}
  });
  login.addEventListener('submit',async e=>{
