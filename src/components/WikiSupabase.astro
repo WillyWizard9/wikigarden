@@ -82,6 +82,10 @@ if(live){
    if(error||!data.user){
     currentUser=null;sessionStorage.removeItem('wikigarden:demo-user');clearProgress();
     await fetch('/api/wiki-session',{method:'DELETE'}).catch(()=>{});
+   }else if(passwordFlow){
+    // Un enlace de invitación o recuperación autentica temporalmente con Supabase.
+    // Nunca activar la sesión de WikiGarden ni crear su cookie hasta guardar la contraseña.
+    currentUser=data.user;
    }else await activate(data.user);
   }catch(error){console.error('WikiGarden: error comprobando sesión',error);currentUser=null}
   finally{readyResolve();document.dispatchEvent(new Event('wikigarden:auth-initialized'))}
