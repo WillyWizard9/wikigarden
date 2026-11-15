@@ -38,7 +38,9 @@ function initDiagnostic(){
  const groups=[{id:'localizacion',name:'Localización',icon:'⌖',href:'/problemas/localizacion/',desc:'Encuentra lo que tienes y evita ventas perdidas.'},{id:'sobrestock',name:'Sobrestock',icon:'▦',href:'/problemas/sobrestock/',desc:'Libera capital y espacio de referencias que no rotan.'},{id:'compras',name:'Compras',icon:'↗',href:'/problemas/compras/',desc:'Planifica pedidos apoyándote en datos.'},{id:'conteos',name:'Conteos',icon:'✓',href:'/problemas/conteos/',desc:'Trabaja con un inventario que refleje la realidad.'},{id:'movimientos',name:'Entradas y salidas',icon:'⇄',href:'/problemas/movimientos/',desc:'Controla albaranes, etiquetado y ventas correctamente registradas.'}];
  const form=root.querySelector('#diagnosticForm'),result=root.querySelector('#results'),grid=root.querySelector('#scoreGrid'),recommend=root.querySelector('#recommendation'),validation=root.querySelector('#validation');
  const update=()=>{let answered=0;root.querySelectorAll('.question').forEach(field=>{let checked=field.querySelector('input:checked');field.classList.toggle('answered',!!checked);if(checked)answered++});root.querySelector('#progressLabel').textContent=answered+' de 25 respondidas';root.querySelector('#progressPercent').textContent=Math.round(answered/25*100)+'%';root.querySelector('#progressFill').style.width=(answered/25*100)+'%';validation.textContent='';};form.addEventListener('change',update);
- form.addEventListener('submit',ev=>{ev.preventDefault();const fields=[...root.querySelectorAll('.question')];const missing=fields.find(f=>!f.querySelector('input:checked'));if(missing){validation.textContent='Faltan '+fields.filter(f=>!f.querySelector('input:checked')).length+' preguntas por responder.';missing.scrollIntoView({behavior:'smooth',block:'center'});missing.querySelector('input').focus();return;}
+ let pendingAttemptId=null;
+ form.addEventListener('change',()=>{pendingAttemptId=null});
+ form.addEventListener('submit',async ev=>{ev.preventDefault();const fields=[...root.querySelectorAll('.question')];const missing=fields.find(f=>!f.querySelector('input:checked'));if(missing){validation.textContent='Faltan '+fields.filter(f=>!f.querySelector('input:checked')).length+' preguntas por responder.';missing.scrollIntoView({behavior:'smooth',block:'center'});missing.querySelector('input').focus();return;}
  const scores=groups.map((group,i)=>({...group,score:fields.slice(i*5,i*5+5).filter(f=>f.querySelector('input:checked')?.value==='yes').length}));const max=Math.max(...scores.map(x=>x.score));const tied=scores.filter(x=>x.score>=4).length>=2;const sorted=[...scores].sort((a,b)=>b.score-a.score||(a.id==='conteos'?-1:b.id==='conteos'?1:0));
  for(const [rank,group] of sorted.entries()){const card=grid.querySelector('[data-score-group="'+group.id+'"]');if(!card)continue;card.style.order=String(rank);const level=group.score>=4?'Prioridad alta':group.score===3?'Requiere atención':'Bajo control';const cls=group.score>=4?'high':group.score===3?'medium':'low';card.querySelector('.priority').className='priority '+cls;card.querySelector('.priority').textContent=level;card.querySelector('.scoreIcon').textContent=group.score>=4?'!':group.score===3?'⚠':'✓';card.querySelector('.scoreIcon').className='scoreIcon '+cls;card.querySelector('.scoreValue strong').textContent=group.score;card.querySelector('.scoreTrack div').style.width=(group.score/5*100)+'%';}
  recommend.replaceChildren();
@@ -62,6 +64,38 @@ function initDiagnostic(){
   support.textContent='Si necesitas ayuda para aplicarlo: '+services[first.id];
  }
  recommend.append(label,title,detail,why,link,support);
+ // Guardar cada intento completo en Supabase antes de marcarlo finalizado.
+ const submitButton=root.querySelector('#diagnose');
+ submitButton.disabled=true;
+ validation.textContent='Guardando los resultados de tu autodiagnóstico…';
+ try{
+  const auth=window.wikiAuth;
+  if(!auth?.enabled||!auth?.client)throw new Error('Inicia sesión para guardar el autodiagnóstico.');
+  await auth.ready;
+  const {data:identity,error:identityError}=await auth.client.auth.getUser();
+  if(identityError||!identity?.user)throw new Error('Tu sesión ha caducado. Vuelve a iniciar sesión.');
+  const {data:member,error:memberError}=await auth.client.from('wiki_members').select('garden_id').eq('user_id',identity.user.id).single();
+  if(memberError||!member)throw new Error('No encontramos tu garden asociado.');
+  if(!pendingAttemptId)pendingAttemptId=crypto.randomUUID();
+  const answers=fields.map((field,i)=>({question:i+1,group:field.dataset.group,answer:field.querySelector('input:checked').value}));
+  const points=Object.fromEntries(scores.map(item=>[item.id,item.score]));
+  const primary=max===0?null:(tied && scores.some(item=>item.id==='conteos'&&item.score>=4)
+   ?'conteos':tied&&scores.some(item=>item.id==='movimientos'&&item.score>=4)
+   ?'movimientos':sorted[0].id);
+  const {error:saveError}=await auth.client.from('wiki_diagnostic_results').insert({
+   id:pendingAttemptId,user_id:identity.user.id,garden_id:member.garden_id,
+   answers,scores:points,priority:primary,version:1
+  });
+  if(saveError&&saveError.code!=='23505')throw saveError;
+  pendingAttemptId=null;
+ }catch(error){
+  console.error('WikiGarden: no se pudo guardar el autodiagnóstico',error);
+  validation.textContent='No hemos podido guardar el diagnóstico. Comprueba tu conexión e inténtalo otra vez. No se perderán tus respuestas.';
+  submitButton.disabled=false;
+  validation.scrollIntoView({behavior:'smooth',block:'center'});
+  return;
+ }
+ submitButton.disabled=false;validation.textContent='';
  try{localStorage.setItem('wikigarden:diagnostic-completed:v1',new Date().toISOString())}catch(e){}document.dispatchEvent(new CustomEvent('wikigarden:achievement-progress'));form.hidden=true;result.hidden=false;result.focus({preventScroll:true});result.scrollIntoView({behavior:'smooth',block:'start'});});
  root.querySelector('#redo').addEventListener('click',()=>{result.hidden=true;form.hidden=false;root.scrollIntoView({behavior:'smooth',block:'start'});});update();
 }
