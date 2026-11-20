@@ -22,7 +22,7 @@ const questions=[{group:"Localización",question:"¿Qué permite encontrar un pr
  </div>
  <p id="examAlert" class="examAlert" role="alert" aria-live="polite"></p>
  <div class="examNav" id="examNav"><button type="button" id="examPrev" disabled>← Anterior</button><button type="button" id="examNext">Siguiente →</button></div>
- <section class="examResults" id="examResults" hidden><div class="examResultMedal" id="examResultMedal">★</div><h2 id="examResultTitle"></h2><p id="examResultScore"></p><div id="examReview"></div><div class="examResultLinks"><button type="button" id="examAgain">Repetir evaluación</button><a href="/perfil/">Ver mi medallero →</a></div></section>
+ <section class="examResults" id="examResults" hidden><div class="examResultMedal" id="examResultMedal">★</div><h2 id="examResultTitle"></h2><p id="examResultScore"></p><div id="examReview"></div><div class="examSponsor"><div><span>APRENDER Y CRECER, JUNTOS</span><p>Programa de aprendizaje de WikiGarden, con el patrocinio de Vithal Garden.</p></div><img src="/vithal-garden-clean.svg" alt="Vithal Garden" loading="lazy"/></div><div class="examResultLinks"><button type="button" id="examAgain">Repetir evaluación</button><a href="/perfil/">Ver mi medallero →</a></div></section>
  </section>
 <script is:inline>
 (function(){
@@ -114,4 +114,10 @@ const questions=[{group:"Localización",question:"¿Qué permite encontrar un pr
  .sl-markdown-content .knowledgeExam h3.examPrompt{font-size:20px!important}
  .sl-markdown-content .knowledgeExam .examOptions label span{min-height:48px!important;padding:12px!important;font-size:13px!important}
 }
+</style>
+<style>
+.knowledgeExam .examSponsor{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:15px 18px;background:#fff;border:1px solid #d9e8dd;border-radius:14px;margin:20px 0 8px}
+.knowledgeExam .examSponsor span{font:800 10px Outfit,system-ui,sans-serif;color:#448567;letter-spacing:.1em}.knowledgeExam .examSponsor p{margin:5px 0 0;color:#6c8071;font-size:12px;line-height:1.5}
+.knowledgeExam .examSponsor img{flex:none;width:125px;height:61px;object-fit:contain}
+@media(max-width:540px){.knowledgeExam .examSponsor{padding:12px;gap:8px}.knowledgeExam .examSponsor img{width:87px;height:50px}}
 </style>
