@@ -20,6 +20,7 @@ import WikiSupabase from './WikiSupabase.astro';
       <a href="/problemas/localizacion/">01 · Localización</a><a href="/problemas/sobrestock/">02 · Sobrestock</a><a href="/problemas/compras/">03 · Compras</a><a href="/problemas/conteos/">04 · Conteos</a><a href="/problemas/movimientos/">05 · Entradas y salidas</a>
       <span class="wg-menu-title">RECURSOS</span>
       <a href="/laboratorio/">Laboratorio interactivo</a><a href="/evaluacion/">Evaluación de conocimientos</a><a href="/perfil/">Mi perfil y logros</a><a href="/plantillas/">Plantillas</a><a href="/glosario/">Glosario</a><a href="/#contacto">Contacto</a>
+      <div class="wg-menuSponsor" aria-label="Patrocinador"><span>CON EL PATROCINIO DE</span><img src="/vithal-garden-clean.svg" alt="Vithal Garden" loading="lazy"/></div>
     </nav>
   </details>
 </div>
@@ -111,5 +112,25 @@ import WikiSupabase from './WikiSupabase.astro';
    location.assign(url.href);
   }
  },true);
+})();
+</script>
+
+<style is:global>
+.wg-menuSponsor{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 4px 5px;padding:10px;border-top:1px solid #e2ebe4;background:#f7faf7;border-radius:10px}.wg-menuSponsor span{font:800 9px Outfit,system-ui,sans-serif;letter-spacing:.06em;color:#638572}.wg-menuSponsor img{width:94px;height:49px;object-fit:contain}
+.wgSidebarSponsor{display:flex;flex-direction:column;gap:7px;padding:16px 14px;margin:26px 12px 14px;border:1px solid #dce7dd;border-radius:13px;background:#f5faf6;font-family:Outfit,system-ui,sans-serif}.wgSidebarSponsor span{font-size:9px;font-weight:800;letter-spacing:.08em;color:#6b8b76}.wgSidebarSponsor img{width:145px;height:65px;max-width:100%;object-fit:contain;object-position:left center}.wgSidebarSponsor small{font-size:11px;color:#758b7b;line-height:1.45}
+@media(max-width:800px){.wgSidebarSponsor{display:none}}
+</style>
+<script is:inline>
+(function(){
+ function mountSponsor(){
+  if(location.pathname.startsWith('/acceso/'))return;
+  const sidebar=document.querySelector('.sidebar-content')||document.querySelector('nav.sidebar .top-level')||document.querySelector('aside.sidebar');
+  if(!sidebar||sidebar.querySelector('.wgSidebarSponsor'))return;
+  const item=document.createElement('aside');item.className='wgSidebarSponsor';item.setAttribute('aria-label','Patrocinador de WikiGarden');
+  item.innerHTML='<span>CON EL PATROCINIO DE</span><img src="/vithal-garden-clean.svg" alt="Vithal Garden" loading="lazy"><small>Apoyando el conocimiento del sector garden.</small>';
+  sidebar.append(item);
+ }
+ document.addEventListener('astro:page-load',mountSponsor);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountSponsor,{once:true});else mountSponsor();
 })();
 </script>
