@@ -5,7 +5,7 @@
   <div class="options"><label><input type="checkbox" name="problema" value="Stock mal localizado"/><span>📍 Localización</span></label><label><input type="checkbox" name="problema" value="Sobrestock"/><span>📦 Sobrestock</span></label><label><input type="checkbox" name="problema" value="Planificación de compras"/><span>📊 Compras</span></label><label><input type="checkbox" name="problema" value="Conteos poco fiables"/><span>✅ Conteos</span></label><label><input type="checkbox" name="problema" value="Entradas y salidas de mercancía"/><span>↔️ Entradas y salidas</span></label></div>
  </fieldset>
  <label>Cuéntanos un poco más <textarea name="detalle" rows="5" maxlength="3000" placeholder="¿Qué ocurre en tu garden? ¿Qué te gustaría mejorar?"></textarea></label>
- <p class="disclaimer">Enviaremos tu solicitud directamente al equipo de Cymara. Tus datos se utilizarán para responder a esta consulta.</p>
+ <p class="disclaimer">Enviaremos tu solicitud directamente al equipo de Cymara. Tus datos se utilizarán para responder a esta consulta. <a href="https://cymara.es/" target="_blank" rel="noopener noreferrer">Conoce Cymara en nuestra web ↗</a></p>
  <button type="submit">Enviar solicitud →</button><p id="contact-status" role="status" aria-live="polite"></p>
 </form>
 <script>
@@ -50,4 +50,8 @@ initGardenContact();document.addEventListener('astro:page-load',initGardenContac
 .contactForm .options label{height:100%;min-width:0;display:block;margin:0}
 .contactForm .options label span{display:flex;align-items:center;min-height:57px;height:100%;padding:12px 14px;line-height:1.35}
 @media(max-width:590px){.contactForm .options{grid-template-columns:1fr}}
+</style>
+
+<style is:global>
+.contactForm .disclaimer a{color:#24735e;text-decoration:underline;text-underline-offset:2px;font-weight:700}.contactForm .disclaimer a:focus-visible{outline:2px solid #45968a;outline-offset:3px}
 </style>
