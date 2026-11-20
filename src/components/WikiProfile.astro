@@ -36,7 +36,7 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
    <a href="/evaluacion/" class="specialAchievement" data-special="exam-done"><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">📝</span></span><strong>Conocimientos a prueba</strong><small>Realizar el test de 15 preguntas</small><em data-status>Pendiente</em></a>
    <a href="/evaluacion/" class="specialAchievement" data-special="exam-passed"><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">🎓</span></span><strong>Experto en inventario</strong><small>Aprobar con al menos 12/15</small><em data-status>Pendiente</em></a>
   </div>
- <div class="profileSponsor"><div><span>UN PROGRAMA QUE CRECE CONTIGO</span><p>Los recursos y logros de WikiGarden cuentan con el patrocinio de Vithal Garden.</p></div><img src="/vithal-garden-clean.svg" alt="Vithal Garden" loading="lazy" /></div>
+ <div class="profileSponsor"><div><span>UN PROGRAMA QUE CRECE CONTIGO</span><p>Los recursos y logros de WikiGarden cuentan con el patrocinio de Vithal Garden.</p></div><a href="https://vithalgarden.com/es/" target="_blank" rel="noopener noreferrer" aria-label="Visitar Vithal Garden (abre en nueva pestaña)" class="sponsorLogoLink"><img src="/vithal-garden-clean.svg" alt="Vithal Garden" loading="lazy" /></a></div>
  </section>
  <section class="platinumSection" id="platinumAchievement">
   <div class="platinumTrophy" aria-hidden="true">🏆</div>
@@ -296,4 +296,8 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
 .profileApp .profileSponsor span{color:#46856c;font:800 10px Outfit,system-ui,sans-serif;letter-spacing:.1em}.profileApp .profileSponsor p{font-size:13px;line-height:1.5;color:#6c8274;margin:6px 0 0}
 .profileApp .profileSponsor img{width:135px;height:66px;object-fit:contain;flex:none}
 @media(max-width:580px){.profileApp .profileSponsor{padding:12px;gap:9px}.profileApp .profileSponsor img{width:88px;height:50px}.profileApp .profileSponsor p{font-size:11px}}
+</style>
+
+<style is:global>
+.sponsorLogoLink{display:inline-flex;align-items:center;justify-content:center;color:inherit;text-decoration:none;max-width:100%;border-radius:8px}.sponsorLogoLink img{display:block;max-width:100%}.sponsorLogoLink:focus-visible{outline:3px solid #408f6d;outline-offset:3px}
 </style>
