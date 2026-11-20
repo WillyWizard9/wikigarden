@@ -1,0 +1,13 @@
+---
+import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
+---
+<div class="wikiSponsorFooter">
+ <span>CONOCE A QUIEN HACE POSIBLE WIKIGARDEN</span>
+ <p>Con el patrocinio de <strong>Vithal Garden</strong></p>
+ <a href="https://vithalgarden.com/es/" target="_blank" rel="noopener noreferrer" aria-label="Conoce a nuestro patrocinador Vithal Garden (abre en nueva pestaña)">Conoce a nuestro patrocinador <span aria-hidden="true">↗</span></a>
+</div>
+<DefaultFooter />
+<style>
+.wikiSponsorFooter{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:34px 18px;margin:32px auto 10px;max-width:1050px;background:linear-gradient(135deg,#eef7f0,#fff);border:1px solid #d9e7dc;border-radius:20px;font-family:Outfit,system-ui,sans-serif}
+.wikiSponsorFooter>span{color:#59816a;font-size:10px;font-weight:800;letter-spacing:.11em}.wikiSponsorFooter p{font-size:17px;line-height:1.4;color:#2a5944;margin:0}.wikiSponsorFooter a{display:inline-flex;align-items:center;gap:9px;padding:12px 21px;border-radius:999px;background:#2d805f;color:white;text-decoration:none;font-size:13px;font-weight:800;transition:background .18s,transform .18s}.wikiSponsorFooter a:hover{background:#205e47;transform:translateY(-1px)}.wikiSponsorFooter a:focus-visible{outline:3px solid #4caa85;outline-offset:3px}
+</style>
