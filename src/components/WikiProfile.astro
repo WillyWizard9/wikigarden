@@ -36,6 +36,7 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
    <a href="/evaluacion/" class="specialAchievement" data-special="exam-done"><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">📝</span></span><strong>Conocimientos a prueba</strong><small>Realizar el test de 15 preguntas</small><em data-status>Pendiente</em></a>
    <a href="/evaluacion/" class="specialAchievement" data-special="exam-passed"><span class="medalDisc"><span class="medalGlyph" aria-hidden="true">🎓</span></span><strong>Experto en inventario</strong><small>Aprobar con al menos 12/15</small><em data-status>Pendiente</em></a>
   </div>
+ <div class="profileSponsor"><div><span>UN PROGRAMA QUE CRECE CONTIGO</span><p>Los recursos y logros de WikiGarden cuentan con el patrocinio de Vithal Garden.</p></div><img src="/vithal-garden-clean.svg" alt="Vithal Garden" loading="lazy" /></div>
  </section>
  <section class="platinumSection" id="platinumAchievement">
   <div class="platinumTrophy" aria-hidden="true">🏆</div>
@@ -289,4 +290,10 @@ const challengeIcons={localizacion:'🏵️',sobrestock:'💠',compras:'👑',co
 .profileApp .platinumControls #platinumStatus{display:block!important;margin:0!important;line-height:1.5!important}
 .profileApp .platinumControls #replayPlatinum:not([hidden]){margin:0!important;align-self:flex-start!important}
 @media(max-width:700px){.profileApp .platinumControls{align-items:center!important}.profileApp .platinumControls #replayPlatinum:not([hidden]){align-self:center!important}}
+</style>
+<style>
+.profileApp .profileSponsor{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:22px 0 0;padding:16px 22px;background:#f7fbf8;border:1px solid #dce9df;border-radius:16px}
+.profileApp .profileSponsor span{color:#46856c;font:800 10px Outfit,system-ui,sans-serif;letter-spacing:.1em}.profileApp .profileSponsor p{font-size:13px;line-height:1.5;color:#6c8274;margin:6px 0 0}
+.profileApp .profileSponsor img{width:135px;height:66px;object-fit:contain;flex:none}
+@media(max-width:580px){.profileApp .profileSponsor{padding:12px;gap:9px}.profileApp .profileSponsor img{width:88px;height:50px}.profileApp .profileSponsor p{font-size:11px}}
 </style>
